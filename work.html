@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CTRL Swipe | Our Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'], pixel: ['VT323', 'monospace'] },
+                    colors: { 'cmyk-c': '#00AEEF', 'cmyk-m': '#EC008C', 'cmyk-y': '#FFF200', 'cmyk-k': '#101010', 'cmyk-m-light': '#ff4da6' },
+                    boxShadow: { 'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
+        
+        /* SCALE EFFECT */
+        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
+        .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
+
+        /* Lightbox Animations */
+        .lightbox-open { opacity: 1 !important; pointer-events: auto !important; }
+        
+        /* Slide Animations */
+        .slide-in-right { animation: slideInRight 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .slide-out-left { animation: slideOutLeft 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .slide-in-left { animation: slideInLeft 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .slide-out-right { animation: slideOutRight 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutLeft { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
+        @keyframes slideInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            /* 1. The Heart (Center) */
+            .cursor-dot {
+                width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference;
+                -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+                mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+                -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; transition: transform 0.1s;
+            }
+            .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
+            .cursor-dot.hovered { opacity: 0; }
+            /* 2. The Ring (Follows with Delay) */
+            .cursor-ring {
+                width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none;
+                transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
+            }
+            .cursor-ring.hovered {
+                width: 60px; height: 60px; border: 1px solid rgba(255, 255, 255, 0.5);
+                background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 90%, rgba(255, 255, 255, 0.4) 100%);
+                backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); -webkit-backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3);
+            }
+        }
+        @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
+
+        .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
+        .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+        .gradient-blob-yellow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #FFF200 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+        #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
+        #mobile-menu.open { opacity: 1; visibility: visible; }
+        #mobile-menu.closed { opacity: 0; visibility: hidden; }
+    </style>
+</head>
+<body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <nav class="fixed w-full z-50 top-4 px-4">
+        <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
+            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start hoverable z-50">
+                <a href="index.html" class="block w-full h-full">
+                    <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
+                    <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
+                </a>
+            </div>
+            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide">
+                <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">HOME</a>
+                <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">ABOUT US</a>
+                <a href="work.html" class="text-cmyk-m transition-colors hoverable">OUR WORK</a>
+                <a href="blog.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">BLOG</a>
+                <a href="contact.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">CONTACT</a>
+            </div>
+            <button id="burger-btn" class="lg:hidden w-10 h-10 flex items-center justify-center z-50 text-black bg-white rounded-full shadow-lg focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-40 closed bg-white/80 backdrop-blur-xl lg:hidden flex flex-col items-center justify-center">
+        <div class="flex flex-col space-y-8 text-center font-display font-black text-3xl text-black">
+            <a href="index.html" class="text-black hover:text-cmyk-m-light">HOME</a>
+            <a href="about.html" class="text-black hover:text-cmyk-m-light">ABOUT US</a>
+            <a href="work.html" class="text-cmyk-m">OUR WORK</a>
+            <a href="blog.html" class="text-black hover:text-cmyk-m-light">BLOG</a>
+            <a href="contact.html" class="text-black hover:text-cmyk-m-light">CONTACT</a>
+        </div>
+    </div>
+
+    <main class="pt-40 pb-24 px-4 md:px-6 relative min-h-screen overflow-hidden">
+         <div class="gradient-blob-magenta" style="top: 10%; left: -200px;"></div>
+         
+        <div class="max-w-7xl mx-auto relative z-10 space-y-32">
+            
+            <!-- SECTION 1: SOCIAL GRAPHICS -->
+            <section>
+                <h1 class="text-5xl md:text-7xl font-display font-black mb-4 text-center">SOCIAL <span class="text-cmyk-c">GRAPHICS</span></h1>
+                <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">High-impact visuals designed for feeds, stories, and ad campaigns.</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                    <!-- Loop 1-6 -->
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('social', 0)">
+                        <img src="graphics-portfolio/1.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('social', 1)">
+                        <img src="graphics-portfolio/2.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Social 2" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('social', 2)">
+                        <img src="graphics-portfolio/3.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Social 3" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('social', 3)">
+                        <img src="graphics-portfolio/4.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Social 4" onerror="this.src='https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('social', 4)">
+                        <img src="graphics-portfolio/5.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Social 5" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b7993143b03?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('social', 5)">
+                        <img src="graphics-portfolio/6.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Social 6" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: REACH RESULTS -->
+            <section class="relative">
+                <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center">REACH <span class="text-cmyk-m">RESULTS</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="100000">0</div>
+                        <p class="text-xl font-bold mb-2">People Reached</p>
+                        <p class="text-gray-500 text-sm font-mono">In the past 2 years</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="16000">0</div>
+                        <p class="text-xl font-bold mb-2">Followers Gained</p>
+                        <p class="text-gray-500 text-sm font-mono">On managed accounts</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="50000">0</div>
+                        <p class="text-xl font-bold mb-2">Monthly Reach</p>
+                        <p class="text-gray-500 text-sm font-mono">Through our posts</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: BRAND IDENTITY -->
+            <section class="relative">
+                <div class="gradient-blob-yellow" style="bottom: -100px; right: -200px;"></div>
+                <h2 class="text-5xl md:text-7xl font-display font-black mb-4 text-center">BRAND <span class="text-cmyk-y">IDENTITY</span></h2>
+                <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">Logos, color systems, and complete brand bibles.</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 relative z-10">
+                     <!-- Loop 1-6 -->
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('brand', 0)">
+                        <img src="brand-identity/1.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Brand 1" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('brand', 1)">
+                        <img src="brand-identity/2.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Brand 2" onerror="this.src='https://images.unsplash.com/photo-1600508774662-8a70b8b3979a?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('brand', 2)">
+                        <img src="brand-identity/3.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Brand 3" onerror="this.src='https://images.unsplash.com/photo-1629079447841-d6a6609d6845?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('brand', 3)">
+                        <img src="brand-identity/4.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Brand 4" onerror="this.src='https://images.unsplash.com/photo-1586717791821-3f44a5638d48?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('brand', 4)">
+                        <img src="brand-identity/5.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Brand 5" onerror="this.src='https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md" onclick="openLightbox('brand', 5)">
+                        <img src="brand-identity/6.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Brand 6" onerror="this.src='https://images.unsplash.com/photo-1606857521015-7f9fcf423740?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: WEB DESIGN SERVICES -->
+            <section class="relative">
+                <h2 class="text-5xl md:text-7xl font-display font-black mb-4 text-center">WEB DESIGN <span class="text-gray-700">SERVICES</span></h2>
+                <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">Functional, responsive, and beautiful websites.</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                    <a href="#" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md border border-gray-200">
+                        <img src="web-design/1.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Web 1" onerror="this.src='https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full">VISIT SITE</span>
+                        </div>
+                    </a>
+                    <a href="#" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md border border-gray-200">
+                        <img src="web-design/2.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Web 2" onerror="this.src='https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1000&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full">VISIT SITE</span>
+                        </div>
+                    </a>
+                    <a href="#" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md border border-gray-200">
+                        <img src="web-design/3.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Web 3" onerror="this.src='https://images.unsplash.com/photo-1467232004584-a241de8bcf7d?q=80&w=1000&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full">VISIT SITE</span>
+                        </div>
+                    </a>
+                     <a href="#" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md border border-gray-200">
+                        <img src="web-design/4.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Web 4" onerror="this.src='https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1000&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full">VISIT SITE</span>
+                        </div>
+                    </a>
+                     <a href="#" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md border border-gray-200">
+                        <img src="web-design/5.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Web 5" onerror="this.src='https://images.unsplash.com/photo-1481487484168-9b995ecc168d?q=80&w=1000&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full">VISIT SITE</span>
+                        </div>
+                    </a>
+                     <a href="#" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden hoverable cursor-pointer shadow-md border border-gray-200">
+                        <img src="web-design/6.png" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Web 6" onerror="this.src='https://images.unsplash.com/photo-1517292987719-0369a794ec0f?q=80&w=1000&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full">VISIT SITE</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FULLSCREEN LIGHTBOX (Improved Stacking Context) -->
+    <div id="lightbox" class="fixed inset-0 z-[9999] opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center" role="dialog" aria-modal="true">
+        <!-- Liquid Glass Backdrop -->
+        <div class="absolute inset-0 bg-white/30 backdrop-blur-2xl transition-all duration-500" onclick="closeLightbox()"></div>
+        
+        <!-- Image Container - Overflow Hidden for slides -->
+        <div class="relative z-10 w-full h-full p-4 flex items-center justify-center overflow-hidden">
+            <img id="lightbox-img" src="" alt="Fullscreen View" class="max-h-[85vh] max-w-[95vw] object-contain rounded-lg shadow-2xl transform transition-transform duration-300">
+            
+            <!-- PC Navigation Arrows (Z-Index Fixed) -->
+            <button class="hidden lg:block absolute left-8 top-1/2 -translate-y-1/2 text-cmyk-m text-6xl hover:scale-125 transition-transform drop-shadow-md hoverable p-8 z-50" onclick="changeImage(-1, event)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2 text-cmyk-m text-6xl hover:scale-125 transition-transform drop-shadow-md hoverable p-8 z-50" onclick="changeImage(1, event)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Close Button (Z-Index Fixed) -->
+            <button class="absolute top-6 right-6 text-black text-4xl hover:text-cmyk-m transition-colors hoverable z-50 bg-white/50 rounded-full w-12 h-12 flex items-center justify-center" onclick="closeLightbox()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <footer class="bg-white py-12 text-center border-t-4 border-black">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-sans font-regular text-lg text-gray-500">
+                <span class="font-bold">CTRL <span class="italic">Swipe</span></span> © 2025. All rights reserved.
+            </div>
+            <div class="font-sans font-regular text-lg text-gray-500">
+                Crafted with <span class="text-red-500 animate-pulse">❤️</span> in Baia Mare, Romania.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // --- LIGHTBOX LOGIC WITH SLIDING ---
+        const galleries = {
+            'social': ['graphics-portfolio/1.png', 'graphics-portfolio/2.png', 'graphics-portfolio/3.png', 'graphics-portfolio/4.png', 'graphics-portfolio/5.png', 'graphics-portfolio/6.png'],
+            'brand': ['brand-identity/1.png', 'brand-identity/2.png', 'brand-identity/3.png', 'brand-identity/4.png', 'brand-identity/5.png', 'brand-identity/6.png']
+        };
+        
+        let currentGallery = 'social';
+        let currentIndex = 0;
+        let isAnimating = false;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(galleryName, index) {
+            currentGallery = galleryName;
+            currentIndex = index;
+            lightboxImg.src = galleries[currentGallery][currentIndex];
+            lightboxImg.className = "max-h-[85vh] max-w-[95vw] object-contain rounded-lg shadow-2xl"; // Reset classes
+            lightbox.classList.add('lightbox-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('lightbox-open');
+            document.body.style.overflow = '';
+        }
+
+        function changeImage(direction, event) {
+            if (event) event.stopPropagation();
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const images = galleries[currentGallery];
+            let nextIndex = (currentIndex + direction + images.length) % images.length;
+            
+            // SLIDE ANIMATION LOGIC
+            if (direction === 1) {
+                // Next: Slide Out Left, Slide In Right
+                lightboxImg.classList.add('slide-out-left');
+            } else {
+                // Prev: Slide Out Right, Slide In Left
+                lightboxImg.classList.add('slide-out-right');
+            }
+
+            setTimeout(() => {
+                currentIndex = nextIndex;
+                lightboxImg.src = images[currentIndex];
+                
+                // Reset and animate in
+                lightboxImg.className = "max-h-[85vh] max-w-[95vw] object-contain rounded-lg shadow-2xl"; // Reset
+                
+                if (direction === 1) {
+                     lightboxImg.classList.add('slide-in-right');
+                } else {
+                     lightboxImg.classList.add('slide-in-left');
+                }
+
+                setTimeout(() => {
+                    lightboxImg.classList.remove('slide-in-right', 'slide-in-left');
+                    isAnimating = false;
+                }, 300);
+            }, 300);
+        }
+
+        // --- NUMBER COUNTER ---
+        const counters = document.querySelectorAll('.counter');
+        let hasCounted = false;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasCounted) {
+                    hasCounted = true;
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const duration = 2000; 
+                        const increment = target / (duration / 16); 
+                        let current = 0;
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current).toLocaleString() + (target > 100 ? "+" : "");
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.innerText = target.toLocaleString() + "+";
+                            }
+                        };
+                        updateCounter();
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        const resultsSection = document.querySelector('.counter'); 
+        if(resultsSection) observer.observe(resultsSection.parentElement);
+
+        // --- MOBILE SWIPE ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+        lightbox.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        lightbox.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) changeImage(1);
+            if (touchEndX > touchStartX + 50) changeImage(-1);
+        }, {passive: true});
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('lightbox-open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeImage(-1);
+            if (e.key === 'ArrowRight') changeImage(1);
+        });
+
+        // --- UPDATED CURSOR LOGIC ---
+        if (window.matchMedia("(min-width: 1024px)").matches) {
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorRing = document.getElementById('cursor-ring');
+            const hoverables = document.querySelectorAll('.hoverable');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px';
+                cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
+            document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
+            hoverables.forEach(el => {
+                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+            });
+        }
+        const burgerBtn = document.getElementById('burger-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
+        burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
+    </script>
+</body>
+</html>

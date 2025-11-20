@@ -13,7 +13,6 @@
                     fontFamily: {
                         sans: ['Montserrat', 'sans-serif'], 
                         display: ['Montserrat', 'sans-serif'],
-                        pixel: ['VT323', 'monospace'],
                     },
                     colors: {
                         'cmyk-c': '#00AEEF',
@@ -29,95 +28,38 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CORE LAYOUT --- */
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
 
-        /* --- MAGNIFICATION EFFECT --- */
-        .hoverable {
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-            display: inline-block;
-        }
-        .hoverable:hover {
-            transform: scale(1.15) !important;
-            z-index: 50;
-            position: relative;
-        }
+        /* --- MAGNIFICATION --- */
+        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
+        .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
 
-        /* --- NEW CURSOR SYSTEM --- */
+        /* --- CURSOR --- */
         @media (min-width: 1024px) {
             body { cursor: none; }
-            
-            /* 1. The Heart (Center) */
             .cursor-dot {
-                width: 24px; /* 20% bigger */
-                height: 24px;
-                background-color: white;
-                position: fixed;
-                transform: translate(-50%, -50%);
-                z-index: 100001; /* Above the ring */
-                pointer-events: none;
-                mix-blend-mode: difference;
-                
-                /* SVG Heart Mask */
+                width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference;
                 -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
                 mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
-                -webkit-mask-size: contain;
-                mask-size: contain;
-                -webkit-mask-repeat: no-repeat;
-                mask-repeat: no-repeat;
-                -webkit-mask-position: center;
-                mask-position: center;
-
-                transition: transform 0.1s; /* Fast follow */
+                -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; transition: transform 0.1s;
             }
-
-            /* Click State - Glowing Red Heart */
-            .cursor-dot.active {
-                background-color: #ff0033;
-                mix-blend-mode: normal;
-                box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-
-            /* Hover State - Heart Disappears (Ring becomes lens) */
-            .cursor-dot.hovered {
-                opacity: 0;
-            }
-
-            /* 2. The Ring (Follows with Delay) */
+            .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
+            .cursor-dot.hovered { opacity: 0; }
             .cursor-ring {
-                width: 40px;
-                height: 40px;
-                border: 1px solid #EC008C; /* Magenta Thin Border */
-                border-radius: 50%;
-                position: fixed;
-                transform: translate(-50%, -50%);
-                z-index: 100000;
-                pointer-events: none;
-                
-                /* The Delay Magic */
+                width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none;
                 transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
             }
-
-            /* Ring Hover State -> Becomes Lens */
             .cursor-ring.hovered {
-                width: 60px;
-                height: 60px;
-                border: 1px solid rgba(255, 255, 255, 0.5);
+                width: 60px; height: 60px; border: 1px solid rgba(255, 255, 255, 0.5);
                 background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 90%, rgba(255, 255, 255, 0.4) 100%);
-                backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1);
-                -webkit-backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1);
+                backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); -webkit-backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1);
                 box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3);
             }
         }
-
-        @media (max-width: 1023px) {
-            .cursor-dot, .cursor-ring { display: none !important; }
-            body { cursor: auto; }
-        }
+        @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
 
         /* --- UTILITIES --- */
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
@@ -129,11 +71,24 @@
         #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
         #mobile-menu.open { opacity: 1; visibility: visible; }
         #mobile-menu.closed { opacity: 0; visibility: hidden; }
+
+        /* Heart Animation for Button */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            color: #EC008C;
+            font-size: 24px;
+            animation: floatUp 1.5s ease-out forwards;
+            z-index: 99999;
+        }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5) rotate(0deg); }
+            100% { opacity: 0; transform: translate(-50%, -200px) scale(1.5) rotate(var(--rot)); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
 
-    <!-- New Cursor Structure -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
@@ -146,7 +101,6 @@
                     <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
                 </a>
             </div>
-
             <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide">
                 <a href="index.html" class="text-cmyk-m transition-colors hoverable">HOME</a>
                 <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">ABOUT US</a>
@@ -154,7 +108,6 @@
                 <a href="blog.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">BLOG</a>
                 <a href="contact.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">CONTACT</a>
             </div>
-
             <button id="burger-btn" class="lg:hidden w-10 h-10 flex items-center justify-center z-50 text-black bg-white rounded-full shadow-lg focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
@@ -170,7 +123,6 @@
             <a href="blog.html" class="text-black hover:text-cmyk-m-light">BLOG</a>
             <a href="contact.html" class="text-black hover:text-cmyk-m-light">CONTACT</a>
         </div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cmyk-m/20 blur-3xl rounded-full -z-10 pointer-events-none"></div>
     </div>
 
     <!-- Hero Section -->
@@ -182,17 +134,14 @@
             </video>
             <div class="absolute inset-0 bg-black/50"></div>
         </div>
-
         <div class="hero-container relative z-10 text-center px-4 w-full max-w-5xl mt-20 pb-12">
             <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[0.9] tracking-tighter mb-8 text-white drop-shadow-lg">
                 TAKE CTRL<br>
                 OF YOUR <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED</span>
             </h1>
-
             <p class="hero-desc text-base md:text-lg font-regular text-white max-w-2xl mx-auto mb-12 px-4">
                 We turn scrollers into followers. A creative duo crafting videos, branding, and social strategies that convert.
             </p>
-
             <div class="hero-socials flex justify-center gap-4 mb-12">
                 <a href="https://instagram.com/ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#00AEEF] hoverable"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://facebook.com/ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#EC008C] hoverable"><i class="fa-brands fa-facebook-f"></i></a>
@@ -222,98 +171,150 @@
             <h2 class="text-5xl md:text-7xl font-display font-black mb-16 text-center">
                 OUR <span class="text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-m">CRAFT</span>
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- SERVICES GRID (Renamed & No Numbers) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
                 <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80">
-                    <div class="font-pixel text-cmyk-c text-2xl mb-4">01_MANAGEMENT</div>
+                    <div class="font-bold text-cmyk-c text-2xl mb-4 tracking-widest">MANAGEMENT</div>
                     <h3 class="text-3xl font-bold mb-4">Social Media Mgmt</h3>
                     <p class="text-gray-600 font-regular">We take the wheel. Posting, captioning, and engagement.</p>
                 </div>
                 <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80">
-                    <div class="font-pixel text-cmyk-m text-2xl mb-4">02_VIDEO</div>
+                    <div class="font-bold text-cmyk-m text-2xl mb-4 tracking-widest">VIDEO</div>
                     <h3 class="text-3xl font-bold mb-4">Short-Form Video</h3>
                     <p class="text-gray-600 font-regular">Reels & TikToks that stop the scroll. High-energy editing.</p>
                 </div>
                  <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#FFF200] hoverable bg-white/80">
-                    <div class="font-pixel text-yellow-600 text-2xl mb-4">03_BRANDING</div>
+                    <div class="font-bold text-yellow-600 text-2xl mb-4 tracking-widest">BRANDING</div>
                     <h3 class="text-3xl font-bold mb-4">Visual Identity</h3>
                     <p class="text-gray-600 font-regular">Logos, color systems, and brand bibles.</p>
                 </div>
                 <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#000000] hoverable bg-white/80">
-                    <div class="font-pixel text-black text-2xl mb-4">04_STRATEGY</div>
+                    <div class="font-bold text-black text-2xl mb-4 tracking-widest">STRATEGY</div>
                     <h3 class="text-3xl font-bold mb-4">Growth Strategy</h3>
                     <p class="text-gray-600 font-regular">No guessing. We analyze the data to build a roadmap.</p>
                 </div>
             </div>
-            <div class="text-center mt-12">
-                <a href="contact.html" class="inline-block bg-black text-white font-pixel text-xl px-8 py-4 border-2 border-transparent hover:bg-white hover:text-black hover:border-black hover:shadow-pixel transition-all hoverable">GET STARTED -></a>
+
+            <!-- REACH RESULTS (Animated Counters) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="100000">0</div>
+                    <p class="text-xl font-bold mb-2">People Reached</p>
+                    <p class="text-gray-500 text-sm font-mono">In the past 2 years</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="16000">0</div>
+                    <p class="text-xl font-bold mb-2">Followers Gained</p>
+                    <p class="text-gray-500 text-sm font-mono">On managed accounts</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="50000">0</div>
+                    <p class="text-xl font-bold mb-2">Monthly Reach</p>
+                    <p class="text-gray-500 text-sm font-mono">Through our posts</p>
+                </div>
+            </div>
+
+            <!-- Get Started Button (Cyan, Rounded, Black Text) -->
+            <div class="text-center relative z-20">
+                <button id="get-started-btn" class="inline-block bg-cmyk-c text-black font-bold text-2xl px-12 py-5 rounded-full border-2 border-transparent hover:border-black hover:shadow-lg transition-all transform hover:scale-105 hoverable relative overflow-visible">
+                    GET STARTED <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white py-12 text-center border-t-4 border-black">
+    <footer class="bg-white py-8 text-center border-t-4 border-black">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 <span class="font-bold">CTRL <span class="italic">Swipe</span></span> © 2025. All rights reserved.
             </div>
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 Crafted with <span class="text-red-500 animate-pulse">❤️</span> in Baia Mare, Romania.
             </div>
         </div>
     </footer>
 
     <script>
-        // --- PC CURSOR LOGIC (Updated) ---
+        // --- PC CURSOR LOGIC ---
         if (window.matchMedia("(min-width: 1024px)").matches) {
             const cursorDot = document.getElementById('cursor-dot');
             const cursorRing = document.getElementById('cursor-ring');
             const hoverables = document.querySelectorAll('.hoverable');
-            
-            document.addEventListener('mousemove', (e) => {
-                // Heart moves instantly
-                cursorDot.style.left = e.clientX + 'px';
-                cursorDot.style.top = e.clientY + 'px';
-                
-                // Ring follows via CSS delay (0.1s transition set in CSS)
-                cursorRing.style.left = e.clientX + 'px';
-                cursorRing.style.top = e.clientY + 'px';
+            document.addEventListener('mousemove', (e) => { 
+                cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
+                cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
             });
-
             document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
             document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
-
             hoverables.forEach(el => {
-                el.addEventListener('mouseenter', () => { 
-                    cursorDot.classList.add('hovered'); 
-                    cursorRing.classList.add('hovered'); 
-                });
-                el.addEventListener('mouseleave', () => { 
-                    cursorDot.classList.remove('hovered'); 
-                    cursorRing.classList.remove('hovered'); 
-                });
+                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
             });
         }
 
-        // --- MOBILE MENU LOGIC ---
-        const burgerBtn = document.getElementById('burger-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
+        // --- MOBILE MENU ---
+        const burgerBtn = document.getElementById('burger-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
+        burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
 
-        burgerBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            const icon = burgerBtn.querySelector('i');
+        // --- COUNTER ANIMATION ---
+        const counters = document.querySelectorAll('.counter');
+        let hasCounted = false;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasCounted) {
+                    hasCounted = true;
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const duration = 2000; 
+                        const increment = target / (duration / 16); 
+                        let current = 0;
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current).toLocaleString() + (target > 100 ? "+" : "");
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.innerText = target.toLocaleString() + "+";
+                            }
+                        };
+                        updateCounter();
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        const resultsSection = document.querySelector('.counter'); 
+        if(resultsSection) observer.observe(resultsSection.parentElement);
+
+        // --- HEART BURST BUTTON LOGIC ---
+        document.getElementById('get-started-btn').addEventListener('click', function(e) {
+            e.preventDefault(); // Stop immediate navigation
             
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('closed');
-                mobileMenu.classList.add('open');
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                mobileMenu.classList.remove('open');
-                mobileMenu.classList.add('closed');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+            // Create 5 hearts
+            for(let i=0; i<5; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '<i class="fa-solid fa-heart"></i>';
+                
+                // Random positions relative to click
+                const randomX = (Math.random() - 0.5) * 100; // -50 to 50px
+                const randomRot = (Math.random() - 0.5) * 30; // -15 to 15deg rotation
+                
+                heart.style.left = e.clientX + randomX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.style.setProperty('--rot', randomRot + 'deg');
+                
+                document.body.appendChild(heart);
+                
+                // Cleanup heart
+                setTimeout(() => heart.remove(), 1500);
             }
+
+            // Navigate after 1.5s
+            setTimeout(() => {
+                window.location.href = 'contact.html';
+            }, 1500);
         });
     </script>
 </body>

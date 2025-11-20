@@ -10,14 +10,14 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'], pixel: ['VT323', 'monospace'] },
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'] },
                     colors: { 'cmyk-c': '#00AEEF', 'cmyk-m': '#EC008C', 'cmyk-y': '#FFF200', 'cmyk-k': '#101010', 'cmyk-m-light': '#ff4da6' },
                     boxShadow: { 'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
         
@@ -27,7 +27,6 @@
 
         @media (min-width: 1024px) {
             body { cursor: none; }
-            /* 1. The Heart (Center) */
             .cursor-dot {
                 width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference;
                 -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
@@ -36,7 +35,6 @@
             }
             .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
             .cursor-dot.hovered { opacity: 0; }
-            /* 2. The Ring (Follows with Delay) */
             .cursor-ring {
                 width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none;
                 transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
@@ -95,46 +93,65 @@
     <main class="pt-40 pb-24 px-6 relative min-h-screen overflow-hidden">
          <div class="gradient-blob-cyan" style="top: 20%; right: -300px;"></div>
          
-        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-center relative z-10">
-            <div class="w-full lg:w-1/2 relative">
-                <div class="relative z-10 border-4 border-black rounded-2xl overflow-hidden shadow-pixel transform rotate-2 hover:rotate-0 transition-transform duration-500 hoverable aspect-square">
-                    <img src="aboutus.png" class="w-full h-full object-cover" alt="Tudor and Didi" onerror="this.src='https://images.unsplash.com/photo-1625425361083-87a29c9522a5?q=80&w=2000&auto=format&fit=crop'">
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-start relative z-10">
+            <!-- PHOTOS COLUMN -->
+            <div class="w-full lg:w-1/2 flex flex-col gap-16 relative">
+                <!-- Photo 1: Tudor & Didi (Tilted Right) -->
+                <div class="relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500 hoverable aspect-square">
+                        <img src="aboutus.png" class="w-full h-full object-cover" alt="Tudor and Didi" onerror="this.src='https://images.unsplash.com/photo-1625425361083-87a29c9522a5?q=80&w=2000&auto=format&fit=crop'">
+                    </div>
+                    <!-- Minimal Yellow Square (No Border) -->
+                    <div class="absolute -top-4 -left-4 w-20 h-20 bg-cmyk-y z-0 rounded-lg"></div>
                 </div>
-                <div class="absolute -top-4 -left-4 w-20 h-20 bg-cmyk-y z-0 border-2 border-black"></div>
+
+                <!-- Photo 2: Bagheta (Tilted Left) -->
+                <div class="relative w-3/4 mx-auto">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500 hoverable aspect-square">
+                        <img src="cat.png" class="w-full h-full object-cover" alt="Bagheta" onerror="this.src='https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <!-- Cyan Circle (Down-Right) -->
+                    <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-cmyk-c z-0 rounded-full"></div>
+                    
+                    <p class="text-center font-bold mt-6 text-xl font-display text-cmyk-k transform -rotate-1">Our mascot: Bagheta</p>
+                </div>
             </div>
             
+            <!-- TEXT SECTION -->
             <div class="w-full lg:w-1/2">
                 <h1 class="text-5xl md:text-7xl font-display font-black mb-6">WHO IS <span class="text-cmyk-m">CTRL?</span></h1>
-                <p class="text-xl font-bold mb-4 font-pixel text-cmyk-c">TUDOR & DIDI // FOUNDERS</p>
-                <p class="text-gray-600 text-lg leading-relaxed mb-6 font-regular">
-                    We are a couple-run creative agency based in Baia Mare. We combine high-end cinematic visual storytelling with sharp marketing management.
-                </p>
-                <p class="text-gray-600 text-lg leading-relaxed mb-6 font-regular">
-                    Tudor brings the art (Master's in Photo-Video, 10 years editing), Didi brings the order and strategy. We don't outsource—when you hire CTRL Swipe, you get us.
-                </p>
-                <p class="text-gray-600 text-lg leading-relaxed mb-8 font-regular">
-                    Our mission is simple: to make your brand look as good online as it is in real life.
-                </p>
-                <div class="flex gap-4">
-                     <div class="bg-white border-2 border-black p-4 rounded-xl shadow-pixel">
+                <p class="text-xl font-bold mb-4 text-cmyk-c tracking-widest">TUDOR & DIDI // FOUNDERS</p>
+                
+                <div class="space-y-6 text-gray-600 text-lg leading-relaxed font-regular">
+                    <p>CTRL Swipe is a social media marketing agency from Baia Mare, Romania, built to help small and medium-sized businesses communicate clearly, consistently and professionally online. We combine creative production with strategic thinking to deliver content that looks good, sounds right and performs well across Facebook, Instagram and TikTok.</p>
+                    
+                    <p>We are a compact two-person team, Tudor and Didi, which means every client works directly with the people who plan, create, film, edit and manage their content. No layers, no delays. Just a streamlined process and personal involvement in every step.</p>
+                    
+                    <p>We create full online ecosystems for brands: static posts, branded graphics, short-form videos, captions, ad campaigns and monthly on-site filming sessions in northern Romania. In parallel, we offer complete remote social media management for brands worldwide, including planning, design, copywriting, scheduling and maintaining a consistent content flow, regardless of location.</p>
+                    
+                    <p>Our approach is built on clarity, aesthetics, speed and honesty. Every project starts with understanding the client’s identity and ends with content that strengthens it. Our mission is simple: help businesses grow through modern storytelling, clean visuals and a structured, reliable workflow that takes social media off their shoulders, whether they are nearby or across the globe.</p>
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                     <div class="bg-white p-4 rounded-xl shadow-lg">
                         <div class="font-black text-3xl">10+</div>
-                        <div class="font-pixel text-sm">YEARS EXP</div>
+                        <div class="text-sm font-bold tracking-wide">YEARS EXP</div>
                      </div>
-                     <div class="bg-white border-2 border-black p-4 rounded-xl shadow-pixel">
+                     <div class="bg-white p-4 rounded-xl shadow-lg">
                         <div class="font-black text-3xl">100%</div>
-                        <div class="font-pixel text-sm">IN-HOUSE</div>
+                        <div class="text-sm font-bold tracking-wide">IN-HOUSE</div>
                      </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-white py-12 text-center border-t-4 border-black">
+    <footer class="bg-white py-8 text-center border-t-4 border-black">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 <span class="font-bold">CTRL <span class="italic">Swipe</span></span> © 2025. All rights reserved.
             </div>
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 Crafted with <span class="text-red-500 animate-pulse">❤️</span> in Baia Mare, Romania.
             </div>
         </div>

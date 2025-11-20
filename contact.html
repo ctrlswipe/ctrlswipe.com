@@ -10,20 +10,36 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'], pixel: ['VT323', 'monospace'] },
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'] },
                     colors: { 'cmyk-c': '#00AEEF', 'cmyk-m': '#EC008C', 'cmyk-y': '#FFF200', 'cmyk-k': '#101010', 'cmyk-m-light': '#ff4da6' },
                     boxShadow: { 'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
         
         /* SCALE EFFECT */
         .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
         .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
+
+        /* Tooltip for Copy */
+        #copy-tooltip {
+            position: fixed;
+            background: black;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 999999;
+        }
+        #copy-tooltip.visible { opacity: 1; }
 
         @media (min-width: 1024px) {
             body { cursor: none; }
@@ -36,7 +52,6 @@
             }
             .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
             .cursor-dot.hovered { opacity: 0; }
-            /* 2. The Ring (Follows with Delay) */
             .cursor-ring {
                 width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none;
                 transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
@@ -61,6 +76,7 @@
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
+    <div id="copy-tooltip">Copied!</div>
 
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
@@ -104,9 +120,11 @@
             <p class="text-xl text-gray-600 mb-12 font-regular">Let's clean up that feed.</p>
             
             <div class="flex flex-col items-center gap-6">
-                <a href="mailto:ctrlswipe@gmail.com" class="glass-panel px-10 py-6 rounded-full text-2xl md:text-4xl font-bold font-mono border-2 border-black shadow-pixel hover:shadow-pixel-hover hover:translate-x-1 hover:translate-y-1 transition-all hoverable">
+                <!-- Email Button (Click to Copy) -->
+                <button id="email-btn" class="glass-panel px-10 py-6 rounded-full text-2xl md:text-4xl font-bold font-mono border-2 border-black shadow-pixel hover:shadow-pixel-hover hover:translate-x-1 hover:translate-y-1 transition-all hoverable">
                     ctrlswipe@gmail.com
-                </a>
+                </button>
+                
                 <p class="text-sm text-gray-400 font-mono mt-4">Or DM us on socials</p>
                  <div class="flex justify-center gap-4 mt-4">
                     <a href="https://instagram.com/ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#00AEEF] hoverable">
@@ -123,18 +141,38 @@
         </div>
     </main>
 
-    <footer class="bg-white py-12 text-center border-t-4 border-black">
+    <footer class="bg-white py-8 text-center border-t-4 border-black">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 <span class="font-bold">CTRL <span class="italic">Swipe</span></span> © 2025. All rights reserved.
             </div>
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 Crafted with <span class="text-red-500 animate-pulse">❤️</span> in Baia Mare, Romania.
             </div>
         </div>
     </footer>
 
     <script>
+        // --- COPY TO CLIPBOARD LOGIC ---
+        const emailBtn = document.getElementById('email-btn');
+        const tooltip = document.getElementById('copy-tooltip');
+
+        emailBtn.addEventListener('click', (e) => {
+            const email = "ctrlswipe@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                // Show tooltip near mouse click
+                tooltip.style.left = e.clientX + 15 + 'px';
+                tooltip.style.top = e.clientY + 'px';
+                tooltip.classList.add('visible');
+                
+                setTimeout(() => {
+                    tooltip.classList.remove('visible');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+
         if (window.matchMedia("(min-width: 1024px)").matches) {
             const cursorDot = document.getElementById('cursor-dot');
             const cursorRing = document.getElementById('cursor-ring');

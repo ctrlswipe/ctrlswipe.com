@@ -97,27 +97,27 @@
             
             <div class="space-y-8">
                 <!-- POST 1: LINKED -->
-                <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-c shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="openPost('viral-reels')">
+                <a href="#viral-reels" class="block blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-c shadow-sm hover:shadow-md transition-all hoverable cursor-pointer">
                     <div class="text-cmyk-c font-pixel text-sm mb-2">FEB 20, 2025</div>
                     <h2 class="text-2xl font-bold mb-3">Why your Reels aren't going viral</h2>
                     <p class="text-gray-900 font-bold mb-2">It's not the algorithm, it's the hook. Here is how to fix your first 3 seconds...</p>
                     <span class="text-sm font-bold underline mt-4 block text-cmyk-c">Read Full Article</span>
-                </div>
+                </a>
 
                 <!-- POST 2: LINKED -->
-                <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-m shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="openPost('branding-101')">
+                <a href="#branding-101" class="block blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-m shadow-sm hover:shadow-md transition-all hoverable cursor-pointer">
                     <div class="text-cmyk-m font-pixel text-sm mb-2">JAN 15, 2025</div>
                     <h2 class="text-2xl font-bold mb-3">Branding is more than a logo</h2>
                     <p class="text-gray-900 font-bold mb-2">How to build a visual system that communicates trust without saying a word.</p>
                     <span class="text-sm font-bold underline mt-4 block text-cmyk-m">Read Full Article</span>
-                </div>
+                </a>
             </div>
         </div>
     </main>
 
     <!-- FULL SCREEN BLOG OVERLAY -->
     <div id="blog-overlay" class="flex flex-col">
-        <!-- Close Button -->
+        <!-- Close Button (Uses Javascript to clear Hash without Scroll) -->
         <button class="absolute top-6 right-6 text-black text-4xl hover:text-cmyk-m transition-colors hoverable z-50 bg-gray-100 rounded-full w-12 h-12 flex items-center justify-center" onclick="closePost()">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -189,9 +189,13 @@
         const overlay = document.getElementById('blog-overlay');
         const overlayContent = document.getElementById('overlay-content');
 
-        function openPost(id) {
+        // Function to Render & Show Post (Presentation Only)
+        function renderPost(id) {
             const post = blogPosts[id];
-            if (!post) return;
+            if (!post) {
+                hideOverlay();
+                return;
+            }
 
             // Update Content
             overlayContent.innerHTML = `
@@ -203,26 +207,36 @@
             // Show Overlay
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            // Update URL
-            window.location.hash = id;
         }
 
-        function closePost() {
+        // Function to Hide Post (Presentation Only)
+        function hideOverlay() {
             overlay.classList.remove('active');
             document.body.style.overflow = '';
-            
-            // Clear URL Hash without scrolling
-            history.pushState("", document.title, window.location.pathname + window.location.search);
+            setTimeout(() => { overlayContent.innerHTML = ''; }, 500); // Clear after anim
         }
 
-        // Check URL on Load
-        window.addEventListener('load', () => {
-            if(window.location.hash) {
-                const id = window.location.hash.substring(1);
-                openPost(id);
+        // Router: Listens to URL changes
+        function handleRouting() {
+            const hash = window.location.hash.substring(1);
+            if (hash && blogPosts[hash]) {
+                renderPost(hash);
+            } else {
+                hideOverlay();
             }
-        });
+        }
+
+        // Close Button Logic: Clears Hash (Triggers Router via PushState manual update)
+        function closePost() {
+            // Remove hash without jump
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+            // Manually trigger routing since pushState doesn't fire hashchange
+            handleRouting();
+        }
+
+        // Listeners
+        window.addEventListener('hashchange', handleRouting);
+        window.addEventListener('load', handleRouting);
 
         // --- MOUSE LOGIC ---
         if (window.matchMedia("(min-width: 1024px)").matches) {

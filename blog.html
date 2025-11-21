@@ -11,14 +11,14 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'], pixel: ['VT323', 'monospace'] },
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'] },
                     colors: { 'cmyk-c': '#00AEEF', 'cmyk-m': '#EC008C', 'cmyk-y': '#FFF200', 'cmyk-k': '#101010', 'cmyk-m-light': '#ff4da6' },
                     boxShadow: { 'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
         
@@ -98,7 +98,7 @@
             <div class="space-y-8">
                 <!-- POST 1: LINKED -->
                 <a href="#viral-reels" class="block blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-c shadow-sm hover:shadow-md transition-all hoverable cursor-pointer">
-                    <div class="text-cmyk-c font-pixel text-sm mb-2">FEB 20, 2025</div>
+                    <div class="text-cmyk-c font-bold text-sm mb-2 tracking-widest">FEB 20, 2025</div>
                     <h2 class="text-2xl font-bold mb-3">Why your Reels aren't going viral</h2>
                     <p class="text-gray-900 font-bold mb-2">It's not the algorithm, it's the hook. Here is how to fix your first 3 seconds...</p>
                     <span class="text-sm font-bold underline mt-4 block text-cmyk-c">Read Full Article</span>
@@ -106,7 +106,7 @@
 
                 <!-- POST 2: LINKED -->
                 <a href="#branding-101" class="block blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-m shadow-sm hover:shadow-md transition-all hoverable cursor-pointer">
-                    <div class="text-cmyk-m font-pixel text-sm mb-2">JAN 15, 2025</div>
+                    <div class="text-cmyk-m font-bold text-sm mb-2 tracking-widest">JAN 15, 2025</div>
                     <h2 class="text-2xl font-bold mb-3">Branding is more than a logo</h2>
                     <p class="text-gray-900 font-bold mb-2">How to build a visual system that communicates trust without saying a word.</p>
                     <span class="text-sm font-bold underline mt-4 block text-cmyk-m">Read Full Article</span>
@@ -117,20 +117,23 @@
 
     <!-- FULL SCREEN BLOG OVERLAY -->
     <div id="blog-overlay" class="flex flex-col">
-        <!-- Close Button (Uses Javascript to clear Hash without Scroll) -->
-        <button class="absolute top-6 right-6 text-black text-4xl hover:text-cmyk-m transition-colors hoverable z-50 bg-gray-100 rounded-full w-12 h-12 flex items-center justify-center" onclick="closePost()">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+        
+        <!-- Sticky Close Button Container -->
+        <div class="sticky top-0 w-full flex justify-end p-6 pointer-events-none z-50">
+            <button class="pointer-events-auto bg-black text-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover:bg-gray-800 transition-all transform hover:scale-105 hoverable" onclick="closePost()">
+                CLOSE <i class="fa-solid fa-xmark ml-2"></i>
+            </button>
+        </div>
 
         <!-- Content Container -->
-        <div class="max-w-3xl mx-auto w-full px-6 py-24 flex-grow">
-            <div id="overlay-content" class="space-y-8">
+        <div class="max-w-3xl mx-auto w-full px-6 pb-24 flex-grow -mt-16"> <!-- Negative margin to pull content up slightly under sticky area if needed, but safe -->
+            <div id="overlay-content" class="space-y-8 pt-12">
                 <!-- Content Injected via JS -->
             </div>
         </div>
 
         <!-- Footer with Logo -->
-        <div class="py-12 text-center border-t border-gray-200 mt-auto">
+        <div class="py-12 text-center border-t border-gray-200 mt-auto bg-white relative z-10">
             <a href="index.html" class="inline-block hover:scale-110 transition-transform">
                  <img src="logo.svg" alt="Back to Home" class="h-16 w-auto object-contain mx-auto mb-2" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png'">
                  <p class="text-xs font-bold text-gray-400">BACK TO HOME</p>
@@ -197,9 +200,9 @@
                 return;
             }
 
-            // Update Content
+            // Update Content - Removed pixel font class here too
             overlayContent.innerHTML = `
-                <div class="${post.color} font-pixel text-lg mb-4 tracking-widest">${post.date}</div>
+                <div class="${post.color} font-bold text-lg mb-4 tracking-widest">${post.date}</div>
                 <h1 class="text-4xl md:text-6xl font-display font-black mb-8 leading-tight">${post.title}</h1>
                 ${post.content}
             `;

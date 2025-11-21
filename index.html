@@ -42,9 +42,19 @@
         /* Cursor */
         @media (min-width: 1024px) {
             body { cursor: none; }
-            .cursor-dot { width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference; border-radius: 50%; transition: transform 0.1s; }
-            .cursor-ring { width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none; transition: all 0.15s ease-out; }
+            .cursor-dot { width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference; 
+                -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
+                mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
+                -webkit-mask-size: contain; 
+                mask-size: contain; 
+                -webkit-mask-repeat: no-repeat; 
+                mask-repeat: no-repeat; 
+                -webkit-mask-position: center; 
+                mask-position: center; 
+                transition: transform 0.1s; }
             .cursor-dot.active { transform: translate(-50%, -50%) scale(0.8); }
+            .cursor-ring { width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none; transition: all 0.15s ease-out; }
+            .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
             .cursor-ring.hovered { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); }
         }
         @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
@@ -248,7 +258,7 @@
             },
             ro: {
                 'nav-home': 'ACASĂ', 'nav-about': 'DESPRE NOI', 'nav-work': 'PORTOFOLIU', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
-                'hero-title': 'PREIA CTRL<br>ASUPRA <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED-ULUI</span>',
+                'hero-title': 'PREIA CTRL<br>ASUPRA <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED-ULUI TĂU</span>',
                 'hero-desc': 'Transformăm simplii vizitatori în urmăritori. Un duo creativ care creează video-uri, branding și strategii sociale care convertesc.',
                 'craft-title': '<span class="text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-m">SERVICII</span>',
                 'service-1-small': 'ADMINISTRARE', 'service-1-large': 'Social Media Mgmt', 'service-1-desc': 'Ne ocupăm de tot. Postări, descrieri și interacțiune.',

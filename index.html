@@ -97,12 +97,12 @@
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
             
-            <!-- LOGO (Fixed Interaction Field) -->
+            <!-- LOGO (Static, Left-Half Clickable) -->
             <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
                 <!-- Interaction Link (Left Half Only) -->
-                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 peer cursor-pointer hoverable"></a>
-                <!-- Visual Layer (Scales on Peer Hover) -->
-                <div class="w-full h-full transition-transform duration-300 peer-hover:scale-115 origin-left pointer-events-none">
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 cursor-pointer"></a>
+                <!-- Visual Layer (Static) -->
+                <div class="w-full h-full origin-left pointer-events-none">
                      <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
                      <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
                 </div>

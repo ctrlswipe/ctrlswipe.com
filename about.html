@@ -11,14 +11,18 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'] },
+                    fontFamily: { 
+                        sans: ['Montserrat', 'sans-serif'], 
+                        display: ['Montserrat', 'sans-serif'],
+                        hand: ['Patrick Hand', 'cursive'] /* Added Handwriting Font */
+                    },
                     colors: { 'cmyk-c': '#00AEEF', 'cmyk-m': '#EC008C', 'cmyk-y': '#FFF200', 'cmyk-k': '#101010', 'cmyk-m-light': '#ff4da6' },
                     boxShadow: { 'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Patrick+Hand&display=swap" rel="stylesheet">
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
         
@@ -64,8 +68,8 @@
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
             <!-- LOGO -->
             <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
-                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 peer cursor-pointer hoverable"></a>
-                <div class="w-full h-full transition-transform duration-300 peer-hover:scale-115 origin-left pointer-events-none">
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 cursor-pointer"></a>
+                <div class="w-full h-full origin-left pointer-events-none">
                      <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
                      <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
                 </div>
@@ -110,20 +114,20 @@
                 </div>
 
                 <!-- Photo 2: Bagheta (Tilted Left) -->
-                <div class="relative w-3/4 mx-auto">
+                <div class="relative w-3/4 mx-auto mt-8">
                     <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500 hoverable aspect-square">
                         <img src="cat.png" class="w-full h-full object-cover" alt="Bagheta" onerror="this.src='https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1000&auto=format&fit=crop'">
                     </div>
-                    <!-- Cyan Circle (Halfway Under Image) -->
-                    <div class="absolute top-1/2 -right-4 -translate-y-1/2 w-20 h-20 bg-cmyk-c z-0 rounded-full"></div>
+                    <!-- Cyan Circle (Moved Higher) -->
+                    <div class="absolute top-20 -right-6 w-24 h-24 bg-cmyk-c z-0 rounded-full"></div>
                     
-                    <p class="text-center font-bold mt-6 text-xl font-display text-cmyk-k transform -rotate-1">Our mascot: Bagheta</p>
+                    <p class="text-center font-hand text-3xl mt-6 text-cmyk-k transform -rotate-1">Our manager: Bagheta</p>
                 </div>
             </div>
             
             <!-- TEXT SECTION -->
             <div class="w-full lg:w-1/2">
-                <h1 class="text-5xl md:text-7xl font-display font-black mb-6">WHO IS <span class="text-cmyk-m">CTRL?</span></h1>
+                <h1 class="text-5xl md:text-7xl font-display font-black mb-6">WHO IS <span class="text-cmyk-m">CTRL Swipe?</span></h1>
                 <p class="text-xl font-bold mb-4 text-cmyk-c tracking-widest">TUDOR & DIDI // FOUNDERS</p>
                 
                 <div class="space-y-6 text-gray-600 text-lg leading-relaxed font-regular">

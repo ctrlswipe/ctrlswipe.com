@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CTRL Swipe | Our Work</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -36,25 +37,11 @@
 
         @media (min-width: 1024px) {
             body { cursor: none; }
-            /* 1. The Heart (Center) */
-            .cursor-dot {
-                width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference;
-                -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
-                mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
-                -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; transition: transform 0.1s;
-            }
+            .cursor-dot { width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference; -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; transition: transform 0.1s; }
             .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
             .cursor-dot.hovered { opacity: 0; }
-            .cursor-ring {
-                width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none;
-                transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
-            }
-            .cursor-ring.hovered {
-                width: 60px; height: 60px; border: 1px solid rgba(255, 255, 255, 0.5);
-                background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 90%, rgba(255, 255, 255, 0.4) 100%);
-                backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); -webkit-backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1);
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3);
-            }
+            .cursor-ring { width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none; transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s; }
+            .cursor-ring.hovered { width: 60px; height: 60px; border: 1px solid rgba(255, 255, 255, 0.5); background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 90%, rgba(255, 255, 255, 0.4) 100%); backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); -webkit-backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3); }
         }
         @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
 
@@ -72,13 +59,15 @@
 
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
-            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start hoverable z-50">
-                <a href="index.html" class="block w-full h-full">
-                    <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
-                    <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
-                </a>
+            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 peer cursor-pointer hoverable"></a>
+                <div class="w-full h-full transition-transform duration-300 peer-hover:scale-115 origin-left pointer-events-none">
+                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
+                     <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
+                </div>
             </div>
-            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide">
+
+            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
                 <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">HOME</a>
                 <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">ABOUT US</a>
                 <a href="work.html" class="text-cmyk-m transition-colors hoverable">OUR WORK</a>
@@ -106,35 +95,22 @@
          
         <div class="max-w-7xl mx-auto relative z-10 space-y-32">
             
-            <!-- SECTION 1: SOCIAL GRAPHICS (No Lightbox, Zoom on Hover) -->
+            <!-- SECTION 1 -->
             <section>
                 <h1 class="text-5xl md:text-7xl font-display font-black mb-4 text-center">SOCIAL <span class="text-cmyk-c">GRAPHICS</span></h1>
                 <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">High-impact visuals designed for feeds, stories, and ad campaigns.</p>
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    <!-- Items with Pop-Zoom Class -->
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="graphics-portfolio/1.png" class="w-full h-full object-cover" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="graphics-portfolio/2.png" class="w-full h-full object-cover" alt="Social 2" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="graphics-portfolio/3.png" class="w-full h-full object-cover" alt="Social 3" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="graphics-portfolio/4.png" class="w-full h-full object-cover" alt="Social 4" onerror="this.src='https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="graphics-portfolio/5.png" class="w-full h-full object-cover" alt="Social 5" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b7993143b03?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="graphics-portfolio/6.png" class="w-full h-full object-cover" alt="Social 6" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/1.png" class="w-full h-full object-cover" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop'"></div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/2.png" class="w-full h-full object-cover" alt="Social 2" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop'"></div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/3.png" class="w-full h-full object-cover" alt="Social 3" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto=format&fit=crop'"></div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/4.png" class="w-full h-full object-cover" alt="Social 4" onerror="this.src='https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto=format&fit=crop'"></div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/5.png" class="w-full h-full object-cover" alt="Social 5" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b7993143b03?q=80&w=1000&auto=format&fit=crop'"></div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/6.png" class="w-full h-full object-cover" alt="Social 6" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop'"></div>
                 </div>
             </section>
 
-            <!-- SECTION 2: REACH RESULTS -->
+            <!-- SECTION 2 -->
             <section class="relative">
                 <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center">REACH <span class="text-cmyk-m">RESULTS</span></h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -156,35 +132,7 @@
                 </div>
             </section>
 
-            <!-- SECTION 3: BRAND IDENTITY (No Lightbox, Zoom on Hover) -->
-            <section class="relative">
-                <div class="gradient-blob-yellow" style="bottom: -100px; right: -200px;"></div>
-                <h2 class="text-5xl md:text-7xl font-display font-black mb-4 text-center">BRAND <span class="text-cmyk-y">IDENTITY</span></h2>
-                <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">Logos, color systems, and complete brand bibles.</p>
-                
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 relative z-10">
-                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="brand-identity/1.png" class="w-full h-full object-cover" alt="Brand 1" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="brand-identity/2.png" class="w-full h-full object-cover" alt="Brand 2" onerror="this.src='https://images.unsplash.com/photo-1600508774662-8a70b8b3979a?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="brand-identity/3.png" class="w-full h-full object-cover" alt="Brand 3" onerror="this.src='https://images.unsplash.com/photo-1629079447841-d6a6609d6845?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="brand-identity/4.png" class="w-full h-full object-cover" alt="Brand 4" onerror="this.src='https://images.unsplash.com/photo-1586717791821-3f44a5638d48?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="brand-identity/5.png" class="w-full h-full object-cover" alt="Brand 5" onerror="this.src='https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
-                        <img src="brand-identity/6.png" class="w-full h-full object-cover" alt="Brand 6" onerror="this.src='https://images.unsplash.com/photo-1606857521015-7f9fcf423740?q=80&w=1000&auto=format&fit=crop'">
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 4: WEB DESIGN SERVICES -->
+            <!-- SECTION 3: WEB DESIGN SERVICES -->
             <section class="relative">
                 <h2 class="text-5xl md:text-7xl font-display font-black mb-4 text-center">WEB DESIGN <span class="text-gray-700">SERVICES</span></h2>
                 <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">Functional, responsive, and beautiful websites.</p>

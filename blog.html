@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CTRL Swipe | Blog</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -27,7 +28,6 @@
 
         @media (min-width: 1024px) {
             body { cursor: none; }
-            /* 1. The Heart (Center) */
             .cursor-dot {
                 width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference;
                 -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
@@ -36,7 +36,6 @@
             }
             .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
             .cursor-dot.hovered { opacity: 0; }
-            /* 2. The Ring (Follows with Delay) */
             .cursor-ring {
                 width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none;
                 transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
@@ -64,13 +63,16 @@
 
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
-            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start hoverable z-50">
-                <a href="index.html" class="block w-full h-full">
-                    <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
-                    <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
-                </a>
+            <!-- LOGO -->
+            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 peer cursor-pointer hoverable"></a>
+                <div class="w-full h-full transition-transform duration-300 peer-hover:scale-115 origin-left pointer-events-none">
+                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
+                     <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
+                </div>
             </div>
-            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide">
+
+            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
                 <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">HOME</a>
                 <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">ABOUT US</a>
                 <a href="work.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">OUR WORK</a>
@@ -99,6 +101,7 @@
             <h1 class="text-5xl md:text-7xl font-display font-black mb-12 text-center">THE <span class="text-cmyk-k">JOURNAL</span></h1>
             
             <div class="space-y-8">
+                <!-- POST 1 -->
                 <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-c shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="togglePost(this)">
                     <div class="flex justify-between items-start">
                         <div>
@@ -118,6 +121,7 @@
                     <span class="read-more-text text-sm font-bold underline mt-4 block text-cmyk-c">Read More</span>
                 </div>
 
+                <!-- POST 2 -->
                 <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-m shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="togglePost(this)">
                     <div class="flex justify-between items-start">
                         <div>
@@ -140,12 +144,12 @@
         </div>
     </main>
 
-    <footer class="bg-white py-12 text-center border-t-4 border-black">
+    <footer class="bg-white py-8 text-center border-t-4 border-black">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 <span class="font-bold">CTRL <span class="italic">Swipe</span></span> © 2025. All rights reserved.
             </div>
-            <div class="font-sans font-regular text-lg text-gray-500">
+            <div class="font-sans font-medium text-sm text-gray-500">
                 Crafted with <span class="text-red-500 animate-pulse">❤️</span> in Baia Mare, Romania.
             </div>
         </div>

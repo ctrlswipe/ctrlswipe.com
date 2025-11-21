@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CTRL Swipe | About Us</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -61,13 +62,16 @@
 
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
-            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start hoverable z-50">
-                <a href="index.html" class="block w-full h-full">
-                    <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
-                    <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
-                </a>
+            <!-- LOGO -->
+            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 peer cursor-pointer hoverable"></a>
+                <div class="w-full h-full transition-transform duration-300 peer-hover:scale-115 origin-left pointer-events-none">
+                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
+                     <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
+                </div>
             </div>
-            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide">
+
+            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
                 <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">HOME</a>
                 <a href="about.html" class="text-cmyk-m transition-colors hoverable">ABOUT US</a>
                 <a href="work.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">OUR WORK</a>
@@ -110,8 +114,8 @@
                     <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500 hoverable aspect-square">
                         <img src="cat.png" class="w-full h-full object-cover" alt="Bagheta" onerror="this.src='https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1000&auto=format&fit=crop'">
                     </div>
-                    <!-- Cyan Circle (Down-Right) -->
-                    <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-cmyk-c z-0 rounded-full"></div>
+                    <!-- Cyan Circle (Halfway Under Image) -->
+                    <div class="absolute top-1/2 -right-4 -translate-y-1/2 w-20 h-20 bg-cmyk-c z-0 rounded-full"></div>
                     
                     <p class="text-center font-bold mt-6 text-xl font-display text-cmyk-k transform -rotate-1">Our mascot: Bagheta</p>
                 </div>
@@ -124,11 +128,8 @@
                 
                 <div class="space-y-6 text-gray-600 text-lg leading-relaxed font-regular">
                     <p>CTRL Swipe is a social media marketing agency from Baia Mare, Romania, built to help small and medium-sized businesses communicate clearly, consistently and professionally online. We combine creative production with strategic thinking to deliver content that looks good, sounds right and performs well across Facebook, Instagram and TikTok.</p>
-                    
                     <p>We are a compact two-person team, Tudor and Didi, which means every client works directly with the people who plan, create, film, edit and manage their content. No layers, no delays. Just a streamlined process and personal involvement in every step.</p>
-                    
                     <p>We create full online ecosystems for brands: static posts, branded graphics, short-form videos, captions, ad campaigns and monthly on-site filming sessions in northern Romania. In parallel, we offer complete remote social media management for brands worldwide, including planning, design, copywriting, scheduling and maintaining a consistent content flow, regardless of location.</p>
-                    
                     <p>Our approach is built on clarity, aesthetics, speed and honesty. Every project starts with understanding the client’s identity and ends with content that strengthens it. Our mission is simple: help businesses grow through modern storytelling, clean visuals and a structured, reliable workflow that takes social media off their shoulders, whether they are nearby or across the globe.</p>
                 </div>
 

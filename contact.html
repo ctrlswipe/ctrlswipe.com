@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CTRL Swipe | Contact</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -80,13 +81,16 @@
 
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
-            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start hoverable z-50">
-                <a href="index.html" class="block w-full h-full">
-                    <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
-                    <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
-                </a>
+            <!-- LOGO -->
+            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 peer cursor-pointer hoverable"></a>
+                <div class="w-full h-full transition-transform duration-300 peer-hover:scale-115 origin-left pointer-events-none">
+                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
+                     <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
+                </div>
             </div>
-            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide">
+
+            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
                 <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">HOME</a>
                 <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">ABOUT US</a>
                 <a href="work.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">OUR WORK</a>

@@ -26,32 +26,26 @@
         .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
         .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
 
+        /* Blog Overlay */
+        #blog-overlay {
+            position: fixed; inset: 0; background: white; z-index: 9999;
+            transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            overflow-y: auto;
+        }
+        #blog-overlay.active { transform: translateY(0); }
+
         @media (min-width: 1024px) {
             body { cursor: none; }
-            .cursor-dot {
-                width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference;
-                -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
-                mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
-                -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; transition: transform 0.1s;
-            }
+            .cursor-dot { width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference; -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; transition: transform 0.1s; }
             .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
             .cursor-dot.hovered { opacity: 0; }
-            .cursor-ring {
-                width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none;
-                transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s;
-            }
-            .cursor-ring.hovered {
-                width: 60px; height: 60px; border: 1px solid rgba(255, 255, 255, 0.5);
-                background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 90%, rgba(255, 255, 255, 0.4) 100%);
-                backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); -webkit-backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1);
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3);
-            }
+            .cursor-ring { width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none; transition: left 0.15s ease-out, top 0.15s ease-out, width 0.3s, height 0.3s, background-color 0.3s, border 0.3s; }
+            .cursor-ring.hovered { width: 60px; height: 60px; border: 1px solid rgba(255, 255, 255, 0.5); background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 90%, rgba(255, 255, 255, 0.4) 100%); backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); -webkit-backdrop-filter: brightness(1.1) contrast(1.05) saturate(1.1); box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3); }
         }
         @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
         
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-yellow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, #FFF200 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
-        .blog-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
         #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
         #mobile-menu.open { opacity: 1; visibility: visible; }
         #mobile-menu.closed { opacity: 0; visibility: hidden; }
@@ -61,6 +55,7 @@
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
+    <!-- Navigation -->
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
             <!-- LOGO -->
@@ -101,48 +96,47 @@
             <h1 class="text-5xl md:text-7xl font-display font-black mb-12 text-center">THE <span class="text-cmyk-k">JOURNAL</span></h1>
             
             <div class="space-y-8">
-                <!-- POST 1 -->
-                <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-c shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="togglePost(this)">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="text-cmyk-c font-pixel text-sm mb-2">FEB 20, 2025</div>
-                            <h2 class="text-2xl font-bold mb-3">Why your Reels aren't going viral</h2>
-                        </div>
-                        <i class="fas fa-chevron-down arrow-icon transition-transform duration-300 mt-2"></i>
-                    </div>
+                <!-- POST 1: LINKED -->
+                <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-c shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="openPost('viral-reels')">
+                    <div class="text-cmyk-c font-pixel text-sm mb-2">FEB 20, 2025</div>
+                    <h2 class="text-2xl font-bold mb-3">Why your Reels aren't going viral</h2>
                     <p class="text-gray-900 font-bold mb-2">It's not the algorithm, it's the hook. Here is how to fix your first 3 seconds...</p>
-                    <div class="blog-content text-gray-600">
-                        <div class="pt-4 mt-4 border-t border-gray-100">
-                            <p class="mb-4">Stop blaming Instagram. The harsh truth is that most users scroll past your video in less than 0.8 seconds. If you don't grab them visually or verbally in that first frame, you're done.</p>
-                            <p class="mb-4"><strong>The 3-Second Rule:</strong><br>1. Movement immediately (don't start with a static shot).<br>2. Text overlay that teases value.<br>3. A controversial or surprising statement.</p>
-                            <p>We recently audited 50 client accounts and found that videos with a "pattern interrupt" in the first second performed 300% better than those with standard intros. Stop saying "Hey guys, welcome back" and start showing them the fire.</p>
-                        </div>
-                    </div>
-                    <span class="read-more-text text-sm font-bold underline mt-4 block text-cmyk-c">Read More</span>
+                    <span class="text-sm font-bold underline mt-4 block text-cmyk-c">Read Full Article</span>
                 </div>
 
-                <!-- POST 2 -->
-                <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-m shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="togglePost(this)">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="text-cmyk-m font-pixel text-sm mb-2">JAN 15, 2025</div>
-                            <h2 class="text-2xl font-bold mb-3">Branding is more than a logo</h2>
-                        </div>
-                        <i class="fas fa-chevron-down arrow-icon transition-transform duration-300 mt-2"></i>
-                    </div>
+                <!-- POST 2: LINKED -->
+                <div class="blog-card bg-white p-8 rounded-2xl border-l-4 border-cmyk-m shadow-sm hover:shadow-md transition-all hoverable cursor-pointer" onclick="openPost('branding-101')">
+                    <div class="text-cmyk-m font-pixel text-sm mb-2">JAN 15, 2025</div>
+                    <h2 class="text-2xl font-bold mb-3">Branding is more than a logo</h2>
                     <p class="text-gray-900 font-bold mb-2">How to build a visual system that communicates trust without saying a word.</p>
-                     <div class="blog-content text-gray-600">
-                        <div class="pt-4 mt-4 border-t border-gray-100">
-                            <p class="mb-4">Your logo is just a signature; your brand is the personality. When we build identities at CTRL Swipe, we focus on the "Visual Ecosystem." This includes your typography hierarchy, your specific color palette (and how much of each color you use), and your photo treatment style.</p>
-                            <p class="mb-4">Think of Apple. You don't need to see the apple logo to know an ad is from Apple. You know it by the font, the white space, and the tone.</p>
-                            <p>Consistency builds trust. If your Instagram stories look different from your Reels, and your website looks different from both, you are confusing your customer. And a confused customer never buys.</p>
-                        </div>
-                    </div>
-                    <span class="read-more-text text-sm font-bold underline mt-4 block text-cmyk-m">Read More</span>
+                    <span class="text-sm font-bold underline mt-4 block text-cmyk-m">Read Full Article</span>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- FULL SCREEN BLOG OVERLAY -->
+    <div id="blog-overlay" class="flex flex-col">
+        <!-- Close Button -->
+        <button class="absolute top-6 right-6 text-black text-4xl hover:text-cmyk-m transition-colors hoverable z-50 bg-gray-100 rounded-full w-12 h-12 flex items-center justify-center" onclick="closePost()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Content Container -->
+        <div class="max-w-3xl mx-auto w-full px-6 py-24 flex-grow">
+            <div id="overlay-content" class="space-y-8">
+                <!-- Content Injected via JS -->
+            </div>
+        </div>
+
+        <!-- Footer with Logo -->
+        <div class="py-12 text-center border-t border-gray-200 mt-auto">
+            <a href="index.html" class="inline-block hover:scale-110 transition-transform">
+                 <img src="logo.svg" alt="Back to Home" class="h-16 w-auto object-contain mx-auto mb-2" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png'">
+                 <p class="text-xs font-bold text-gray-400">BACK TO HOME</p>
+            </a>
+        </div>
+    </div>
 
     <footer class="bg-white py-8 text-center border-t-4 border-black">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -156,6 +150,81 @@
     </footer>
 
     <script>
+        // --- BLOG DATA ---
+        const blogPosts = {
+            'viral-reels': {
+                date: 'FEB 20, 2025',
+                title: "Why your Reels aren't going viral",
+                color: 'text-cmyk-c',
+                content: `
+                    <p class="text-xl font-bold text-gray-900 mb-8">It's not the algorithm, it's the hook. Here is how to fix your first 3 seconds...</p>
+                    <div class="text-lg text-gray-700 space-y-6 leading-relaxed">
+                        <p>Stop blaming Instagram. The harsh truth is that most users scroll past your video in less than 0.8 seconds. If you don't grab them visually or verbally in that first frame, you're done.</p>
+                        <h3 class="text-2xl font-black mt-8 mb-4">The 3-Second Rule</h3>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li><strong>Movement immediately:</strong> Don't start with a static shot. Start mid-action.</li>
+                            <li><strong>Text overlay:</strong> Tease the value. "3 ways to..." or "Stop doing this..."</li>
+                            <li><strong>Pattern Interrupt:</strong> A controversial or surprising statement right at the start.</li>
+                        </ul>
+                        <p>We recently audited 50 client accounts and found that videos with a "pattern interrupt" in the first second performed 300% better than those with standard intros. Stop saying "Hey guys, welcome back" and start showing them the fire.</p>
+                    </div>
+                `
+            },
+            'branding-101': {
+                date: 'JAN 15, 2025',
+                title: "Branding is more than a logo",
+                color: 'text-cmyk-m',
+                content: `
+                    <p class="text-xl font-bold text-gray-900 mb-8">How to build a visual system that communicates trust without saying a word.</p>
+                    <div class="text-lg text-gray-700 space-y-6 leading-relaxed">
+                        <p>Your logo is just a signature; your brand is the personality. When we build identities at CTRL Swipe, we focus on the "Visual Ecosystem." This includes your typography hierarchy, your specific color palette (and how much of each color you use), and your photo treatment style.</p>
+                        <h3 class="text-2xl font-black mt-8 mb-4">The Apple Effect</h3>
+                        <p>Think of Apple. You don't need to see the apple logo to know an ad is from Apple. You know it by the font, the white space, and the tone. That is branding.</p>
+                        <p>Consistency builds trust. If your Instagram stories look different from your Reels, and your website looks different from both, you are confusing your customer. And a confused customer never buys.</p>
+                    </div>
+                `
+            }
+        };
+
+        const overlay = document.getElementById('blog-overlay');
+        const overlayContent = document.getElementById('overlay-content');
+
+        function openPost(id) {
+            const post = blogPosts[id];
+            if (!post) return;
+
+            // Update Content
+            overlayContent.innerHTML = `
+                <div class="${post.color} font-pixel text-lg mb-4 tracking-widest">${post.date}</div>
+                <h1 class="text-4xl md:text-6xl font-display font-black mb-8 leading-tight">${post.title}</h1>
+                ${post.content}
+            `;
+
+            // Show Overlay
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Update URL
+            window.location.hash = id;
+        }
+
+        function closePost() {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Clear URL Hash without scrolling
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+
+        // Check URL on Load
+        window.addEventListener('load', () => {
+            if(window.location.hash) {
+                const id = window.location.hash.substring(1);
+                openPost(id);
+            }
+        });
+
+        // --- MOUSE LOGIC ---
         if (window.matchMedia("(min-width: 1024px)").matches) {
             const cursorDot = document.getElementById('cursor-dot');
             const cursorRing = document.getElementById('cursor-ring');
@@ -170,11 +239,6 @@
         }
         const burgerBtn = document.getElementById('burger-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
         burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
-        function togglePost(card) {
-            const content = card.querySelector('.blog-content'); const arrow = card.querySelector('.arrow-icon'); const readMore = card.querySelector('.read-more-text'); const isOpen = content.style.maxHeight;
-            document.querySelectorAll('.blog-card').forEach(otherCard => { if(otherCard !== card) { otherCard.querySelector('.blog-content').style.maxHeight = null; otherCard.querySelector('.arrow-icon').style.transform = 'rotate(0deg)'; otherCard.querySelector('.read-more-text').innerText = 'Read More'; } });
-            if (isOpen) { content.style.maxHeight = null; arrow.style.transform = 'rotate(0deg)'; readMore.innerText = 'Read More'; } else { content.style.maxHeight = content.scrollHeight + "px"; arrow.style.transform = 'rotate(180deg)'; readMore.innerText = 'Read Less'; }
-        }
     </script>
 </body>
 </html>

@@ -26,10 +26,10 @@
         .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
         .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
 
-        /* POP OUT ZOOM EFFECT (For Portfolio Grids) */
+        /* POP OUT ZOOM EFFECT (For Portfolio Grids) - Reduced Scale to 1.25 */
         .pop-zoom { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), z-index 0s !important; }
         .pop-zoom:hover { 
-            transform: scale(1.4) !important; 
+            transform: scale(1.25) !important; 
             z-index: 9999 !important; 
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             border-radius: 8px;
@@ -59,22 +59,26 @@
 
     <nav class="fixed w-full z-50 top-4 px-4">
         <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
+            <!-- LOGO -->
             <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
-                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 cursor-pointer"></a>
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 cursor-pointer" title="Home"></a>
                 <div class="w-full h-full origin-left pointer-events-none">
                      <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block'">
                      <div id="fallback-logo" class="hidden text-xl md:text-2xl font-display font-black tracking-tighter">CTRL<span class="text-cmyk-m">Swipe</span></div>
                 </div>
             </div>
+            
+            <!-- Desktop Links -->
             <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide">
-            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
                 <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">HOME</a>
                 <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">ABOUT US</a>
                 <a href="work.html" class="text-cmyk-m transition-colors hoverable">OUR WORK</a>
                 <a href="blog.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">BLOG</a>
                 <a href="contact.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable">CONTACT</a>
             </div>
-            <button id="burger-btn" class="lg:hidden w-10 h-10 flex items-center justify-center z-50 text-black bg-white rounded-full shadow-lg focus:outline-none">
+
+            <!-- Mobile Burger Button (Fixed Visibility) -->
+            <button id="burger-btn" class="lg:hidden w-10 h-10 flex-shrink-0 flex items-center justify-center z-[60] text-black bg-white rounded-full shadow-lg border border-gray-100 focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
@@ -95,22 +99,35 @@
          
         <div class="max-w-7xl mx-auto relative z-10 space-y-32">
             
-            <!-- SECTION 1 -->
+            <!-- SECTION 1: SOCIAL GRAPHICS (No Lightbox, Zoom on Hover) -->
             <section>
                 <h1 class="text-5xl md:text-7xl font-display font-black mb-4 text-center">SOCIAL <span class="text-cmyk-c">GRAPHICS</span></h1>
                 <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">High-impact visuals designed for feeds, stories, and ad campaigns.</p>
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/1.png" class="w-full h-full object-cover" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/2.png" class="w-full h-full object-cover" alt="Social 2" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/3.png" class="w-full h-full object-cover" alt="Social 3" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto=format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/4.png" class="w-full h-full object-cover" alt="Social 4" onerror="this.src='https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto=format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/5.png" class="w-full h-full object-cover" alt="Social 5" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b7993143b03?q=80&w=1000&auto=format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/6.png" class="w-full h-full object-cover" alt="Social 6" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop'"></div>
+                    <!-- Items with Pop-Zoom Class -->
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
+                        <img src="graphics-portfolio/1.png" class="w-full h-full object-cover" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
+                        <img src="graphics-portfolio/2.png" class="w-full h-full object-cover" alt="Social 2" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
+                        <img src="graphics-portfolio/3.png" class="w-full h-full object-cover" alt="Social 3" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
+                        <img src="graphics-portfolio/4.png" class="w-full h-full object-cover" alt="Social 4" onerror="this.src='https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
+                        <img src="graphics-portfolio/5.png" class="w-full h-full object-cover" alt="Social 5" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b7993143b03?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md">
+                        <img src="graphics-portfolio/6.png" class="w-full h-full object-cover" alt="Social 6" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
                 </div>
             </section>
 
-            <!-- SECTION 2 -->
+            <!-- SECTION 2: REACH RESULTS -->
             <section class="relative">
                 <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center">REACH <span class="text-cmyk-m">RESULTS</span></h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -177,7 +194,7 @@
                 </div>
             </section>
 
-            <!-- SECTION 5: COPYWRITING & ADS (New Section) -->
+            <!-- SECTION 4: CAPTIONS & ADS (New Section) -->
             <section class="relative">
                  <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center">CAPTIONS <span class="text-cmyk-c">& ADS</span></h2>
                  <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium">We write words that sell, convince, and connect.</p>

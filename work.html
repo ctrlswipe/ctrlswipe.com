@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Work | Graphic Design, Video Editing & Social Media Portofolio</title>
+    <title>Our Work | Graphic Design, Video Editing & Social Media Portofoliu</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -37,7 +37,14 @@
             overflow: hidden; 
             height: 0; 
         }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-container video { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; /* Ensures the video fills the 9:16 container */
+        }
 
         @media (min-width: 1024px) {
             body { cursor: none; }
@@ -206,47 +213,61 @@
                 </div>
             </section>
             
-            <!-- SECTION: SHOT/EDITED VIDEOS (Embeds with 9:16 Aspect Ratio) -->
+            <!-- SECTION: SHORTENED TITLE & LOCAL VIDEO FILES -->
             <section class="relative">
-                <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center" data-key="sec5-title">SHOT/<span class="text-cmyk-m">EDITED VIDEOS</span></h2>
+                <!-- Shortened title to prevent overflow on mobile -->
+                <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center" data-key="sec5-title">VIDEO <span class="text-cmyk-m">EDITING</span></h2>
                 <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium" data-key="sec5-desc">Short-form videos (Reels, TikTok) filmed and/or edited for maximum engagement.</p>
 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                     
-                    <!-- Video 1: Instagram Reel 1 -->
+                    <!-- Video 1: Local File -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <!-- Embed Instagram Reel. Note: Minimal UI is controlled by Instagram's embed code. -->
-                        <iframe src="https://www.instagram.com/reel/DPhCwTNEeDY/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 1 - Hypethefup"></iframe>
+                        <video controls playsinline preload="metadata" muted poster="clip1.jpg" title="Clip 1">
+                            <source src="clip1.mp4" type="video/mp4">
+                            <!-- Fallback message in case the browser does not support the video tag -->
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
 
-                    <!-- Video 2: Instagram Reel 2 -->
+                    <!-- Video 2: Local File -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <!-- Embed Instagram Reel -->
-                        <iframe src="https://www.instagram.com/reel/DRH4l7aET3v/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 2 - Hypethefup"></iframe>
+                        <video controls playsinline preload="metadata" muted poster="clip2.jpg" title="Clip 2">
+                            <source src="clip2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
 
-                    <!-- Video 3: Instagram Reel 3 -->
+                    <!-- Video 3: Local File -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <!-- Embed Instagram Reel -->
-                        <iframe src="https://www.instagram.com/reel/DRSxgO1E0n6/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 3 - Hypethefup"></iframe>
+                        <video controls playsinline preload="metadata" muted poster="clip3.jpg" title="Clip 3">
+                            <source src="clip3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     
-                    <!-- Video 4: TikTok 1 -->
+                    <!-- Video 4: Local File -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <!-- Embed TikTok Video -->
-                        <iframe src="https://www.tiktok.com/embed/7566702197732478231" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 1 - Hypethefup"></iframe>
+                        <video controls playsinline preload="metadata" muted poster="clip4.jpg" title="Clip 4">
+                            <source src="clip4.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
 
-                    <!-- Video 5: TikTok 2 -->
+                    <!-- Video 5: Local File -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <!-- Embed TikTok Video -->
-                         <iframe src="https://www.tiktok.com/embed/7565237512138951958" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 2 - Hypethefup"></iframe>
+                         <video controls playsinline preload="metadata" muted poster="clip5.jpg" title="Clip 5">
+                            <source src="clip5.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
 
-                    <!-- Video 6: TikTok 3 -->
+                    <!-- Video 6: Local File -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <!-- Embed TikTok Video -->
-                         <iframe src="https://www.tiktok.com/embed/7563956934219549974" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 3 - Hypethefup"></iframe>
+                         <video controls playsinline preload="metadata" muted poster="clip6.jpg" title="Clip 6">
+                            <source src="clip6.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </div>
             </section>
@@ -280,7 +301,7 @@
                 'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
                 'box2-title': 'Engaging Captions', 'box2-desc': 'From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.',
                 'box3-title': 'Video Scripts', 'box3-desc': 'Structuring your reels and TikToks for maximum retention, ensuring your message is heard.',
-                'sec5-title': 'SHOT/<span class="text-cmyk-m">EDITED VIDEOS</span>', 'sec5-desc': 'Short-form videos (Reels, TikTok) filmed and/or edited for maximum engagement.',
+                'sec5-title': 'VIDEO <span class="text-cmyk-m">EDITING</span>', 'sec5-desc': 'Short-form videos (Reels, TikTok) filmed and/or edited for maximum engagement.',
                 'footer-rights': '© 2025. All rights reserved.',
                 'footer-crafted': 'Agency in <span class="font-bold text-black">Baia Mare</span>. Serving <span class="text-black">Cluj, Suceava</span> & Worldwide.'
             },
@@ -297,7 +318,7 @@
                 'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',
                 'box2-title': 'Potrivit ție', 'box2-desc': 'De la mesaje scurte și pline de umor până la postări lungi care spun o poveste, găsim tonul care se potrivește perfect brandului tău.',
                 'box3-title': 'Scripturi video', 'box3-desc': 'Structurarea reel-urilor și TikTok-urilor pentru o retenție maximă, asigurându-ne că mesajul tău este auzit.',
-                'sec5-title': 'CLIPURI FILMATE/<span class="text-cmyk-m">EDITATE</span>', 'sec5-desc': 'Clipuri video scurte (Reels, TikTok) filmate și/sau editate pentru un engagement maxim.',
+                'sec5-title': 'VIDEO <span class="text-cmyk-m">EDITARE</span>', 'sec5-desc': 'Clipuri scurte (Reels, TikTok) filmate și/sau editate de noi.',
                 'footer-rights': 'Toate drepturile rezervate.',
                 'footer-crafted': 'Creat cu ❤️ în Baia Mare, România.'
             }

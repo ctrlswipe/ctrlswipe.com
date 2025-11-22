@@ -29,8 +29,14 @@
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
         
-        /* Aspect Ratio 9:16 for vertical videos */
-        .video-container { position: relative; width: 100%; padding-bottom: 177.77%; /* 16:9 inverse = 1.7777 */ overflow: hidden; height: 0; }
+        /* Aspect Ratio 9:16 for vertical videos: 16 units high for every 9 units wide */
+        .video-container { 
+            position: relative; 
+            width: 100%; 
+            padding-bottom: 177.77%; /* (16 / 9) * 100% */ 
+            overflow: hidden; 
+            height: 0; 
+        }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         @media (min-width: 1024px) {
@@ -116,7 +122,7 @@
                 <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium" data-key="sec1-desc">High-impact visuals designed for feeds, stories, and ad campaigns.</p>
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/1.png" class="w-full h-full object-cover" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop'"></div>
+                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/1.png" class="w-full h-full object-cover" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto-format&fit=crop'"></div>
                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/2.png" class="w-full h-full object-cover" alt="Social 2" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto-format&fit=crop'"></div>
                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/3.png" class="w-full h-full object-cover" alt="Social 3" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto-format&fit=crop'"></div>
                     <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/4.png" class="w-full h-full object-cover" alt="Social 4" onerror="this.src='https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto-format&fit=crop'"></div>
@@ -153,7 +159,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                     <!-- Website 1 (Existing) -->
                      <a href="https://ctrlswipe.github.io/antalya" target="_blank" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md border border-gray-200">
-                        <img src="web-design/1.png" class="w-full h-full object-cover" alt="Web 1" onerror="this.src='https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto=format&fit=crop'">
+                        <img src="web-design/1.png" class="w-full h-full object-cover" alt="Web 1" onerror="this.src='https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto-format&fit=crop'">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full" data-key="btn-visit">VISIT SITE</span>
                         </div>
@@ -169,7 +175,7 @@
                     
                     <!-- Website 3 (NEW: Lodge) -->
                      <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md border border-gray-200">
-                        <img src="web-design/3.png" class="w-full h-full object-cover" alt="Web 3 (Lodge)" onerror="this.src='https://images.unsplash.com/photo-1540306161821-419b6727774d?q=80&w=1000&auto=format&fit=crop'">
+                        <img src="web-design/3.png" class="w-full h-full object-cover" alt="Web 3 (Lodge)" onerror="this.src='https://images.unsplash.com/photo-1540306161821-419b6727774d?q=80&w=1000&auto-format&fit=crop'">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full" data-key="btn-visit">VISIT SITE</span>
                         </div>
@@ -200,7 +206,7 @@
                 </div>
             </section>
             
-            <!-- NEW SECTION: SHOT/EDITED VIDEOS -->
+            <!-- SECTION: SHOT/EDITED VIDEOS (Embeds with 9:16 Aspect Ratio) -->
             <section class="relative">
                 <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center" data-key="sec5-title">SHOT/<span class="text-cmyk-m">EDITED VIDEOS</span></h2>
                 <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium" data-key="sec5-desc">Short-form videos (Reels, TikTok) filmed and/or edited for maximum engagement.</p>
@@ -209,35 +215,38 @@
                     
                     <!-- Video 1: Instagram Reel 1 -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <!-- Instagram Embed Code: Must use embed URL and dimensions set by CSS -->
-                        <iframe src="https://www.instagram.com/reel/DPhCwTNEeDY/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 1"></iframe>
+                        <!-- Embed Instagram Reel. Note: Minimal UI is controlled by Instagram's embed code. -->
+                        <iframe src="https://www.instagram.com/reel/DPhCwTNEeDY/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 1 - Hypethefup"></iframe>
                     </div>
 
                     <!-- Video 2: Instagram Reel 2 -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <iframe src="https://www.instagram.com/reel/DRH4l7aET3v/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 2"></iframe>
+                         <!-- Embed Instagram Reel -->
+                        <iframe src="https://www.instagram.com/reel/DRH4l7aET3v/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 2 - Hypethefup"></iframe>
                     </div>
 
                     <!-- Video 3: Instagram Reel 3 -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <iframe src="https://www.instagram.com/reel/DRSxgO1E0n6/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 3"></iframe>
+                         <!-- Embed Instagram Reel -->
+                        <iframe src="https://www.instagram.com/reel/DRSxgO1E0n6/embed" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" title="Instagram Reel 3 - Hypethefup"></iframe>
                     </div>
                     
                     <!-- Video 4: TikTok 1 -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <!-- TikTok Embed: Requires slight adjustment for iframe src, typically pointing to the video page -->
-                        <!-- NOTE: TikTok embeds usually require their JS SDK for proper sizing/playback, but using the video page link for a direct iframe often provides a functional fallback/preview -->
-                        <iframe src="https://www.tiktok.com/embed/7566702197732478231" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 1"></iframe>
+                         <!-- Embed TikTok Video -->
+                        <iframe src="https://www.tiktok.com/embed/7566702197732478231" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 1 - Hypethefup"></iframe>
                     </div>
 
                     <!-- Video 5: TikTok 2 -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <iframe src="https://www.tiktok.com/embed/7565237512138951958" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 2"></iframe>
+                         <!-- Embed TikTok Video -->
+                         <iframe src="https://www.tiktok.com/embed/7565237512138951958" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 2 - Hypethefup"></iframe>
                     </div>
 
                     <!-- Video 6: TikTok 3 -->
                     <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <iframe src="https://www.tiktok.com/embed/7563956934219549974" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 3"></iframe>
+                         <!-- Embed TikTok Video -->
+                         <iframe src="https://www.tiktok.com/embed/7563956934219549974" frameborder="0" scrolling="no" allowfullscreen title="TikTok Video 3 - Hypethefup"></iframe>
                     </div>
                 </div>
             </section>

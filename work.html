@@ -36,10 +36,9 @@
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
             box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
             overflow: hidden;
-            background: transparent; /* Transparent to show full uncropped image */
+            background: transparent; 
             transform-style: preserve-3d;
             will-change: transform, opacity; 
-            /* No borders, No rounded corners */
         }
         
         .c-active { 
@@ -47,7 +46,6 @@
             transform: translateX(0) scale(1); 
             filter: blur(0) brightness(1); 
             opacity: 1; 
-            /* Removed border */
         }
         .c-prev { 
             z-index: 10; 
@@ -83,7 +81,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
             position: relative;
             background: black;
-            /* No Rounded Corners */
         }
 
         /* --- CURSOR STYLES --- */
@@ -298,24 +295,24 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
                     
                     <!-- Site 1 -->
-                    <a href="https://example.com/site1" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                    <a href="https://ctrlswipe.github.io/antalya/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                         <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                            <!-- USING object-cover here to fill thumbnail area, or object-contain if strictly no crop needed. Defaulting to cover for web thumbnails usually looks better, but user said "all materials no crop". Using contain. -->
-                            <img src="webdesign/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/00AEEF/ffffff?text=Website+1'">
+                            <!-- Using object-contain to allow full view without crop -->
+                            <img src="web-design/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/00AEEF/ffffff?text=Website+1'">
                         </div>
                     </a>
 
                     <!-- Site 2 -->
-                    <a href="https://example.com/site2" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                    <a href="https://ctrlswipe.github.io/clinic/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                            <img src="webdesign/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/EC008C/ffffff?text=Website+2'">
+                            <img src="web-design/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/EC008C/ffffff?text=Website+2'">
                         </div>
                     </a>
 
                     <!-- Site 3 -->
-                    <a href="https://example.com/site3" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                    <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                            <img src="webdesign/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/FFF200/000000?text=Website+3'">
+                            <img src="web-design/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/FFF200/000000?text=Website+3'">
                         </div>
                     </a>
 

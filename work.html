@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Work | Graphic Design, Video Editing & Social Media Portofoliu</title>
+    <title>Our Work | Portfolio</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -24,31 +24,81 @@
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
         .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
         .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
-        .pop-zoom { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), z-index 0s !important; }
-        .pop-zoom:hover { transform: scale(1.25) !important; z-index: 9999 !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border-radius: 8px; }
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+        .gradient-blob-cyan { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #00AEEF 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+
+        /* CAROUSEL STYLES */
+        .carousel-container { perspective: 1000px; overflow: hidden; display: flex; justify-content: center; align-items: center; position: relative; height: 700px; }
         
-        /* Aspect Ratio 9:16 for vertical videos: 16 units high for every 9 units wide */
-        .video-container { 
-            position: relative; 
-            width: 100%; 
-            padding-bottom: 177.77%; /* (16 / 9) * 100% */ 
-            overflow: hidden; 
-            height: 0; 
-        }
-        .video-container video { 
+        .carousel-item { 
             position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            object-fit: cover; /* Ensures the video fills the 9:16 container */
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
+            border-radius: 1rem; 
+            overflow: hidden;
+            background: black; 
+            transform-style: preserve-3d;
+            will-change: transform, opacity, filter; 
+        }
+        
+        .c-active { 
+            z-index: 20; 
+            transform: translateX(0) scale(1); 
+            filter: blur(0) brightness(1); 
+            opacity: 1; 
+            border: 3px solid white; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .c-prev { 
+            z-index: 10; 
+            transform: translateX(-100%) scale(0.85) rotateY(15deg); 
+            filter: blur(3px) brightness(0.7); 
+            opacity: 0.8; 
+            pointer-events: none; 
+        }
+        .c-next { 
+            z-index: 10; 
+            transform: translateX(100%) scale(0.85) rotateY(-15deg); 
+            filter: blur(3px) brightness(0.7); 
+            opacity: 0.8; 
+            pointer-events: none; 
+        }
+        .c-hidden { z-index: 0; transform: scale(0.5); opacity: 0; pointer-events: none; display: none; }
+
+        /* Mobile Scroll */
+        .mobile-scroll { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 1rem; 
+            padding: 1rem 2rem; 
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch; 
+            scroll-behavior: smooth; 
+        }
+        .mobile-scroll::-webkit-scrollbar { display: none; }
+        .mobile-item { 
+            flex: 0 0 85%; 
+            scroll-snap-align: center; 
+            border-radius: 1rem; 
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            position: relative;
+            background: black;
         }
 
+        /* --- CURSOR STYLES (MATCHING INDEX.HTML) --- */
         @media (min-width: 1024px) {
             body { cursor: none; }
-            .cursor-dot { width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference; 
+            .cursor-dot { 
+                width: 24px; height: 24px; 
+                background-color: white; 
+                position: fixed; 
+                top: 0; left: 0;
+                transform: translate(-50%, -50%); 
+                z-index: 100001; 
+                pointer-events: none; 
+                mix-blend-mode: difference; 
                 -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
                 mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
                 -webkit-mask-size: contain; 
@@ -57,12 +107,34 @@
                 mask-repeat: no-repeat; 
                 -webkit-mask-position: center; 
                 mask-position: center; 
-                transition: transform 0.1s; }
-            .cursor-dot.active { background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; transform: translate(-50%, -50%) scale(0.8); }
-            .cursor-ring { width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none; transition: all 0.15s ease-out; }
-            .cursor-ring.hovered { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); }
+                transition: transform 0.1s; 
+            }
+            .cursor-dot.active { 
+                background-color: #ff0033; 
+                mix-blend-mode: normal; 
+                box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; 
+                transform: translate(-50%, -50%) scale(0.8); 
+            }
+            .cursor-ring { 
+                width: 40px; height: 40px; 
+                border: 1px solid #EC008C; 
+                border-radius: 50%; 
+                position: fixed; 
+                top: 0; left: 0;
+                transform: translate(-50%, -50%); 
+                z-index: 100000; 
+                pointer-events: none; 
+                transition: all 0.15s ease-out; 
+            }
+            .cursor-ring.hovered { 
+                width: 60px; height: 60px; 
+                background: rgba(255, 255, 255, 0.1); 
+            }
         }
-        @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
+        @media (max-width: 1023px) { 
+            .cursor-dot, .cursor-ring { display: none !important; } 
+            body { cursor: auto; } 
+        }
 
         .flag-btn { perspective: 1000px; display: inline-block; cursor: pointer; }
         .flag-inner { transition: transform 0.6s; transform-style: preserve-3d; display: inline-block; }
@@ -72,9 +144,13 @@
         #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
         #mobile-menu.open { opacity: 1; visibility: visible; }
         #mobile-menu.closed { opacity: 0; visibility: hidden; }
+        
+        .aspect-4-5 { aspect-ratio: 4/5; }
+        .aspect-9-16 { aspect-ratio: 9/16; }
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
+    <!-- Cursor Elements -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
@@ -86,7 +162,7 @@
                      <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain">
                 </div>
             </div>
-            
+
             <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
                 <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-home">HOME</a>
                 <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-about">ABOUT US</a>
@@ -121,78 +197,161 @@
 
     <main class="pt-40 pb-24 px-4 md:px-6 relative min-h-screen overflow-hidden">
          <div class="gradient-blob-magenta" style="top: 10%; left: -200px;"></div>
+         <div class="gradient-blob-cyan" style="bottom: 20%; right: -200px;"></div>
          
         <div class="max-w-7xl mx-auto relative z-10 space-y-32">
             
-            <section>
-                <h1 class="text-5xl md:text-7xl font-display font-black mb-4 text-center" data-key="sec1-title">SOCIAL <span class="text-cmyk-c">GRAPHICS</span></h1>
-                <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium" data-key="sec1-desc">High-impact visuals designed for feeds, stories, and ad campaigns.</p>
+            <!-- HEADER -->
+            <header class="text-center max-w-4xl mx-auto">
+                <h1 class="text-6xl md:text-8xl font-display font-black mb-6 leading-none" id="work-title">
+                    <span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-12 font-regular" data-key="work-desc">
+                    Explore our portfolio across various formats.
+                </p>
+            </header>
+
+            <!-- SECTION 1: SOCIAL MEDIA POSTS (4:5) -->
+            <!-- Separator: CYAN -->
+            <section id="graphics">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-graphics">SOCIAL MEDIA POSTS</h2>
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                </div>
+
+                <!-- Desktop Carousel (Graphics) -->
+                <div class="hidden lg:flex relative carousel-container h-[600px]" id="carousel-graphics">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', -1)">
+                        <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    </button>
+                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-graphics">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', 1)">
+                        <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    </button>
+                </div>
                 
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/1.png" class="w-full h-full object-cover" alt="Social 1" onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto-format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/2.png" class="w-full h-full object-cover" alt="Social 2" onerror="this.src='https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto-format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/3.png" class="w-full h-full object-cover" alt="Social 3" onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1000&auto-format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/4.png" class="w-full h-full object-cover" alt="Social 4" onerror="this.src='https://images.unsplash.com/photo-1557838923-2985c318be48?q=80&w=1000&auto-format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/5.png" class="w-full h-full object-cover" alt="Social 5" onerror="this.src='https://images.unsplash.com/photo-1626785774573-4b7993143b03?q=80&w=1000&auto-format&fit=crop'"></div>
-                    <div class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md"><img src="graphics-portfolio/6.png" class="w-full h-full object-cover" alt="Social 6" onerror="this.src='https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto-format&fit=crop'"></div>
+                <!-- Mobile Scroll (Graphics) -->
+                <div class="lg:hidden mobile-scroll" id="mobile-graphics">
+                    <!-- Items injected by JS -->
                 </div>
             </section>
 
-            <section class="relative">
-                <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center" data-key="sec2-title">REACH <span class="text-cmyk-m">RESULTS</span></h2>
+            <!-- SECTION 2: STORIES (9:16) -->
+            <!-- Separator: MAGENTA -->
+            <section id="stories">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-m flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-stories">STORIES</h2>
+                    <div class="h-[3px] bg-cmyk-m flex-grow"></div>
+                </div>
+
+                <!-- Desktop Carousel (Stories) -->
+                <div class="hidden lg:flex relative carousel-container h-[750px]" id="carousel-stories">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', -1)">
+                        <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    </button>
+                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-stories">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', 1)">
+                        <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Scroll (Stories) -->
+                <div class="lg:hidden mobile-scroll" id="mobile-stories">
+                    <!-- Items injected by JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 3: VIDEO PRODUCTION (9:16 Vertical) -->
+            <!-- Separator: YELLOW -->
+            <section id="video">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-y flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-video">VIDEO PRODUCTION</h2>
+                    <div class="h-[3px] bg-cmyk-y flex-grow"></div>
+                </div>
+
+                <!-- Desktop Carousel (Video) -->
+                <div class="hidden lg:flex relative carousel-container h-[750px]" id="carousel-video">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', -1)">
+                        <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    </button>
+                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-video">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', 1)">
+                        <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    </button>
+                </div>
+
+                 <!-- Mobile Scroll (Video) -->
+                 <div class="lg:hidden mobile-scroll" id="mobile-video">
+                    <!-- Items injected by JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 4: WEB DESIGN -->
+            <!-- Separator: BLACK (KEY) -->
+            <section id="webdesign">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-k flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-web">WEB DESIGN</h2>
+                    <div class="h-[3px] bg-cmyk-k flex-grow"></div>
+                </div>
+                
+                <!-- 3 Website Cards Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
-                        <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="100000">0</div>
-                        <p class="text-xl font-bold mb-2" data-key="stat-1-title">People Reached</p>
-                        <p class="text-gray-500 text-sm font-mono" data-key="stat-1-sub">In the past 2 years</p>
+                    
+                    <!-- Site 1 -->
+                    <div class="glass-panel p-6 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-[1.02] hoverable group flex flex-col h-full">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-gray-100">
+                             <!-- LINK 1: Replace href with actual link -->
+                            <img src="webdesign/1.png" alt="Website 1" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://placehold.co/800x600/00AEEF/ffffff?text=Website+1+Preview'">
+                        </div>
+                        <h3 class="text-2xl font-black mb-2">Project Name 1</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-grow">A brief description of this website project. Custom design focused on conversion and speed.</p>
+                        <a href="#" target="_blank" class="w-full py-3 bg-black text-white text-center rounded-full font-bold hover:bg-cmyk-c hover:text-black transition-colors">VISIT SITE</a>
                     </div>
-                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
-                        <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="16000">0</div>
-                        <p class="text-xl font-bold mb-2" data-key="stat-2-title">Followers Gained</p>
-                        <p class="text-gray-500 text-sm font-mono" data-key="stat-2-sub">On managed accounts</p>
+
+                    <!-- Site 2 -->
+                    <div class="glass-panel p-6 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-[1.02] hoverable group flex flex-col h-full">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-gray-100">
+                             <!-- LINK 2: Replace href with actual link -->
+                            <img src="webdesign/2.png" alt="Website 2" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://placehold.co/800x600/EC008C/ffffff?text=Website+2+Preview'">
+                        </div>
+                        <h3 class="text-2xl font-black mb-2">Project Name 2</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-grow">E-commerce solution with dynamic product filtering and modern UI.</p>
+                        <a href="#" target="_blank" class="w-full py-3 bg-black text-white text-center rounded-full font-bold hover:bg-cmyk-m hover:text-white transition-colors">VISIT SITE</a>
                     </div>
-                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
-                        <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="50000">0</div>
-                        <p class="text-xl font-bold mb-2" data-key="stat-3-title">Monthly Reach</p>
-                        <p class="text-gray-500 text-sm font-mono" data-key="stat-3-sub">Through our posts</p>
+
+                    <!-- Site 3 -->
+                    <div class="glass-panel p-6 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-[1.02] hoverable group flex flex-col h-full">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-gray-100">
+                             <!-- LINK 3: Replace href with actual link -->
+                            <img src="webdesign/3.png" alt="Website 3" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://placehold.co/800x600/FFF200/000000?text=Website+3+Preview'">
+                        </div>
+                        <h3 class="text-2xl font-black mb-2">Project Name 3</h3>
+                        <p class="text-gray-600 text-sm mb-6 flex-grow">Corporate portfolio for a local brand, featuring multilingual support.</p>
+                        <a href="#" target="_blank" class="w-full py-3 bg-black text-white text-center rounded-full font-bold hover:bg-cmyk-y hover:text-black transition-colors">VISIT SITE</a>
                     </div>
+
                 </div>
             </section>
 
-            <section class="relative">
-                <h2 class="text-5xl md:text-7xl font-display font-black mb-4 text-center" data-key="sec3-title">WEB DESIGN <span class="text-gray-700">SERVICES</span></h2>
-                <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium" data-key="sec3-desc">Functional, responsive, and beautiful websites.</p>
-                
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    <!-- Website 1 (Existing) -->
-                     <a href="https://ctrlswipe.github.io/antalya" target="_blank" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md border border-gray-200">
-                        <img src="web-design/1.png" class="w-full h-full object-cover" alt="Web 1" onerror="this.src='https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto-format&fit=crop'">
-                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full" data-key="btn-visit">VISIT SITE</span>
-                        </div>
-                    </a>
-                    
-                    <!-- Website 2 (Existing) -->
-                     <a href="https://ctrlswipe.github.io/clinic" target="_blank" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md border border-gray-200">
-                        <img src="web-design/2.png" class="w-full h-full object-cover" alt="Web 2" onerror="this.src='https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1000&auto-format&fit=crop'">
-                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full" data-key="btn-visit">VEZI SITE-UL</span>
-                        </div>
-                    </a>
-                    
-                    <!-- Website 3 (NEW: Lodge) -->
-                     <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="group relative aspect-square bg-gray-100 rounded-2xl overflow-hidden pop-zoom cursor-pointer shadow-md border border-gray-200">
-                        <img src="web-design/3.png" class="w-full h-full object-cover" alt="Web 3 (Lodge)" onerror="this.src='https://images.unsplash.com/photo-1540306161821-419b6727774d?q=80&w=1000&auto-format&fit=crop'">
-                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white font-bold text-lg border-2 border-white px-4 py-2 rounded-full" data-key="btn-visit">VISIT SITE</span>
-                        </div>
-                    </a>
+            <!-- SECTION 5: CAPTIONS & ADS -->
+            <!-- Separator: CYAN (Restart Cycle) -->
+            <section id="captions" class="pb-12">
+                 <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec4-title">CAPTIONS & ADS</h2>
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
                 </div>
-            </section>
-
-            <section class="relative">
-                 <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center" data-key="sec4-title">CAPTIONS <span class="text-cmyk-c">& ADS</span></h2>
-                 <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
+                 <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
@@ -212,65 +371,6 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- SECTION: SHORTENED TITLE & LOCAL VIDEO FILES -->
-            <section class="relative">
-                <!-- Shortened title to prevent overflow on mobile -->
-                <h2 class="text-5xl md:text-7xl font-display font-black mb-12 text-center" data-key="sec5-title">VIDEO <span class="text-cmyk-m">EDITING</span></h2>
-                <p class="text-center text-gray-500 mb-12 max-w-2xl mx-auto font-medium" data-key="sec5-desc">Short-form videos (Reels, TikTok) filmed and/or edited for maximum engagement.</p>
-
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    
-                    <!-- Video 1: Local File - MUTED REMOVED & POSTER ADDED -->
-                    <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <video controls playsinline preload="metadata" poster="thumb1.jpg" title="Clip 1">
-                            <source src="clip1.mp4" type="video/mp4">
-                            <!-- Fallback message in case the browser does not support the video tag -->
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <!-- Video 2: Local File - MUTED REMOVED & POSTER ADDED -->
-                    <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <video controls playsinline preload="metadata" poster="thumb2.jpg" title="Clip 2">
-                            <source src="clip2.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <!-- Video 3: Local File - MUTED REMOVED & POSTER ADDED -->
-                    <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <video controls playsinline preload="metadata" poster="thumb3.jpg" title="Clip 3">
-                            <source src="clip3.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    
-                    <!-- Video 4: Local File - MUTED REMOVED & POSTER ADDED -->
-                    <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                        <video controls playsinline preload="metadata" poster="thumb4.jpg" title="Clip 4">
-                            <source src="clip4.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <!-- Video 5: Local File - MUTED REMOVED & POSTER ADDED -->
-                    <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <video controls playsinline preload="metadata" poster="thumb5.jpg" title="Clip 5">
-                            <source src="clip5.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-
-                    <!-- Video 6: Local File - MUTED REMOVED & POSTER ADDED -->
-                    <div class="video-container rounded-2xl overflow-hidden shadow-lg border-2 border-black hoverable">
-                         <video controls playsinline preload="metadata" poster="thumb6.jpg" title="Clip 6">
-                            <source src="clip6.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </section>
 
         </div>
     </main>
@@ -287,38 +387,218 @@
     </footer>
     
     <script>
+        // CONFIG
+        const config = {
+            graphics: { count: 8, path: 'graphics-portfolio/', ext: '.png', type: 'image' },
+            stories: { count: 12, path: 'story/', mixed: true }, // Logic: Odd=png, Even=mp4
+            video: { count: 8, path: 'videoproduction/video', ext: '.mp4', type: 'video' }
+        };
+
+        const state = {
+            graphics: 0,
+            stories: 0,
+            video: 0
+        };
+
+        // GENERATE CONTENT
+        function generateItems() {
+            // 1. Graphics
+            const trackGraphics = document.getElementById('track-graphics');
+            const mobileGraphics = document.getElementById('mobile-graphics');
+            for(let i=1; i<=config.graphics.count; i++) {
+                const src = `${config.graphics.path}${i}${config.graphics.ext}`;
+                const fallback = `https://placehold.co/800x1000/00AEEF/ffffff?text=Graphic+${i}`;
+                
+                trackGraphics.innerHTML += `
+                    <div class="carousel-item aspect-4-5 w-[320px] md:w-[400px]" data-index="${i-1}">
+                        <img src="${src}" class="w-full h-full object-cover" onerror="this.src='${fallback}'">
+                    </div>`;
+                
+                mobileGraphics.innerHTML += `
+                    <div class="mobile-item aspect-4-5">
+                         <img src="${src}" class="w-full h-full object-cover" onerror="this.src='${fallback}'">
+                    </div>`;
+            }
+
+            // 2. Stories
+            const trackStories = document.getElementById('track-stories');
+            const mobileStories = document.getElementById('mobile-stories');
+            for(let i=1; i<=config.stories.count; i++) {
+                const isVideo = (i % 2 === 0);
+                const ext = isVideo ? '.mp4' : '.png';
+                const src = `${config.stories.path}${i}${ext}`;
+                const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${i}`;
+                
+                const content = isVideo 
+                    ? `<video src="${src}" class="w-full h-full object-cover" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-cover\\'>')"></video>`
+                    : `<img src="${src}" class="w-full h-full object-cover" onerror="this.src='${fallback}'">`;
+
+                trackStories.innerHTML += `
+                    <div class="carousel-item aspect-9-16 w-[320px]" data-index="${i-1}">
+                        ${content}
+                    </div>`;
+                
+                mobileStories.innerHTML += `
+                    <div class="mobile-item aspect-9-16">
+                         ${content}
+                    </div>`;
+            }
+
+            // 3. Video Production
+            const trackVideo = document.getElementById('track-video');
+            const mobileVideo = document.getElementById('mobile-video');
+            for(let i=1; i<=config.video.count; i++) {
+                const src = `${config.video.path}${i}${config.video.ext}`;
+                const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
+                const videoTag = `<video src="${src}" class="w-full h-full object-cover" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-cover\\'>')"></video>`;
+                
+                trackVideo.innerHTML += `
+                    <div class="carousel-item aspect-9-16 w-[320px]" data-index="${i-1}">
+                        ${videoTag}
+                    </div>`;
+                
+                mobileVideo.innerHTML += `
+                    <div class="mobile-item aspect-9-16">
+                         ${videoTag}
+                    </div>`;
+            }
+
+            updateCarousel('graphics');
+            updateCarousel('stories');
+            updateCarousel('video');
+            initMobileObserver();
+        }
+
+        function moveCarousel(type, dir) {
+            const total = type === 'graphics' ? config.graphics.count : (type === 'stories' ? config.stories.count : config.video.count);
+            state[type] = (state[type] + dir + total) % total;
+            updateCarousel(type);
+        }
+
+        function updateCarousel(type) {
+            const track = document.getElementById(`track-${type}`);
+            const items = track.querySelectorAll('.carousel-item');
+            const activeIdx = state[type];
+            const total = items.length;
+
+            items.forEach((item, idx) => {
+                let diff = (idx - activeIdx + total) % total;
+                if (diff > total / 2) diff -= total;
+                
+                item.className = item.className.replace(/c-active|c-prev|c-next|c-hidden/g, '').trim();
+                const video = item.querySelector('video');
+                
+                if (idx === activeIdx) {
+                    item.classList.add('c-active');
+                    if(video && video.readyState >= 1) { 
+                        video.play().catch(e => console.log("Video play prevented")); 
+                    } else if (video) {
+                         video.play().catch(e => console.log("Video play prevented"));
+                    }
+                } else {
+                    if(video) {
+                        video.pause(); 
+                        video.currentTime = 0;
+                    }
+                    if (diff === -1) item.classList.add('c-prev');
+                    else if (diff === 1) item.classList.add('c-next');
+                    else item.classList.add('c-hidden');
+                }
+            });
+        }
+        
+        function initMobileObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target.querySelector('video');
+                    if(video) {
+                        if (entry.isIntersecting) {
+                            video.play().catch(e => console.log("Mobile autoplay prevented"));
+                        } else {
+                            video.pause();
+                        }
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.7 });
+            
+            document.querySelectorAll('.mobile-item').forEach(item => observer.observe(item));
+        }
+
+        // --- DOM CONTENT LOADED ---
+        document.addEventListener('DOMContentLoaded', () => {
+            generateItems();
+
+            // --- PC CURSOR LOGIC ---
+            if (window.matchMedia("(min-width: 1024px)").matches) {
+                const cursorDot = document.getElementById('cursor-dot');
+                const cursorRing = document.getElementById('cursor-ring');
+                
+                if (cursorDot && cursorRing) {
+                    document.addEventListener('mousemove', (e) => { 
+                        cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
+                        cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
+                    });
+                    document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
+                    document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
+                    
+                    // Re-bind hoverables
+                    setInterval(() => {
+                        const newHoverables = document.querySelectorAll('.hoverable, .carousel-item, a, button');
+                        newHoverables.forEach(el => {
+                            if(!el.hasAttribute('data-hover-bound')) {
+                                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+                                el.setAttribute('data-hover-bound', 'true');
+                            }
+                        });
+                    }, 1000);
+                }
+            }
+
+            // Burger Menu
+            const burgerBtn = document.getElementById('burger-btn'); 
+            const mobileMenu = document.getElementById('mobile-menu'); 
+            let isMenuOpen = false;
+            if(burgerBtn) {
+                burgerBtn.addEventListener('click', () => { 
+                    isMenuOpen = !isMenuOpen; 
+                    const icon = burgerBtn.querySelector('i'); 
+                    if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } 
+                    else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } 
+                });
+            }
+            
+            // Language Init
+            applyLanguage(currentLang);
+        });
+
+        // TRANSLATIONS
         const translations = {
             en: {
                 'nav-home': 'HOME', 'nav-about': 'ABOUT US', 'nav-work': 'OUR WORK', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
-                'sec1-title': 'SOCIAL <span class="text-cmyk-c">GRAPHICS</span>', 'sec1-desc': 'High-impact visuals designed for feeds, stories, and ad campaigns.',
-                'sec2-title': 'REACH <span class="text-cmyk-m">RESULTS</span>',
-                'stat-1-title': 'People Reached', 'stat-1-sub': 'In the past 2 years',
-                'stat-2-title': 'Followers Gained', 'stat-2-sub': 'On managed accounts',
-                'stat-3-title': 'Monthly Reach', 'stat-3-sub': 'Through our posts',
-                'sec3-title': 'WEB DESIGN <span class="text-gray-700">SERVICES</span>', 'sec3-desc': 'Functional, responsive, and beautiful websites.',
-                'btn-visit': 'VISIT SITE',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>',
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explore our portfolio across various formats.',
+                'sec-graphics': 'SOCIAL MEDIA POSTS', 'sec-stories': 'STORIES', 'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
+                'btn-quote': 'GET A QUOTE',
                 'sec4-title': 'CAPTIONS <span class="text-cmyk-c">& ADS</span>', 'sec4-desc': 'We write words that sell, convince, and connect.',
                 'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
                 'box2-title': 'Engaging Captions', 'box2-desc': 'From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.',
                 'box3-title': 'Video Scripts', 'box3-desc': 'Structuring your reels and TikToks for maximum retention, ensuring your message is heard.',
-                'sec5-title': 'VIDEO <span class="text-cmyk-m">EDITING</span>', 'sec5-desc': 'Short-form videos (Reels, TikTok) filmed and/or edited for maximum engagement.',
                 'footer-rights': '© 2025. All rights reserved.',
                 'footer-crafted': 'Agency in <span class="font-bold text-black">Baia Mare</span>. Serving <span class="text-black">Cluj, Suceava</span> & Worldwide.'
             },
             ro: {
                 'nav-home': 'ACASĂ', 'nav-about': 'DESPRE NOI', 'nav-work': 'PORTOFOLIU', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
-                'sec1-title': 'GRAFICĂ <span class="text-cmyk-c">STATICĂ</span>', 'sec1-desc': 'Imagini cu impact puternic, concepute pentru feed-uri, stories și campanii.',
-                'sec2-title': 'REALIZĂRI',
-                'stat-1-title': 'Audiență', 'stat-1-sub': 'În ultimii doi ani',
-                'stat-2-title': 'Urmăritori strânși', 'stat-2-sub': 'Pe paginile administrate de noi',
-                'stat-3-title': 'Reach lunar', 'stat-3-sub': 'Datorită postărilor noastre',
-                'sec3-title': 'SERVICII DE <span class="text-gray-700">WEB DESIGN</span>', 'sec3-desc': 'Site-uri web atractive și cu funcționalitate optimă.',
-                'btn-visit': 'VEZI SITE-UL',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>', 
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explorează portofoliul nostru în diverse formate.',
+                'sec-graphics': 'POSTĂRI SOCIAL MEDIA', 'sec-stories': 'STORY-URI', 'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
+                'btn-quote': 'CERE O OFERTĂ',
                 'sec4-title': 'COPYWRITING <span class="text-cmyk-c">& RECLAME</span>', 'sec4-desc': 'Scriem texte care vând, conving și conectează.',
                 'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',
                 'box2-title': 'Potrivit ție', 'box2-desc': 'De la mesaje scurte și pline de umor până la postări lungi care spun o poveste, găsim tonul care se potrivește perfect brandului tău.',
                 'box3-title': 'Scripturi video', 'box3-desc': 'Structurarea reel-urilor și TikTok-urilor pentru o retenție maximă, asigurându-ne că mesajul tău este auzit.',
-                'sec5-title': 'EDITARE <span class="text-cmyk-m">VIDEO</span>', 'sec5-desc': 'Clipuri video scurte (Reels, TikTok) filmate și/sau editate pentru un engagement maxim.',
                 'footer-rights': 'Toate drepturile rezervate.',
                 'footer-crafted': 'Creat cu ❤️ în Baia Mare, România.'
             }
@@ -329,16 +609,20 @@
         function applyLanguage(lang) {
             const icon = document.getElementById('flag-icon');
             const iconMob = document.getElementById('flag-icon-mobile');
-            icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
-            iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+            if(icon) icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+            if(iconMob) iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
 
             const elements = document.querySelectorAll('[data-key]');
             elements.forEach(el => {
                 const key = el.getAttribute('data-key');
-                if(translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
+                if(translations[lang][key]) el.innerHTML = translations[lang][key];
             });
+            
+            const titleEl = document.getElementById('work-title');
+            if (titleEl) {
+                if (lang === 'ro') titleEl.innerHTML = translations['ro']['work-title-ro'];
+                else titleEl.innerHTML = translations['en']['work-title-en'];
+            }
         }
 
         function toggleLanguage() {
@@ -350,56 +634,6 @@
             setTimeout(() => { applyLanguage(newLang); }, 400);
             setTimeout(() => { icons.forEach(ic => ic.classList.remove('flag-flip')); }, 800);
         }
-        applyLanguage(currentLang);
-
-        // --- NUMBER COUNTER ---
-        const counters = document.querySelectorAll('.counter');
-        let hasCounted = false;
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !hasCounted) {
-                    hasCounted = true;
-                    counters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        const duration = 2000; 
-                        const increment = target / (duration / 16); 
-                        let current = 0;
-                        const updateCounter = () => {
-                            current += increment;
-                            if (current < target) {
-                                counter.innerText = Math.ceil(current).toLocaleString() + (target > 100 ? "+" : "");
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.innerText = target.toLocaleString() + "+";
-                            }
-                        };
-                        updateCounter();
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
-        const resultsSection = document.querySelector('.counter'); 
-        if(resultsSection) observer.observe(resultsSection.parentElement);
-
-        // --- PC CURSOR LOGIC ---
-        if (window.matchMedia("(min-width: 1024px)").matches) {
-            const cursorDot = document.getElementById('cursor-dot');
-            const cursorRing = document.getElementById('cursor-ring');
-            const hoverables = document.querySelectorAll('.hoverable, .pop-zoom'); // Added pop-zoom
-            
-            document.addEventListener('mousemove', (e) => { 
-                cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
-                cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
-            });
-            document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
-            document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
-            hoverables.forEach(el => {
-                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
-                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
-            });
-        }
-        const burgerBtn = document.getElementById('burger-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
-        burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
     </script>
 </body>
 </html>

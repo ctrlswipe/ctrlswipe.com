@@ -296,23 +296,23 @@
                     
                     <!-- Site 1 -->
                     <a href="https://ctrlswipe.github.io/antalya/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
-                        <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                        <div class="w-full aspect-square overflow-hidden bg-gray-100">
                             <!-- Using object-contain to allow full view without crop -->
-                            <img src="web-design/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/00AEEF/ffffff?text=Website+1'">
+                            <img src="web-design/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/00AEEF/ffffff?text=Website+1'">
                         </div>
                     </a>
 
                     <!-- Site 2 -->
                     <a href="https://ctrlswipe.github.io/clinic/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
-                         <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                            <img src="web-design/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/EC008C/ffffff?text=Website+2'">
+                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <img src="web-design/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/EC008C/ffffff?text=Website+2'">
                         </div>
                     </a>
 
                     <!-- Site 3 -->
                     <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
-                         <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                            <img src="web-design/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/FFF200/000000?text=Website+3'">
+                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <img src="web-design/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/FFF200/000000?text=Website+3'">
                         </div>
                     </a>
 
@@ -377,6 +377,27 @@
             video: 0
         };
 
+        // Helper function for mute toggling - defined globally
+        function toggleMute(btn) {
+            // Find the video element in the same container
+            const video = btn.parentElement.querySelector('video');
+            const icon = btn.querySelector('i');
+            
+            if (video) {
+                if (video.muted) {
+                    video.muted = false;
+                    icon.className = 'fa-solid fa-volume-high'; // Sound ON icon
+                    // Force play if paused
+                    video.play().catch(e => console.log('Play error on unmute:', e));
+                } else {
+                    video.muted = true;
+                    icon.className = 'fa-solid fa-volume-xmark'; // Mute icon
+                }
+            }
+            // Stop propagation so we don't trigger carousel clicks if any
+            event.stopPropagation();
+        }
+
         // GENERATE CONTENT
         function generateItems() {
             // 1. Graphics (Using object-contain to prevent crop)
@@ -408,7 +429,7 @@
                 
                 // Note: object-contain allows full view without crop
                 const content = isVideo 
-                    ? `<video src="${src}" class="w-full h-full object-contain" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`
+                    ? `<video src="${src}" class="w-full h-full object-contain" muted loop playsinline preload="auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`
                     : `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
 
                 trackStories.innerHTML += `
@@ -422,23 +443,32 @@
                     </div>`;
             }
 
-            // 3. Video Production (Fixed logic, verified paths, object-contain)
+            // 3. Video Production (Added Controls, fixed logic)
             const trackVideo = document.getElementById('track-video');
             const mobileVideo = document.getElementById('mobile-video');
             for(let i=1; i<=config.video.count; i++) {
                 const src = `${config.video.path}${i}${config.video.ext}`;
                 const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
                 
-                const videoTag = `<video src="${src}" class="w-full h-full object-contain" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`;
+                // Video HTML with Mute Button for Desktop & Mobile
+                // Note: 'muted' attribute is required for autoplay to work initially
+                const videoHTML = `
+                    <div class="relative w-full h-full group">
+                        <video src="${src}" class="w-full h-full object-contain" muted loop playsinline preload="auto" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>
+                        <button class="absolute bottom-4 right-4 z-30 bg-black/50 hover:bg-cmyk-y hover:text-black text-white p-3 rounded-full transition-all backdrop-blur-sm shadow-lg border border-white/20" onclick="toggleMute(this)">
+                            <i class="fa-solid fa-volume-xmark text-lg"></i>
+                        </button>
+                    </div>
+                `;
                 
                 trackVideo.innerHTML += `
                     <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
-                        ${videoTag}
+                        ${videoHTML}
                     </div>`;
                 
                 mobileVideo.innerHTML += `
                     <div class="mobile-item aspect-9-16">
-                         ${videoTag}
+                         ${videoHTML}
                     </div>`;
             }
 
@@ -469,15 +499,31 @@
                 
                 if (idx === activeIdx) {
                     item.classList.add('c-active');
-                    if(video && video.readyState >= 1) { 
-                        video.play().catch(e => console.log("Video play prevented")); 
-                    } else if (video) {
-                         video.play().catch(e => console.log("Video play prevented"));
+                    // Play logic: must check if video exists
+                    if (video) {
+                        // Always try to play. If sound is on (muted=false), browser might block if not user interacted.
+                        // But since we start muted, it should play.
+                        var playPromise = video.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log("Auto-play prevented (Desktop):", error);
+                                // Fallback: Ensure muted if play failed (sometimes browsers block unmuted autoplay even if we tried)
+                                if (!video.muted) {
+                                     // User has not interacted yet, maybe keep muted? 
+                                     // Actually, if we are here, likely the user manually unmuted another video and we swiped.
+                                }
+                            });
+                        }
                     }
                 } else {
                     if(video) {
                         video.pause(); 
                         video.currentTime = 0;
+                        // Reset to mute when swiping away? Optional. 
+                        // Let's keep user preference? No, usually better to reset to mute to avoid blasting sound when swiping back unexpectedly.
+                        // But user requested control. Let's leave state as is, but pause.
+                        // Actually, for a smoother experience, let's reset icon to mute if we want consistent autoplay behavior on return.
+                        // For now, simple pause is safer.
                     }
                     if (diff === -1) item.classList.add('c-prev');
                     else if (diff === 1) item.classList.add('c-next');
@@ -492,13 +538,19 @@
                     const video = entry.target.querySelector('video');
                     if(video) {
                         if (entry.isIntersecting) {
-                            video.play().catch(e => console.log("Mobile autoplay prevented"));
+                             // Mobile autoplay requirement: Muted + Playsinline
+                             // We ensure muted is set if it wasn't manually unmuted by user previously (though intersection usually resets context)
+                             // To be safe for "autoplay", we generally need to ensure it's playing.
+                             var p = video.play();
+                             if(p !== undefined) {
+                                 p.catch(e => console.log("Mobile scroll play error:", e));
+                             }
                         } else {
                             video.pause();
                         }
                     }
                 });
-            }, { root: null, rootMargin: '0px', threshold: 0.7 });
+            }, { root: null, rootMargin: '0px', threshold: 0.6 });
             
             document.querySelectorAll('.mobile-item').forEach(item => observer.observe(item));
         }

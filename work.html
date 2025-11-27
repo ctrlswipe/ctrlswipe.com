@@ -429,7 +429,7 @@
                 
                 // Note: object-contain allows full view without crop
                 const content = isVideo 
-                    ? `<video src="${src}" class="w-full h-full object-contain" muted loop playsinline preload="auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`
+                    ? `<video src="${src}" class="w-full h-full object-contain" autoplay muted loop playsinline preload="auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`
                     : `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
 
                 trackStories.innerHTML += `
@@ -454,7 +454,7 @@
                 // Note: 'muted' attribute is required for autoplay to work initially
                 const videoHTML = `
                     <div class="relative w-full h-full group">
-                        <video src="${src}" class="w-full h-full object-contain" muted loop playsinline preload="auto" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>
+                        <video src="${src}" class="w-full h-full object-contain" autoplay muted loop playsinline preload="auto" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>
                         <button class="absolute bottom-4 right-4 z-30 bg-black/50 hover:bg-cmyk-y hover:text-black text-white p-3 rounded-full transition-all backdrop-blur-sm shadow-lg border border-white/20" onclick="toggleMute(this)">
                             <i class="fa-solid fa-volume-xmark text-lg"></i>
                         </button>
@@ -541,6 +541,7 @@
                              // Mobile autoplay requirement: Muted + Playsinline
                              // We ensure muted is set if it wasn't manually unmuted by user previously (though intersection usually resets context)
                              // To be safe for "autoplay", we generally need to ensure it's playing.
+                             video.muted = true; // Force mute to ensure autoplay
                              var p = video.play();
                              if(p !== undefined) {
                                  p.catch(e => console.log("Mobile scroll play error:", e));

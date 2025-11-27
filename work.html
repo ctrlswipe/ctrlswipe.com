@@ -2,1530 +2,373 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <title>CTRL Swipe | Creative Studio</title>
-    <meta name="description" content="CTRL Swipe - Creative studio specializing in branding, content creation, video production, and visual storytelling for ambitious brands.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Tailwind via CDN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Work | Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Tailwind Custom Config -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        'cmyk-c': '#00AEEF',
-                        'cmyk-m': '#EC008C',
-                        'cmyk-y': '#FFF200',
-                        'cmyk-k': '#231F20',
-                        'soft-bg': '#05050B',
-                    },
-                    fontFamily: {
-                        'sans': ['system-ui', 'ui-sans-serif', 'system', 'Segoe UI', 'sans-serif'],
-                        'display': ['Space Grotesk', 'system-ui', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'soft-glow': '0 20px 45px rgba(0,0,0,0.6)',
-                        'card': '0 14px 40px rgba(0,0,0,0.55)',
-                    },
-                    backdropBlur: {
-                        xs: '2px',
-                    },
-                    animation: {
-                        'float-slow': 'float 14s ease-in-out infinite',
-                        'float-medium': 'float 11s ease-in-out infinite',
-                        'float-fast': 'float 9s ease-in-out infinite',
-                        'pulse-slow': 'pulse 3.5s ease-in-out infinite',
-                        'marquee-slow': 'marquee 30s linear infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-24px) translateX(10px) rotate(2deg)' },
-                        },
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-50%)' },
-                        }
-                    }
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'] },
+                    colors: { 'cmyk-c': '#00AEEF', 'cmyk-m': '#EC008C', 'cmyk-y': '#FFF200', 'cmyk-k': '#101010', 'cmyk-m-light': '#ff4da6' },
+                    boxShadow: { 'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }
                 }
-            },
-            darkMode: 'class',
+            }
         }
     </script>
-
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/4c61d71c08.js" crossorigin="anonymous"></script>
-
-    <!-- Custom Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            color-scheme: dark;
-        }
+        html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
+        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
+        .hoverable:hover { transform: scale(1.05) !important; z-index: 50; position: relative; }
+        .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
+        .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+        .gradient-blob-cyan { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #00AEEF 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
 
-        body {
-            background: radial-gradient(circle at top left, #1E293B, #020617 52%, #000000 100%);
-            color: #E5E7EB;
-        }
-
-        .glass-panel {
-            background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(15,23,42,0.96));
-            border-radius: 24px;
-            border: 1px solid rgba(148,163,184,0.45);
-            box-shadow: 0 22px 55px rgba(15,23,42,0.95);
-        }
-
-        .glass-subtle {
-            background: linear-gradient(145deg, rgba(15,23,42,0.88), rgba(15,23,42,0.95));
-            border-radius: 24px;
-            border: 1px solid rgba(148,163,184,0.35);
-        }
-
-        .glass-chip {
-            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.7);
-        }
-
-        .text-gradient-cmyk {
-            background: linear-gradient(90deg, #00AEEF, #EC008C, #FFF200);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .bg-grid {
-            background-image:
-                radial-gradient(circle at 1px 1px, rgba(148,163,184,0.24) 1px, transparent 0);
-            background-size: 32px 32px;
-        }
-
-        .bg-diagonal {
-            background-image:
-                radial-gradient(circle at 1px 1px, rgba(148,163,184,0.23) 1px, transparent 0);
-            background-size: 26px 26px;
-        }
-
-        .bg-orbit {
-            background:
-                radial-gradient(circle at 10% 20%, rgba(56,189,248,0.10) 0, transparent 48%),
-                radial-gradient(circle at 70% 10%, rgba(236,72,153,0.10) 0, transparent 50%),
-                radial-gradient(circle at 15% 90%, rgba(250,204,21,0.12) 0, transparent 52%),
-                radial-gradient(circle at 85% 85%, rgba(59,130,246,0.10) 0, transparent 60%),
-                radial-gradient(circle at center, rgba(15,23,42,0.85) 0, rgba(15,23,42,1) 60%);
-        }
-
-        .nav-link {
-            position: relative;
-            padding-left: 0.05rem;
-            padding-right: 0.05rem;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -0.3rem;
-            width: 0;
-            height: 2px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #00AEEF, #EC008C, #FFF200);
-            transition: width 0.28s ease-out;
-        }
-
-        .nav-link.active::after,
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .badge-soft {
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.55);
-            padding: 0.25rem 0.7rem;
-            background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-        }
-
-        .floating-label {
-            position: relative;
-        }
-
-        .floating-label label {
-            position: absolute;
-            left: 0.9rem;
-            top: 0.7rem;
-            color: #9CA3AF;
-            font-size: 0.82rem;
-            pointer-events: none;
-            transform-origin: left top;
-            transition: all 0.2s ease;
-        }
-
-        .floating-label input:focus + label,
-        .floating-label input:not(:placeholder-shown) + label,
-        .floating-label textarea:focus + label,
-        .floating-label textarea:not(:placeholder-shown) + label {
-            top: -0.4rem;
-            left: 0.7rem;
-            font-size: 0.7rem;
-            padding: 0 0.35rem;
-            border-radius: 999px;
-            background: radial-gradient(circle at top, rgba(15,23,42,1), rgba(15,23,42,0.96));
-            color: #E5E7EB;
-            border: 1px solid rgba(148,163,184,0.6);
-        }
-
-        .floating-label input,
-        .floating-label textarea {
-            padding-top: 1.4rem;
-        }
-
-        .service-tag-pill {
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.7);
-            padding: 0.35rem 0.8rem;
-            background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-            font-size: 0.8rem;
-            letter-spacing: 0.02em;
-        }
-
-        .logo-orbit {
-            background:
-                radial-gradient(circle at 50% 0%, rgba(59,130,246,0.45), transparent 55%),
-                radial-gradient(circle at 0% 100%, rgba(236,72,153,0.35), transparent 55%),
-                radial-gradient(circle at 100% 100%, rgba(250,204,21,0.38), transparent 55%);
-        }
-
-        .hero-orbit-ring {
-            position: absolute;
-            inset: -8%;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.35);
-            opacity: 0.45;
-        }
-
-        .hero-orbit-ring:nth-child(2) {
-            inset: -14%;
-            opacity: 0.25;
-        }
-
-        .hero-orbit-ring:nth-child(3) {
-            inset: -20%;
-            opacity: 0.14;
-        }
-
-        .studio-grid {
-            background-image:
-                linear-gradient(to right, rgba(30,64,175,0.18) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(30,64,175,0.18) 1px, transparent 1px);
-            background-size: 22px 22px;
-        }
-
-        .credits-link {
-            position: relative;
-        }
-
-        .credits-link::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 0;
-            height: 1px;
-            background-color: rgba(148,163,184,0.85);
-            transition: width 0.22s ease-out;
-        }
-
-        .credits-link:hover::after {
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .hero-split {
-                display: grid;
-                grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.1fr);
-                gap: 2.5rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .hero-split {
-                gap: 3.25rem;
-            }
-        }
-
-        .slanted-gradient {
-            background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.92));
-        }
-
-        .slanted-border {
-            position: relative;
-        }
-
-        .slanted-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(148,163,184,0.9), rgba(75,85,99,0.85));
-            -webkit-mask:
-                linear-gradient(#000 0 0) content-box,
-                linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-        }
-
-        @media (min-width: 1024px) {
-            .perspective-card {
-                transform: perspective(1200px) rotateX(10deg) rotateY(-12deg);
-                transform-origin: center right;
-                transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                            box-shadow 0.6s ease,
-                            border-color 0.3s ease;
-            }
-
-            .perspective-card:hover {
-                transform: perspective(1350px) rotateX(6deg) rotateY(-8deg) translateY(-8px);
-                box-shadow: 0 28px 80px rgba(15,23,42,0.9);
-            }
-        }
-
-        .glow-dot-c {
-            box-shadow: 0 0 24px rgba(56,189,248,0.85);
-        }
-
-        .glow-dot-m {
-            box-shadow: 0 0 24px rgba(244,114,182,0.9);
-        }
-
-        .glow-dot-y {
-            box-shadow: 0 0 24px rgba(250,204,21,0.9);
-        }
-
-        .noise {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            opacity: 0.12;
-            mix-blend-mode: soft-light;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
-            z-index: 0;
-        }
-
-        .btn-primary {
-            position: relative;
+        /* CAROUSEL STYLES */
+        .carousel-container { perspective: 1000px; overflow: hidden; display: flex; justify-content: center; align-items: center; position: relative; height: 750px; }
+        
+        .carousel-item { 
+            position: absolute; 
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
             overflow: hidden;
+            background: transparent; 
+            transform-style: preserve-3d;
+            will-change: transform, opacity; 
         }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 0 0, rgba(248,250,252,0.24), transparent 55%);
-            opacity: 0;
-            transition: opacity 0.25s ease-out;
+        
+        .c-active { 
+            z-index: 20; 
+            transform: translateX(0) scale(1); 
+            filter: blur(0) brightness(1); 
+            opacity: 1; 
         }
-
-        .btn-primary:hover::before {
-            opacity: 1;
+        .c-prev { 
+            z-index: 10; 
+            transform: translateX(-100%) scale(0.85) rotateY(15deg); 
+            filter: blur(3px) brightness(0.7); 
+            opacity: 0.8; 
+            pointer-events: none; 
         }
-
-        .story-frame-shadow {
-            box-shadow: 0 24px 50px rgba(15,23,42,0.95);
+        .c-next { 
+            z-index: 10; 
+            transform: translateX(100%) scale(0.85) rotateY(-15deg); 
+            filter: blur(3px) brightness(0.7); 
+            opacity: 0.8; 
+            pointer-events: none; 
         }
+        .c-hidden { z-index: 0; transform: scale(0.5); opacity: 0; pointer-events: none; display: none; }
 
-        .gradient-border-card {
+        /* Mobile Scroll */
+        .mobile-scroll { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 1rem; 
+            padding: 1rem 2rem; 
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch; 
+            scroll-behavior: smooth; 
+        }
+        .mobile-scroll::-webkit-scrollbar { display: none; }
+        .mobile-item { 
+            flex: 0 0 85%; 
+            scroll-snap-align: center; 
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
             position: relative;
+            background: black;
         }
 
-        .gradient-border-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            padding: 1px;
-            border-radius: inherit;
-            background: linear-gradient(to bottom right, rgba(148,163,184,0.85), rgba(55,65,81,0.8));
-            -webkit-mask:
-                linear-gradient(#000 0 0) content-box,
-                linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        .logo-ring {
-            position: absolute;
-            inset: -16%;
-            border-radius: 999px;
-            border: 1px dashed rgba(148,163,184,0.38);
-            opacity: 0.7;
-        }
-
-        .logo-ring:nth-child(2) {
-            inset: -28%;
-            opacity: 0.5;
-        }
-
-        .logo-ring:nth-child(3) {
-            inset: -40%;
-            opacity: 0.3;
-        }
-
-        @keyframes badge-sparkle {
-            0%, 100% {
-                transform: translateX(-80%) translateY(-70%) rotate(-18deg);
-                opacity: 0.0;
+        /* --- CURSOR STYLES --- */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            .cursor-dot { 
+                width: 24px; height: 24px; 
+                background-color: white; 
+                position: fixed; top: 0; left: 0;
+                transform: translate(-50%, -50%); 
+                z-index: 100001; 
+                pointer-events: none; 
+                mix-blend-mode: difference; 
+                -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
+                mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
+                -webkit-mask-size: contain; mask-size: contain; 
+                -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; 
+                -webkit-mask-position: center; mask-position: center; 
+                transition: transform 0.1s; 
             }
-            10%, 40% {
-                opacity: 0.5;
+            .cursor-dot.active { 
+                background-color: #ff0033; mix-blend-mode: normal; 
+                box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; 
+                transform: translate(-50%, -50%) scale(0.8); 
             }
-            50% {
-                transform: translateX(8%) translateY(-10%) rotate(-18deg);
-                opacity: 0.85;
+            .cursor-ring { 
+                width: 40px; height: 40px; 
+                border: 1px solid #EC008C; 
+                border-radius: 50%; 
+                position: fixed; top: 0; left: 0;
+                transform: translate(-50%, -50%); 
+                z-index: 100000; 
+                pointer-events: none; 
+                transition: all 0.15s ease-out; 
             }
-            60%, 90% {
-                opacity: 0.0;
-            }
+            .cursor-ring.hovered { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); }
+        }
+        @media (max-width: 1023px) { 
+            .cursor-dot, .cursor-ring { display: none !important; } 
+            body { cursor: auto; } 
         }
 
-        .badge-sparkle {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 110px;
-            height: 110px;
-            background: radial-gradient(circle at center, rgba(248,250,252,0.65), transparent 70%);
-            mix-blend-mode: screen;
-            filter: blur(1.2px);
-            animation: badge-sparkle 6.4s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .carousel-track {
-            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .mobile-carousel-item {
-            opacity: 0;
-            pointer-events: none;
-            transform: translateX(12px);
-            transition: opacity 0.35s ease-out, transform 0.35s ease-out;
-        }
-
-        .mobile-carousel-item.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateX(0);
-        }
-
-        @media (max-width: 767px) {
-            .desktop-carousel {
-                display: none !important;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .mobile-carousel {
-                display: none !important;
-            }
-        }
-
-        .feedback-gradient {
-            background:
-                radial-gradient(circle at 10% 20%, rgba(56,189,248,0.10), transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(236,72,153,0.08), transparent 50%);
-        }
-
-        .section-anchor::before {
-            content: '';
-            display: block;
-            height: 90px;
-            margin-top: -90px;
-            visibility: hidden;
-        }
-
-        @media (max-width: 767px) {
-            .hero-grid-responsive {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .hero-grid-responsive > :last-child {
-                order: -1;
-            }
-        }
-
-        .gradient-divider {
-            height: 1px;
-            width: 100%;
-            background: linear-gradient(90deg, transparent, rgba(148,163,184,0.7), transparent);
-        }
-
-        .aspect-4-5 {
-            aspect-ratio: 4 / 5;
-        }
-
-        .aspect-9-16 {
-            aspect-ratio: 9 / 16;
-        }
-
-        .carousel-item {
-            scroll-snap-align: center;
-        }
-
-        .carousel-shadow {
-            box-shadow: 0 24px 50px rgba(15,23,42,0.98);
-        }
-
-        .mobile-item {
-            scroll-snap-align: center;
-        }
-
-        .accent-dash {
-            width: 42px;
-            height: 2px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #00AEEF, #EC008C, #FFF200);
-        }
+        .flag-btn { perspective: 1000px; display: inline-block; cursor: pointer; }
+        .flag-inner { transition: transform 0.6s; transform-style: preserve-3d; display: inline-block; }
+        .flag-flip { animation: flipShine 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both; }
+        @keyframes flipShine { 0% { transform: rotateY(0); filter: brightness(1); } 50% { filter: brightness(2) drop-shadow(0 0 10px gold); } 100% { transform: rotateY(360deg); filter: brightness(1); } }
+        
+        #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
+        #mobile-menu.open { opacity: 1; visibility: visible; }
+        #mobile-menu.closed { opacity: 0; visibility: hidden; }
+        
+        .aspect-4-5 { aspect-ratio: 4/5; }
+        .aspect-9-16 { aspect-ratio: 9/16; }
+        .aspect-16-9 { aspect-ratio: 16/9; }
     </style>
 </head>
-<body class="min-h-screen font-sans antialiased bg-orbit text-slate-100 relative overflow-x-hidden">
-<div class="noise"></div>
+<body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
 
-<div class="min-h-screen max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 relative z-10">
-    <header class="flex items-center justify-between mb-8 sm:mb-10 lg:mb-12">
-        <a href="#top" class="flex items-center gap-3">
-            <div class="relative">
-                <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-slate-900/90 border border-slate-600/80 flex items-center justify-center shadow-soft-glow overflow-hidden logo-orbit relative z-10">
-                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/70 via-fuchsia-500/70 to-amber-300/60 mix-blend-screen opacity-90"></div>
-                    <div class="relative z-10 flex items-center justify-center">
-                        <span class="text-slate-950 text-xl font-extrabold tracking-tight drop-shadow-[0_0_12px_rgba(15,23,42,0.7)]">
-                            C
-                        </span>
-                    </div>
+    <nav class="fixed w-full z-50 top-4 px-4">
+        <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
+            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
+                <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 cursor-pointer"></a>
+                <div class="w-full h-full origin-left pointer-events-none">
+                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain">
                 </div>
-
-                <div class="logo-ring"></div>
-                <div class="logo-ring"></div>
-                <div class="logo-ring"></div>
             </div>
-            <div class="flex flex-col leading-tight">
-                <span class="text-sm uppercase tracking-[0.28em] text-slate-400 font-semibold">CTRL</span>
-                <span class="text-xl sm:text-2xl font-semibold text-slate-100 tracking-tight -mt-1.5">
-                        Swipe
-                    </span>
+
+            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
+                <a href="index.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-home">HOME</a>
+                <a href="about.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-about">ABOUT US</a>
+                <a href="work.html" class="text-cmyk-m transition-colors hoverable" data-key="nav-work">OUR WORK</a>
+                <a href="blog.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-blog">BLOG</a>
+                <a href="contact.html" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-contact">CONTACT</a>
+                <div class="flag-btn hoverable ml-4" onclick="toggleLanguage()">
+                    <span id="flag-icon" class="flag-inner fi fi-us text-xl rounded-sm shadow-sm"></span>
+                </div>
             </div>
-        </a>
 
-        <nav class="hidden md:flex items-center gap-8 text-sm text-slate-300">
-            <a href="#services" class="nav-link hover:text-slate-100 transition-colors">Services</a>
-            <a href="#reel" class="nav-link hover:text-slate-100 transition-colors">Showreel</a>
-            <a href="#studio" class="nav-link hover:text-slate-100 transition-colors">Studio</a>
-            <a href="#contact" class="nav-link hover:text-slate-100 transition-colors">Contact</a>
-        </nav>
-
-        <a href="#contact"
-           class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full border border-slate-600/80 bg-slate-900/80 hover:bg-slate-800/90 text-slate-100 text-xs sm:text-sm font-medium shadow-card transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(15,23,42,0.9)]">
-            <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-emerald-400 text-[0.6rem] text-slate-950 shadow-md">
-                <i class="fa-solid fa-bolt"></i>
-            </span>
-            <span>Let’s talk content</span>
-        </a>
-    </header>
-
-    <main>
-        <section id="top" class="section-anchor"></section>
-
-        <section class="mb-14 sm:mb-16 lg:mb-20 hero-split hero-grid-responsive">
-            <div class="flex flex-col justify-center mb-8 lg:mb-0">
-                <div class="inline-flex items-center gap-2 badge-soft mb-4 sm:mb-5 relative pr-3">
-                    <span class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/15 via-fuchsia-500/10 to-amber-300/10 blur-xl opacity-90 pointer-events-none"></span>
-                    <span class="relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-900/95 border border-slate-500/80">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(16,185,129,0.35)]"></span>
-                    </span>
-                    <span class="relative text-[0.7rem] font-medium tracking-[0.18em] text-slate-200 uppercase">
-                            VISUAL STUDIO · CONTENT LAB
-                        </span>
-                    <span class="relative h-1 w-5 rounded-full bg-gradient-to-r from-cyan-400/80 via-fuchsia-400/80 to-amber-300/80"></span>
+            <div class="lg:hidden flex items-center gap-4 z-[60]">
+                <div class="flag-btn" onclick="toggleLanguage()">
+                    <span id="flag-icon-mobile" class="flag-inner fi fi-us text-xl rounded-sm shadow-sm"></span>
                 </div>
+                <button id="burger-btn" class="w-10 h-10 flex-shrink-0 flex items-center justify-center text-black bg-white rounded-full shadow-lg border border-gray-100 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-                <div class="mb-5 sm:mb-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="accent-dash"></div>
-                        <span class="text-[0.78rem] sm:text-xs uppercase tracking-[0.28em] text-slate-400 font-semibold">
-                                BRAND-FIRST CONTENT
-                            </span>
-                    </div>
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[3.25rem] font-semibold tracking-tight leading-tight text-slate-50">
-                            We turn <span class="text-gradient-cmyk">scrolls</span> into
-                            <span class="relative inline-block">
-                                attention.
-                                <span class="absolute inset-x-0 -bottom-1 h-[2px] bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-amber-300 blur-[0.5px]"></span>
-                            </span>
-                        </h1>
-                </div>
+    <div id="mobile-menu" class="fixed inset-0 z-40 closed bg-white/80 backdrop-blur-xl lg:hidden flex flex-col items-center justify-center">
+        <div class="flex flex-col space-y-8 text-center font-display font-black text-3xl text-black">
+            <a href="index.html" class="text-black hover:text-cmyk-m-light" data-key="nav-home">HOME</a>
+            <a href="about.html" class="text-black hover:text-cmyk-m-light" data-key="nav-about">ABOUT US</a>
+            <a href="work.html" class="text-cmyk-m" data-key="nav-work">OUR WORK</a>
+            <a href="blog.html" class="text-black hover:text-cmyk-m-light" data-key="nav-blog">BLOG</a>
+            <a href="contact.html" class="text-black hover:text-cmyk-m-light" data-key="nav-contact">CONTACT</a>
+        </div>
+    </div>
 
-                <p class="text-sm sm:text-base text-slate-300/95 leading-relaxed max-w-xl mb-5 sm:mb-6">
-                    CTRL Swipe is a content studio for brands that care about
-                    <span class="font-semibold text-slate-50">how they look</span> and
-                    <span class="font-semibold text-slate-50">how they sound</span> online. We script, design, and
-                    edit content that actually feels like your brand – not like a template.
+    <main class="pt-40 pb-24 px-4 md:px-6 relative min-h-screen overflow-hidden">
+         <div class="gradient-blob-magenta" style="top: 10%; left: -200px;"></div>
+         <div class="gradient-blob-cyan" style="bottom: 20%; right: -200px;"></div>
+         
+        <div class="max-w-7xl mx-auto relative z-10 space-y-32">
+            
+            <!-- HEADER -->
+            <header class="text-center max-w-4xl mx-auto">
+                <h1 class="text-6xl md:text-8xl font-display font-black mb-6 leading-none" id="work-title">
+                    <span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-12 font-regular" data-key="work-desc">
+                    Explore our portfolio across various formats.
                 </p>
+            </header>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                    <div class="glass-subtle p-3.5 rounded-2xl flex items-start gap-3 border border-slate-600/80 shadow-card">
-                        <div class="mt-0.5">
-                            <span class="inline-flex h-7 w-7 items-center justify-center rounded-xl bg-cyan-500/15 border border-cyan-400/40 text-cyan-300">
-                                <i class="fa-solid fa-pen-nib text-xs"></i>
-                            </span>
-                        </div>
-                        <div>
-                            <p class="text-xs text-slate-400 uppercase tracking-[0.16em] mb-0.5">CREATIVE DIRECTION</p>
-                            <p class="text-xs text-slate-100">
-                                Story-driven concepts for campaigns, launches, and evergreen content.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="glass-subtle p-3.5 rounded-2xl flex items-start gap-3 border border-slate-600/80 shadow-card">
-                        <div class="mt-0.5">
-                            <span class="inline-flex h-7 w-7 items-center justify-center rounded-xl bg-fuchsia-500/15 border border-fuchsia-400/40 text-fuchsia-300">
-                                <i class="fa-solid fa-photo-film text-xs"></i>
-                            </span>
-                        </div>
-                        <div>
-                            <p class="text-xs text-slate-400 uppercase tracking-[0.16em] mb-0.5">CONTENT DESIGN</p>
-                            <p class="text-xs text-slate-100">
-                                Visual systems for social, ads, and long-form storytelling.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="glass-subtle p-3.5 rounded-2xl flex items-start gap-3 border border-slate-600/80 shadow-card">
-                        <div class="mt-0.5">
-                            <span class="inline-flex h-7 w-7 items-center justify-center rounded-xl bg-amber-500/15 border border-amber-300/40 text-amber-200">
-                                <i class="fa-solid fa-clapperboard text-xs"></i>
-                            </span>
-                        </div>
-                        <div>
-                            <p class="text-xs text-slate-400 uppercase tracking-[0.16em] mb-0.5">EDITING & STORY</p>
-                            <p class="text-xs text-slate-100">
-                                Video editing, motion, and story structure for humans, not algorithms.
-                            </p>
-                        </div>
-                    </div>
+            <!-- SECTION 1: SOCIAL MEDIA POSTS (4:5) -->
+            <!-- Separator: CYAN -->
+            <section id="graphics">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-graphics">SOCIAL MEDIA POSTS</h2>
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-                    <a href="#reel"
-                       class="btn-primary inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-amber-300 text-slate-950 font-semibold text-xs sm:text-sm shadow-[0_18px_50px_rgba(8,47,73,0.95)] border border-slate-950/80 hover:shadow-[0_24px_70px_rgba(8,47,73,1)] hover:-translate-y-0.5 transition-all">
-                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-950/95 text-[0.65rem]">
-                            <i class="fa-solid fa-play"></i>
-                        </span>
-                        <span>Watch our reel</span>
+                <!-- Desktop Carousel (Graphics) -->
+                <div class="hidden lg:flex relative carousel-container h-[700px]" id="carousel-graphics">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', -1)">
+                        <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    </button>
+                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-graphics">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', 1)">
+                        <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile Scroll (Graphics) -->
+                <div class="lg:hidden mobile-scroll" id="mobile-graphics">
+                    <!-- Items injected by JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 2: STORIES (9:16) -->
+            <!-- Separator: MAGENTA -->
+            <section id="stories">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-m flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-stories">STORIES</h2>
+                    <div class="h-[3px] bg-cmyk-m flex-grow"></div>
+                </div>
+
+                <!-- Desktop Carousel (Stories) -->
+                <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-stories">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', -1)">
+                        <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    </button>
+                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-stories">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', 1)">
+                        <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Scroll (Stories) -->
+                <div class="lg:hidden mobile-scroll" id="mobile-stories">
+                    <!-- Items injected by JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 3: VIDEO PRODUCTION (9:16 Vertical) -->
+            <!-- Separator: YELLOW -->
+            <section id="video">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-y flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-video">VIDEO PRODUCTION</h2>
+                    <div class="h-[3px] bg-cmyk-y flex-grow"></div>
+                </div>
+
+                <!-- Desktop Carousel (Video) -->
+                <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-video">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', -1)">
+                        <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    </button>
+                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-video">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', 1)">
+                        <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    </button>
+                </div>
+
+                 <!-- Mobile Scroll (Video) -->
+                 <div class="lg:hidden mobile-scroll" id="mobile-video">
+                    <!-- Items injected by JS -->
+                </div>
+            </section>
+
+            <!-- SECTION 4: WEB DESIGN -->
+            <!-- Separator: BLACK (KEY) -->
+            <section id="webdesign">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-k flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-web">WEB DESIGN</h2>
+                    <div class="h-[3px] bg-cmyk-k flex-grow"></div>
+                </div>
+                
+                <!-- 3 Clickable Thumbnails (No Text, No Rounded Borders) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
+                    
+                    <!-- Site 1 -->
+                    <a href="https://ctrlswipe.github.io/antalya/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                        <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <!-- Using object-contain to allow full view without crop -->
+                            <img src="web-design/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/00AEEF/ffffff?text=Website+1'">
+                        </div>
                     </a>
 
-                    <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-[0.75rem] sm:text-xs text-slate-400">
-                        <span class="inline-flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_0_3px_rgba(16,185,129,0.25)]"></span>
-                            <span>Currently booking for</span>
-                        </span>
-                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700/80">
-                            Q1–Q2 2025
-                        </span>
+                    <!-- Site 2 -->
+                    <a href="https://ctrlswipe.github.io/clinic/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <img src="web-design/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/EC008C/ffffff?text=Website+2'">
+                        </div>
+                    </a>
+
+                    <!-- Site 3 -->
+                    <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <img src="web-design/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/FFF200/000000?text=Website+3'">
+                        </div>
+                    </a>
+
+                </div>
+            </section>
+
+            <!-- SECTION 5: CAPTIONS & ADS -->
+            <!-- Separator: CYAN (Restart Cycle) -->
+            <section id="captions" class="pb-12">
+                 <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec4-title">CAPTIONS & ADS</h2>
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                </div>
+                 <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Removing rounded corners here too as requested "toate materialele" usually means media, but "materiale" could mean cards. I will keep slight roundness on text cards for UI consistency unless "toate" implies UI cards too. Assuming MEDIA files mostly. I will keep UI cards slightly rounded for aesthetics but remove from media content. -->
+                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-bullhorn"></i></div>
+                        <p class="text-2xl font-bold mb-2" data-key="box1-title">Ad Copy</p>
+                        <p class="text-gray-600 text-sm" data-key="box1-desc">We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.</p>
+                    </div>
+                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-quote-right"></i></div>
+                        <p class="text-2xl font-bold mb-2" data-key="box2-title">Engaging Captions</p>
+                        <p class="text-gray-600 text-sm" data-key="box2-desc">From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.</p>
+                    </div>
+                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-video"></i></div>
+                        <p class="text-2xl font-bold mb-2" data-key="box3-title">Video Scripts</p>
+                        <p class="text-gray-600 text-sm" data-key="box3-desc">Structuring your reels and TikToks for maximum retention, ensuring your message is heard.</p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="relative">
-                <div class="absolute -top-8 -right-4 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl"></div>
-                <div class="absolute -bottom-10 -left-4 w-52 h-52 bg-fuchsia-500/20 rounded-full blur-3xl"></div>
-
-                <div class="relative glass-panel p-4 sm:p-5 lg:p-6 overflow-hidden studio-grid perspective-card">
-                    <div class="hero-orbit-ring"></div>
-                    <div class="hero-orbit-ring"></div>
-                    <div class="hero-orbit-ring"></div>
-
-                    <div class="relative z-10 grid grid-cols-1 gap-4">
-                        <div class="flex items-center justify-between gap-3">
-                            <div class="flex items-center gap-3">
-                                <div class="relative">
-                                    <div class="w-10 h-10 rounded-2xl bg-slate-900/95 border border-slate-700/90 flex items-center justify-center shadow-md overflow-hidden">
-                                        <div class="relative w-full h-full flex items-center justify-center">
-                                            <span class="absolute -left-1 w-6 h-6 rounded-full bg-cyan-400/70 blur-[6px]"></span>
-                                            <span class="absolute -right-1 w-6 h-6 rounded-full bg-fuchsia-400/70 blur-[6px]"></span>
-                                            <span class="relative text-[0.7rem] font-semibold tracking-[0.24em] text-slate-950 uppercase">
-                                                    CTRL
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-slate-400 uppercase tracking-[0.18em] mb-0.5">CONTENT PALETTE</p>
-                                    <p class="text-[0.78rem] text-slate-100">Design, copy, and edit in one place.</p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-[0.7rem] text-slate-400 uppercase tracking-[0.16em] mb-0.5">CORE SERVICES</p>
-                                <p class="text-[0.8rem] text-slate-100 font-medium">Brand visuals · Video · Strategy</p>
-                            </div>
-                        </div>
-
-                        <div class="gradient-divider my-1.5"></div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div class="glass-subtle rounded-2xl border border-slate-600/80 p-3 sm:p-3.5 flex flex-col justify-between relative overflow-hidden">
-                                <div class="absolute -top-10 -right-10 w-28 h-28 bg-cyan-500/20 rounded-full blur-2xl opacity-85"></div>
-                                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-400/15 rounded-full blur-2xl opacity-85"></div>
-
-                                <div class="relative z-10 mb-2">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em]">BRANDING & VISUAL IDENTITY</p>
-                                        <span class="inline-flex items-center gap-1 text-[0.7rem] text-slate-400">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 glow-dot-c"></span>
-                                                <span>Design-first</span>
-                                            </span>
-                                    </div>
-                                    <p class="text-xs text-slate-100 leading-relaxed">
-                                        From logos to complete visual languages, we build systems that translate into scroll-stopping content.
-                                    </p>
-                                </div>
-                                <div class="relative z-10 flex flex-wrap gap-1.5 mt-1.5">
-                                    <span class="service-tag-pill">Logo & identity</span>
-                                    <span class="service-tag-pill">Social systems</span>
-                                    <span class="service-tag-pill">Brand manuals</span>
-                                </div>
-                            </div>
-
-                            <div class="glass-subtle rounded-2xl border border-slate-600/80 p-3 sm:p-3.5 flex flex-col justify-between relative overflow-hidden">
-                                <div class="absolute -top-10 -left-6 w-28 h-28 bg-fuchsia-500/18 rounded-full blur-2xl opacity-85"></div>
-                                <div class="absolute -bottom-8 -right-12 w-32 h-32 bg-cyan-400/15 rounded-full blur-2xl opacity-80"></div>
-
-                                <div class="relative z-10 mb-2">
-                                    <div class="flex items-center justify-between gap-2 mb-2">
-                                        <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em]">CONTENT & VIDEO</p>
-                                        <span class="inline-flex items-center gap-1 text-[0.7rem] text-slate-400">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-400 glow-dot-m"></span>
-                                                <span>Narrative-led</span>
-                                            </span>
-                                    </div>
-                                    <p class="text-xs text-slate-100 leading-relaxed">
-                                        Campaign videos, social clips, and story-driven edits tailored to your platform and audience.
-                                    </p>
-                                </div>
-                                <div class="relative z-10 flex flex-wrap gap-1.5 mt-1.5">
-                                    <span class="service-tag-pill">Reels & TikTok</span>
-                                    <span class="service-tag-pill">Brand films</span>
-                                    <span class="service-tag-pill">Educational content</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-3.5 flex flex-wrap items-center justify-between gap-3">
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-600/90 text-[0.7rem] text-slate-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 glow-dot-c"></span>
-                                        <span>Remote-friendly studio</span>
-                                    </span>
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-600/90 text-[0.7rem] text-slate-200">
-                                        <i class="fa-solid fa-earth-europe text-[0.7rem] text-slate-300"></i>
-                                        <span>Europe-based</span>
-                                    </span>
-                            </div>
-                            <div class="flex items-center gap-1.5 text-[0.7rem] text-slate-400">
-                                <i class="fa-solid fa-circle-play text-[0.7rem] text-emerald-400"></i>
-                                <span>Concept → shoot → edit → publish</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="section-anchor"></section>
-
-        <section class="mb-14 sm:mb-16 lg:mb-20">
-            <div class="glass-panel px-4 sm:px-6 py-5 sm:py-6 mb-6 shadow-card">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <div>
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="accent-dash"></div>
-                            <span class="text-[0.78rem] sm:text-xs uppercase tracking-[0.28em] text-slate-400 font-semibold">
-                                    CREATIVE SERVICES
-                                </span>
-                        </div>
-                        <h2 class="text-xl sm:text-2xl lg:text-[1.6rem] font-semibold text-slate-50 tracking-tight">
-                                From first idea to last export.
-                            </h2>
-                    </div>
-                    <p class="text-xs sm:text-sm text-slate-400 max-w-md">
-                        We plug into your team as your visual partner: strategy, production, and editing aligned around one clear story.
-                    </p>
-                </div>
-            </div>
-
-            <div class="grid gap-4 sm:gap-5 lg:grid-cols-[1.15fr,1.15fr]">
-                <div class="glass-subtle slanted-border slanted-gradient rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-card">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-3">
-                            <div>
-                                <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em]">BRANDING & VISUAL SYSTEMS</p>
-                                <p class="text-sm text-slate-400 max-w-xs">
-                                    Identity, social systems, and campaign visuals built to scale across platforms.
-                                </p>
-                            </div>
-                            <div class="hidden sm:flex flex-col items-end gap-1 text-[0.7rem] text-slate-400">
-                                <span class="inline-flex items-center gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 glow-dot-c"></span>
-                                        <span>Visual direction</span>
-                                    </span>
-                                <span class="inline-flex items-center gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-300 glow-dot-y"></span>
-                                        <span>Asset libraries</span>
-                                    </span>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="gradient-border-card rounded-2xl bg-slate-950/80 p-3 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                                        <p class="text-[0.78rem] font-medium text-slate-100">Brand Identity</p>
-                                        <span class="inline-flex items-center gap-1 text-[0.65rem] text-slate-400">
-                                                <i class="fa-solid fa-palette text-[0.7rem] text-cyan-300"></i>
-                                                <span>Foundation</span>
-                                            </span>
-                                    </div>
-                                    <p class="text-[0.75rem] text-slate-400">
-                                        Logos, typography, and color built to work in motion and on social, not just on paper.
-                                    </p>
-                                </div>
-                                <div class="mt-2 flex flex-wrap gap-1.5">
-                                    <span class="service-tag-pill">Logo design</span>
-                                    <span class="service-tag-pill">Brand kits</span>
-                                </div>
-                            </div>
-
-                            <div class="gradient-border-card rounded-2xl bg-slate-950/80 p-3 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                                        <p class="text-[0.78rem] font-medium text-slate-100">Social Systems</p>
-                                        <span class="inline-flex items-center gap-1 text-[0.65rem] text-slate-400">
-                                                <i class="fa-solid fa-grid-2 text-[0.7rem] text-fuchsia-300"></i>
-                                                <span>Consistent</span>
-                                            </span>
-                                    </div>
-                                    <p class="text-[0.75rem] text-slate-400">
-                                        Post templates, content kits, and motion-ready layouts for feeds and stories.
-                                    </p>
-                                </div>
-                                <div class="mt-2 flex flex-wrap gap-1.5">
-                                    <span class="service-tag-pill">Carousels</span>
-                                    <span class="service-tag-pill">Stories</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-slate-700/70 flex flex-wrap items-center justify-between gap-2">
-                        <div class="flex flex-wrap items-center gap-1.5 text-[0.7rem] text-slate-400">
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-circle-check text-[0.7rem] text-emerald-400"></i>
-                                    <span>Brand foundations</span>
-                                </span>
-                            <span>·</span>
-                            <span>Launch & refresh packages</span>
-                        </div>
-                        <div class="flex items-center gap-1 text-[0.7rem] text-slate-300">
-                            <i class="fa-solid fa-arrow-right text-[0.7rem] text-slate-400"></i>
-                            <span>Best paired with content production</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-subtle rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-card feedback-gradient">
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-3">
-                            <div>
-                                <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em]">CONTENT & VIDEO</p>
-                                <p class="text-sm text-slate-400 max-w-xs">
-                                    Script, shoot, edit, and publish video that feels human and matches your brand.
-                                </p>
-                            </div>
-                            <div class="hidden sm:flex flex-col items-end gap-1 text-[0.7rem] text-slate-400">
-                                <span class="inline-flex items-center gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-400 glow-dot-m"></span>
-                                        <span>Short-form</span>
-                                    </span>
-                                <span class="inline-flex items-center gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 glow-dot-c"></span>
-                                        <span>Long-form</span>
-                                    </span>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="gradient-border-card rounded-2xl bg-slate-950/90 p-3 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                                        <p class="text-[0.78rem] font-medium text-slate-100">Short-form Content</p>
-                                        <span class="inline-flex items-center gap-1 text-[0.65rem] text-slate-400">
-                                                <i class="fa-solid fa-mobile-screen text-[0.7rem] text-amber-300"></i>
-                                                <span>Swipe-ready</span>
-                                            </span>
-                                    </div>
-                                    <p class="text-[0.75rem] text-slate-400">
-                                        Reels, TikToks, and shorts designed for attention, retention, and saves.
-                                    </p>
-                                </div>
-                                <div class="mt-2 flex flex-wrap gap-1.5">
-                                    <span class="service-tag-pill">Storyboard</span>
-                                    <span class="service-tag-pill">Editing</span>
-                                </div>
-                            </div>
-
-                            <div class="gradient-border-card rounded-2xl bg-slate-950/90 p-3 flex flex-col justify-between">
-                                <div>
-                                    <div class="flex items-center justify-between gap-2 mb-1.5">
-                                        <p class="text-[0.78rem] font-medium text-slate-100">Long-form & Docs</p>
-                                        <span class="inline-flex items-center gap-1 text-[0.65rem] text-slate-400">
-                                                <i class="fa-solid fa-film text-[0.7rem] text-cyan-300"></i>
-                                                <span>Depth</span>
-                                            </span>
-                                    </div>
-                                    <p class="text-[0.75rem] text-slate-400">
-                                        YouTube videos, interviews, and documentaries with pacing and story built in.
-                                    </p>
-                                </div>
-                                <div class="mt-2 flex flex-wrap gap-1.5">
-                                    <span class="service-tag-pill">Editorial</span>
-                                    <span class="service-tag-pill">Motion graphics</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-slate-700/70 flex flex-wrap items-center justify-between gap-2">
-                        <div class="flex flex-wrap items-center gap-1.5 text-[0.7rem] text-slate-400">
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-wave-square text-[0.7rem] text-emerald-400"></i>
-                                    <span>Batch production</span>
-                                </span>
-                            <span>·</span>
-                            <span>Retainer options available</span>
-                        </div>
-                        <div class="flex items-center gap-1 text-[0.7rem] text-slate-300">
-                            <i class="fa-solid fa-arrow-right text-[0.7rem] text-slate-400"></i>
-                            <span>Ideal for active brands</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="reel" class="section-anchor"></section>
-
-        <section class="mb-14 sm:mb-16 lg:mb-20">
-            <div class="glass-panel px-4 sm:px-6 py-5 sm:py-6 mb-6 shadow-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="accent-dash"></div>
-                        <span class="text-[0.78rem] sm:text-xs uppercase tracking-[0.28em] text-slate-400 font-semibold">
-                                SHOWREEL & RECENT WORK
-                            </span>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl lg:text-[1.6rem] font-semibold text-slate-50 tracking-tight">
-                            See what we’ve been up to.
-                        </h2>
-                </div>
-                <p class="text-xs sm:text-sm text-slate-400 max-w-md">
-                    We combine fast-paced edits with clear structure and branded visuals, so your content feels intentional – even on a 6-second swipe.
-                </p>
-            </div>
-
-            <div class="grid gap-5 lg:grid-cols-[1.2fr,1.1fr]">
-                <div class="glass-subtle rounded-2xl p-4 sm:p-5 shadow-card flex flex-col gap-4">
-                    <div class="flex items-center justify-between gap-2">
-                        <div>
-                            <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em]">WORK SNAPSHOTS</p>
-                            <p class="text-xs text-slate-400">
-                                Graphics, stories, and video work in a scroll-friendly format.
-                            </p>
-                        </div>
-                        <div class="hidden sm:flex flex-col items-end gap-1 text-[0.7rem] text-slate-400">
-                            <span class="inline-flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 glow-dot-c"></span>
-                                    <span>Design & edit</span>
-                                </span>
-                            <span class="inline-flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-400 glow-dot-m"></span>
-                                    <span>Swipe experience</span>
-                                </span>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-2 text-[0.7rem] text-slate-400">
-                        <i class="fa-solid fa-circle-info text-[0.7rem] text-slate-500"></i>
-                        <span>Preview formats are representative — every project is custom.</span>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="flex flex-col gap-2">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-[0.75rem] text-slate-200 font-medium">Graphic Design</span>
-                                <span class="text-[0.7rem] text-slate-400">Feed & carousels</span>
-                            </div>
-
-                            <div class="desktop-carousel">
-                                <div class="relative glass-subtle rounded-2xl p-3 bg-slate-950/90 carousel-shadow">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-[0.68rem] text-slate-200">
-                                                <i class="fa-solid fa-layer-group text-[0.65rem] text-cyan-300"></i>
-                                                <span>Graphics</span>
-                                            </span>
-                                        <div class="flex items-center gap-2 text-[0.65rem] text-slate-400">
-                                            <button onclick="moveCarousel('graphics', -1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-600/80 flex items-center justify-center hover:bg-slate-800/90 transition-colors">
-                                                <i class="fa-solid fa-chevron-left text-[0.6rem]"></i>
-                                            </button>
-                                            <button onclick="moveCarousel('graphics', 1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-600/80 flex items-center justify-center hover:bg-slate-800/90 transition-colors">
-                                                <i class="fa-solid fa-chevron-right text-[0.6rem]"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="relative overflow-hidden rounded-xl bg-slate-950/95 aspect-4-5 story-frame-shadow">
-                                        <div id="track-graphics" class="carousel-track flex gap-3 will-change-transform"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mobile-carousel">
-                                <div class="glass-subtle rounded-2xl p-3 bg-slate-950/95 carousel-shadow">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/95 border border-slate-700/80 text-[0.68rem] text-slate-200">
-                                                <i class="fa-solid fa-layer-group text-[0.65rem] text-cyan-300"></i>
-                                                <span>Graphics</span>
-                                            </span>
-                                        <div class="flex items-center gap-2 text-[0.65rem] text-slate-400">
-                                            <button onclick="moveMobile('graphics', -1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-700/80 flex items-center justify-center hover:bg-slate-800/95 transition-colors">
-                                                <i class="fa-solid fa-chevron-left text-[0.6rem]"></i>
-                                            </button>
-                                            <button onclick="moveMobile('graphics', 1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-700/80 flex items-center justify-center hover:bg-slate-800/95 transition-colors">
-                                                <i class="fa-solid fa-chevron-right text-[0.6rem]"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="relative overflow-hidden rounded-xl bg-slate-950/98 aspect-4-5 story-frame-shadow">
-                                        <div id="mobile-graphics" class="w-full h-full flex items-center justify-center">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-2">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-[0.75rem] text-slate-200 font-medium">Stories & Vertical</span>
-                                <span class="text-[0.7rem] text-slate-400">Social-first</span>
-                            </div>
-
-                            <div class="desktop-carousel">
-                                <div class="relative glass-subtle rounded-2xl p-3 bg-slate-950/90 carousel-shadow">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-[0.68rem] text-slate-200">
-                                                <i class="fa-solid fa-clone text-[0.65rem] text-fuchsia-300"></i>
-                                                <span>Stories</span>
-                                            </span>
-                                        <div class="flex items-center gap-2 text-[0.65rem] text-slate-400">
-                                            <button onclick="moveCarousel('stories', -1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-600/80 flex items-center justify-center hover:bg-slate-800/90 transition-colors">
-                                                <i class="fa-solid fa-chevron-left text-[0.6rem]"></i>
-                                            </button>
-                                            <button onclick="moveCarousel('stories', 1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-600/80 flex items-center justify-center hover:bg-slate-800/90 transition-colors">
-                                                <i class="fa-solid fa-chevron-right text-[0.6rem]"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="relative overflow-hidden rounded-xl bg-slate-950/95 aspect-9-16 story-frame-shadow">
-                                        <div id="track-stories" class="carousel-track flex gap-3 will-change-transform"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mobile-carousel">
-                                <div class="glass-subtle rounded-2xl p-3 bg-slate-950/95 carousel-shadow">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/95 border border-slate-700/80 text-[0.68rem] text-slate-200">
-                                                <i class="fa-solid fa-clone text-[0.65rem] text-fuchsia-300"></i>
-                                                <span>Stories</span>
-                                            </span>
-                                        <div class="flex items-center gap-2 text-[0.65rem] text-slate-400">
-                                            <button onclick="moveMobile('stories', -1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-700/80 flex items-center justify-center hover:bg-slate-800/95 transition-colors">
-                                                <i class="fa-solid fa-chevron-left text-[0.6rem]"></i>
-                                            </button>
-                                            <button onclick="moveMobile('stories', 1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-700/80 flex items-center justify-center hover:bg-slate-800/95 transition-colors">
-                                                <i class="fa-solid fa-chevron-right text-[0.6rem]"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="relative overflow-hidden rounded-xl bg-slate-950/98 aspect-9-16 story-frame-shadow">
-                                        <div id="mobile-stories" class="w-full h-full flex items-center justify-center">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-2">
-                            <div class="flex items-center justify-between mb-1">
-                                <span class="text-[0.75rem] text-slate-200 font-medium">Video Production</span>
-                                <span class="text-[0.7rem] text-slate-400">Motion & story</span>
-                            </div>
-
-                            <div class="desktop-carousel">
-                                <div class="relative glass-subtle rounded-2xl p-3 bg-slate-950/90 carousel-shadow">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-[0.68rem] text-slate-200">
-                                                <i class="fa-solid fa-camera-movie text-[0.65rem] text-amber-300"></i>
-                                                <span>Video</span>
-                                            </span>
-                                        <div class="flex items-center gap-2 text-[0.65rem] text-slate-400">
-                                            <button onclick="moveCarousel('video', -1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-600/80 flex items-center justify-center hover:bg-slate-800/90 transition-colors">
-                                                <i class="fa-solid fa-chevron-left text-[0.6rem]"></i>
-                                            </button>
-                                            <button onclick="moveCarousel('video', 1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-600/80 flex items-center justify-center hover:bg-slate-800/90 transition-colors">
-                                                <i class="fa-solid fa-chevron-right text-[0.6rem]"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="relative overflow-hidden rounded-xl bg-slate-950/95 aspect-9-16 story-frame-shadow">
-                                        <div id="track-video" class="carousel-track flex gap-3 will-change-transform"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mobile-carousel">
-                                <div class="glass-subtle rounded-2xl p-3 bg-slate-950/95 carousel-shadow">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/95 border border-slate-700/80 text-[0.68rem] text-slate-200">
-                                                <i class="fa-solid fa-camera-movie text-[0.65rem] text-amber-300"></i>
-                                                <span>Video</span>
-                                            </span>
-                                        <div class="flex items-center gap-2 text-[0.65rem] text-slate-400">
-                                            <button onclick="moveMobile('video', -1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-700/80 flex items-center justify-center hover:bg-slate-800/95 transition-colors">
-                                                <i class="fa-solid fa-chevron-left text-[0.6rem]"></i>
-                                            </button>
-                                            <button onclick="moveMobile('video', 1)"
-                                                    class="w-6 h-6 rounded-full border border-slate-700/80 flex items-center justify-center hover:bg-slate-800/95 transition-colors">
-                                                <i class="fa-solid fa-chevron-right text-[0.6rem]"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="relative overflow-hidden rounded-xl bg-slate-950/98 aspect-9-16 story-frame-shadow">
-                                        <div id="mobile-video" class="w-full h-full flex items-center justify-center">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-[0.7rem] text-slate-400">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-square-full text-[0.55rem] text-cyan-300"></i>
-                                    <span>Graphics</span>
-                                </span>
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-square-full text-[0.55rem] text-fuchsia-300"></i>
-                                    <span>Stories</span>
-                                </span>
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-square-full text-[0.55rem] text-amber-300"></i>
-                                    <span>Video</span>
-                                </span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="fa-solid fa-arrow-right text-[0.7rem] text-slate-400"></i>
-                            <span>Swipe through to get a feel of our style</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-subtle rounded-2xl p-4 sm:p-5 shadow-card bg-slate-950/85 bg-grid">
-                    <div class="flex items-center justify-between mb-3">
-                        <div>
-                            <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em] mb-0.5">SHOWREEL</p>
-                            <p class="text-xs text-slate-400 max-w-xs">
-                                A fast-paced look at how we combine design, motion, and story across different brands and formats.
-                            </p>
-                        </div>
-                        <div class="hidden sm:flex flex-col items-end text-[0.7rem] text-slate-400">
-                            <span class="inline-flex items-center gap-1 mb-1">
-                                    <i class="fa-solid fa-wave-square text-[0.7rem] text-emerald-400"></i>
-                                    <span>Edited for flow</span>
-                                </span>
-                            <span>Full portfolio available on request</span>
-                        </div>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-2xl bg-slate-950 story-frame-shadow">
-                        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 10% 10%, rgba(56,189,248,0.12), transparent 55%), radial-gradient(circle at 80% 10%, rgba(236,72,153,0.12), transparent 55%), radial-gradient(circle at 10% 90%, rgba(250,204,21,0.14), transparent 55%); opacity: 0.9;"></div>
-
-                        <div class="relative aspect-video">
-                            <iframe src="https://player.vimeo.com/video/1041367175?h=0a2828a62a&badge=0&autopause=0&player_id=0&app_id=58479"
-                                    allow="autoplay; fullscreen; picture-in-picture"
-                                    allowfullscreen
-                                    class="w-full h-full rounded-2xl border border-slate-800/80">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-[0.7rem] text-slate-400">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/90 border border-slate-700/80">
-                                    <i class="fa-solid fa-scissors text-[0.65rem] text-emerald-300"></i>
-                                    <span>Editing & motion</span>
-                                </span>
-                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-900/90 border border-slate-700/80">
-                                    <i class="fa-solid fa-microphone-lines text-[0.65rem] text-cyan-300"></i>
-                                    <span>Direction & pacing</span>
-                                </span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="fa-solid fa-arrow-right text-[0.7rem] text-slate-400"></i>
-                            <span>Ask about a custom reel for your niche</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="studio" class="section-anchor"></section>
-
-        <section class="mb-14 sm:mb-16 lg:mb-20">
-            <div class="glass-panel px-4 sm:px-6 py-5 sm:py-6 mb-6 shadow-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="accent-dash"></div>
-                        <span class="text-[0.78rem] sm:text-xs uppercase tracking-[0.28em] text-slate-400 font-semibold">
-                                ABOUT THE STUDIO
-                            </span>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl lg:text-[1.6rem] font-semibold text-slate-50 tracking-tight">
-                            A small team obsessed with how things look and feel.
-                        </h2>
-                </div>
-                <p class="text-xs sm:text-sm text-slate-400 max-w-md">
-                    We’re two creatives combining visual design, editing, and storytelling into one agile studio. No unnecessary layers, just direct work on your content.
-                </p>
-            </div>
-
-            <div class="grid gap-5 lg:grid-cols-[1.15fr,1.1fr]">
-                <div class="glass-subtle rounded-2xl p-4 sm:p-5 shadow-card">
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
-                        <div class="relative w-24 h-24 rounded-3xl overflow-hidden bg-slate-900/95 border border-slate-700/80 shadow-[0_18px_45px_rgba(15,23,42,0.95)] flex items-center justify-center">
-                            <div style="width: 600px; height: 600px; background: radial-gradient(circle, #00AEFF, #EC008C, #FFF200); filter: blur(40px); opacity: 0.5;"></div>
-                            <span class="absolute text-2xl font-semibold tracking-[0.18em] text-slate-950 uppercase">
-                                    CTRL
-                                </span>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em] mb-0.5">CTRL Swipe Studio</p>
-                            <p class="text-xs text-slate-400 mb-1">
-                                Creative studio focusing on brand visuals, video, and social-first storytelling.
-                            </p>
-                            <p class="text-[0.7rem] text-slate-500">
-                                Remote, Europe-based. Available for collaborations, ongoing retained work, and select one-off launches.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 mb-4">
-                        <div class="glass-subtle rounded-2xl p-3 border border-slate-700/85">
-                            <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em] mb-1.5">WHAT WE CARE ABOUT</p>
-                            <ul class="space-y-1.5 text-[0.75rem] text-slate-400">
-                                <li class="flex items-start gap-1.5">
-                                    <span class="mt-[2px] w-1.5 h-1.5 rounded-full bg-cyan-300"></span>
-                                    <span>Visual consistency across every piece of content.</span>
-                                </li>
-                                <li class="flex items-start gap-1.5">
-                                    <span class="mt-[2px] w-1.5 h-1.5 rounded-full bg-fuchsia-300"></span>
-                                    <span>Story structures that make sense to your audience.</span>
-                                </li>
-                                <li class="flex items-start gap-1.5">
-                                    <span class="mt-[2px] w-1.5 h-1.5 rounded-full bg-amber-300"></span>
-                                    <span>Honest collaboration instead of buzzwords.</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="glass-subtle rounded-2xl p-3 border border-slate-700/85">
-                            <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em] mb-1.5">HOW WE WORK</p>
-                            <ul class="space-y-1.5 text-[0.75rem] text-slate-400">
-                                <li class="flex items-start gap-1.5">
-                                    <span class="mt-[2px] w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-                                    <span>Clear pre-production: script, shot list, and design references.</span>
-                                </li>
-                                <li class="flex items-start gap-1.5">
-                                    <span class="mt-[2px] w-1.5 h-1.5 rounded-full bg-violet-300"></span>
-                                    <span>Collaborative feedback rounds with structure, not chaos.</span>
-                                </li>
-                                <li class="flex items-start gap-1.5">
-                                    <span class="mt-[2px] w-1.5 h-1.5 rounded-full bg-sky-300"></span>
-                                    <span>Deliverables ready for your platforms, not just pretty files.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-2 text-[0.7rem] text-slate-400">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-building text-[0.7rem] text-slate-300"></i>
-                                    <span>Working with SMEs, studios, and creators</span>
-                                </span>
-                            <span>·</span>
-                            <span>English & Romanian</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="fa-solid fa-arrow-right text-[0.7rem] text-slate-400"></i>
-                            <span>Tell us where you want to go – we’ll help shape the visuals.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-subtle rounded-2xl p-4 sm:p-5 shadow-card bg-slate-950/90 bg-diagonal">
-                    <div class="flex items-center justify-between mb-3">
-                        <div>
-                            <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em] mb-0.5">PROCESS SNAPSHOT</p>
-                            <p class="text-xs text-slate-400 max-w-xs">
-                                A simple structure that keeps projects focused and moving.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3.5">
-                        <div class="glass-subtle rounded-2xl p-3 border border-slate-700/80 bg-slate-950/95">
-                            <div class="flex items-center justify-between gap-2 mb-1.5">
-                                <div class="flex items-center gap-2">
-                                    <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-cyan-500/15 border border-cyan-400/40 text-[0.7rem] text-cyan-300">
-                                            1
-                                        </span>
-                                    <p class="text-[0.8rem] text-slate-100 font-medium">Discovery & direction</p>
-                                </div>
-                                <span class="text-[0.7rem] text-slate-400">1–2 calls</span>
-                            </div>
-                            <p class="text-[0.75rem] text-slate-400">
-                                We clarify your brand, audience, and goals, then propose a direction for visuals and content formats.
-                            </p>
-                        </div>
-
-                        <div class="glass-subtle rounded-2xl p-3 border border-slate-700/80 bg-slate-950/95">
-                            <div class="flex items-center justify-between gap-2 mb-1.5">
-                                <div class="flex items-center gap-2">
-                                    <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-500/15 border border-fuchsia-400/40 text-[0.7rem] text-fuchsia-300">
-                                            2
-                                        </span>
-                                    <p class="text-[0.8rem] text-slate-100 font-medium">Production & design</p>
-                                </div>
-                                <span class="text-[0.7rem] text-slate-400">Assets & filming</span>
-                            </div>
-                            <p class="text-[0.75rem] text-slate-400">
-                                We design, shoot, or assemble everything needed: templates, visuals, footage, and motion elements.
-                            </p>
-                        </div>
-
-                        <div class="glass-subtle rounded-2xl p-3 border border-slate-700/80 bg-slate-950/95">
-                            <div class="flex items-center justify-between gap-2 mb-1.5">
-                                <div class="flex items-center gap-2">
-                                    <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-500/15 border border-amber-300/40 text-[0.7rem] text-amber-200">
-                                            3
-                                        </span>
-                                    <p class="text-[0.8rem] text-slate-100 font-medium">Editing & rollout</p>
-                                </div>
-                                <span class="text-[0.7rem] text-slate-400">Final delivery</span>
-                            </div>
-                            <p class="text-[0.75rem] text-slate-400">
-                                We refine pacing, add sound and motion, and prepare exports for your channels, plus guidelines for reuse.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 pt-3 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-2 text-[0.7rem] text-slate-400">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-repeat text-[0.7rem] text-emerald-400"></i>
-                                    <span>Available for ongoing retainers</span>
-                                </span>
-                            <span>·</span>
-                            <span>or one-off projects with clear scope</span>
-                        </div>
-                        <a href="#contact" class="inline-flex items-center gap-1 text-slate-200 hover:text-slate-50 transition-colors">
-                            <span>Share a project idea</span>
-                            <i class="fa-solid fa-arrow-right-long text-[0.7rem]"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section-anchor"></section>
-
-        <section class="mb-10 sm:mb-12 lg:mb-14">
-            <div class="glass-panel px-4 sm:px-6 py-5 sm:py-6 mb-4 shadow-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="accent-dash"></div>
-                        <span class="text-[0.78rem] sm:text-xs uppercase tracking-[0.28em] text-slate-400 font-semibold">
-                                START A PROJECT
-                            </span>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl lg:text-[1.6rem] font-semibold text-slate-50 tracking-tight">
-                            Tell us what you’re building – we’ll help shape how it looks.
-                        </h2>
-                </div>
-                <p class="text-xs sm:text-sm text-slate-400 max-w-md">
-                    Send us a few lines about your brand, timeline, and what kind of content you have in mind. We’ll reply with questions, ideas, or a call link.
-                </p>
-            </div>
-
-            <div class="grid gap-4 lg:grid-cols-[1.1fr,1.05fr]">
-                <div class="glass-subtle rounded-2xl p-4 sm:p-5 shadow-card">
-                    <form class="space-y-3">
-                        <div class="floating-label">
-                            <input type="text" id="name" name="name" placeholder=" "
-                                   class="w-full rounded-2xl bg-slate-950/90 border border-slate-700/80 px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-400/70 shadow-inner shadow-black/60">
-                            <label for="name">Name</label>
-                        </div>
-
-                        <div class="floating-label">
-                            <input type="email" id="email" name="email" placeholder=" "
-                                   class="w-full rounded-2xl bg-slate-950/90 border border-slate-700/80 px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-400/70 shadow-inner shadow-black/60">
-                            <label for="email">Email</label>
-                        </div>
-
-                        <div class="floating-label">
-                            <input type="text" id="brand" name="brand" placeholder=" "
-                                   class="w-full rounded-2xl bg-slate-950/90 border border-slate-700/80 px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-400/70 shadow-inner shadow-black/60">
-                            <label for="brand">Brand / company</label>
-                        </div>
-
-                        <div class="floating-label">
-                            <textarea id="message" name="message" rows="4" placeholder=" "
-                                      class="w-full rounded-2xl bg-slate-950/90 border border-slate-700/80 px-3 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-400/70 shadow-inner shadow-black/60 resize-none"></textarea>
-                            <label for="message">What would you like to create together?</label>
-                        </div>
-
-                        <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-                            <button type="submit"
-                                    class="btn-primary inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-amber-300 text-slate-950 font-semibold text-xs sm:text-sm shadow-[0_18px_50px_rgba(8,47,73,0.95)] border border-slate-950/80 hover:shadow-[0_24px_70px_rgba(8,47,73,1)] hover:-translate-y-0.5 transition-all">
-                                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-950/95 text-[0.65rem]">
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                </span>
-                                <span>Send message</span>
-                            </button>
-                            <div class="flex flex-col items-start sm:items-end gap-1 text-[0.7rem] text-slate-400">
-                                <span>Or email us directly at:</span>
-                                <a href="mailto:hello@ctrlswipe.com"
-                                   class="credits-link text-slate-200 hover:text-slate-50">hello@ctrlswipe.com</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="glass-subtle rounded-2xl p-4 sm:p-5 shadow-card bg-slate-950/90">
-                    <div class="flex items-center justify-between mb-3">
-                        <div>
-                            <p class="text-[0.75rem] text-slate-300 uppercase tracking-[0.16em] mb-0.5">WHAT TO INCLUDE</p>
-                            <p class="text-xs text-slate-400 max-w-xs">
-                                A few details go a long way. Here’s what helps us respond with substance:
-                            </p>
-                        </div>
-                    </div>
-
-                    <ul class="space-y-2.5 text-[0.75rem] text-slate-400 mb-4">
-                        <li class="flex items-start gap-2">
-                            <span class="mt-[2px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-900/95 border border-slate-600/80 text-[0.6rem] text-slate-300">
-                                1
-                            </span>
-                            <span>Your brand or project, and what you do.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="mt-[2px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-900/95 border border-slate-600/80 text-[0.6rem] text-slate-300">
-                                2
-                            </span>
-                            <span>What kind of content you’re thinking about (branding, short-form, long-form, a mix).</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="mt-[2px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-900/95 border border-slate-600/80 text-[0.6rem] text-slate-300">
-                                3
-                            </span>
-                            <span>Any timelines, launch dates, or important milestones.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="mt-[2px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-900/95 border border-slate-600/80 text-[0.6rem] text-slate-300">
-                                4
-                            </span>
-                            <span>Links to existing content, if you have them.</span>
-                        </li>
-                    </ul>
-
-                    <div class="pt-3 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-2 text-[0.7rem] text-slate-400">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-clock text-[0.7rem] text-slate-300"></i>
-                                    <span>We reply within a few working days</span>
-                                </span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="fa-solid fa-arrow-right text-[0.7rem] text-slate-400"></i>
-                            <span>Let’s see if we’re a good fit.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
 
-    <footer class="pt-4 border-t border-slate-800/80 mt-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[0.7rem] text-slate-500">
-            <span>© CTRL Swipe Studio. All rights reserved.</span>
-            <div class="flex flex-wrap items-center gap-3">
-                <span>Available for remote collaborations.</span>
-                <span>Portfolio & extended work available on request.</span>
+    <footer class="bg-white py-8 text-center border-t-4 border-black">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-sans font-medium text-sm text-gray-500">
+                <span class="font-bold">CTRL <span class="italic">Swipe</span></span> <span data-key="footer-rights">© 2025. All rights reserved.</span>
+            </div>
+            <div class="font-sans font-medium text-sm text-gray-500 max-w-md text-right" data-key="footer-crafted">
+                Agency in <span class="font-bold text-black">Baia Mare</span>. Serving <span class="text-black">Cluj, Suceava</span> & Worldwide.
             </div>
         </div>
     </footer>
-</div>
-
-<script>
+    
+    <script>
         // CONFIG
         const config = {
-            graphics: {
-                count: 6,
-                path: "assets/mockups/graphics/graphic-",
-                ext: ".webp"
-            },
-            stories: {
-                count: 6,
-                path: "assets/mockups/stories/story-"
-            },
-            video: {
-                count: 4,
-                path: "assets/mockups/video/video-",
-                ext: ".mp4"
-            }
+            graphics: { count: 8, path: 'graphics-portfolio/', ext: '.png', type: 'image' },
+            stories: { count: 12, path: 'story/', mixed: true }, // Logic: Odd=png, Even=mp4
+            video: { count: 8, path: 'videoproduction/video', ext: '.mp4', type: 'video' }
         };
 
         const state = {
@@ -1534,10 +377,9 @@
             video: 0
         };
 
-        function toggleMute(e, btn) {
-            if (e && typeof e.stopPropagation === 'function') {
-                e.stopPropagation();
-            }
+        // Helper function for mute toggling - defined globally
+        function toggleMute(btn) {
+            // Find the video element in the same container
             const video = btn.parentElement.querySelector('video');
             const icon = btn.querySelector('i');
             
@@ -1545,72 +387,18 @@
                 if (video.muted) {
                     video.muted = false;
                     icon.className = 'fa-solid fa-volume-high'; // Sound ON icon
-                    video.play().catch(err => console.log('Play error on unmute:', err));
+                    // Force play if paused
+                    video.play().catch(e => console.log('Play error on unmute:', e));
                 } else {
                     video.muted = true;
                     icon.className = 'fa-solid fa-volume-xmark'; // Mute icon
                 }
             }
+            // Stop propagation so we don't trigger carousel clicks if any
+            event.stopPropagation();
         }
 
-        // Helper to create a video block with autoplay muted and a mute button
-        function createVideoBlock(src, fallback) {
-            return `
-                <div class="relative w-full h-full group">
-                    <video 
-                        src="${src}"
-                        class="w-full h-full object-contain"
-                        autoplay
-                        muted
-                        loop
-                        playsinline
-                        preload="auto"
-                        poster="${fallback}">
-                    </video>
-                    <button
-                        class="absolute bottom-4 right-4 z-30 bg-black/50 hover:bg-cmyk-y hover:text-black text-white p-3 rounded-full transition-all backdrop-blur-sm shadow-lg border border-white/20"
-                        onclick="toggleMute(event, this)">
-                        <i class="fa-solid fa-volume-xmark text-lg"></i>
-                    </button>
-                </div>
-            `;
-        }
-
-        // Auto-generate poster at a given second from each video
-        function generatePosterFromVideo(video, targetSecond = 10) {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-
-            video.addEventListener('loadedmetadata', () => {
-                if (!isFinite(video.duration) || video.duration === 0) return;
-                if (targetSecond > video.duration) {
-                    targetSecond = Math.max(1, Math.floor(video.duration / 2));
-                }
-                try {
-                    video.currentTime = targetSecond;
-                } catch (err) {
-                    console.warn('Cannot seek for poster:', err);
-                }
-            });
-
-            function handleSeeked() {
-                canvas.width = video.videoWidth || 320;
-                canvas.height = video.videoHeight || 180;
-
-                try {
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const dataURL = canvas.toDataURL('image/jpeg', 0.7);
-                    video.setAttribute('poster', dataURL);
-                } catch (err) {
-                    console.warn('Nu pot extrage frame-ul pentru poster:', err);
-                }
-
-                video.removeEventListener('seeked', handleSeeked);
-            }
-
-            video.addEventListener('seeked', handleSeeked);
-        }
-
+        // GENERATE CONTENT
         function generateItems() {
             // 1. Graphics (Using object-contain to prevent crop)
             const trackGraphics = document.getElementById('track-graphics');
@@ -1638,39 +426,49 @@
                 const ext = isVideo ? '.mp4' : '.png';
                 const src = `${config.stories.path}${i}${ext}`;
                 const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${i}`;
-
+                
+                // Note: object-contain allows full view without crop
                 const content = isVideo 
-                    ? createVideoBlock(src, fallback)
+                    ? `<video src="${src}" class="w-full h-full object-contain" autoplay muted loop playsinline preload="auto" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`
                     : `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
 
                 trackStories.innerHTML += `
                     <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
                         ${content}
                     </div>`;
-
+                
                 mobileStories.innerHTML += `
                     <div class="mobile-item aspect-9-16">
-                        ${content}
+                         ${content}
                     </div>`;
             }
 
-            // 3. Video Production
+            // 3. Video Production (Added Controls, fixed logic)
             const trackVideo = document.getElementById('track-video');
             const mobileVideo = document.getElementById('mobile-video');
             for(let i=1; i<=config.video.count; i++) {
                 const src = `${config.video.path}${i}${config.video.ext}`;
                 const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
-
-                const videoHTML = createVideoBlock(src, fallback);
-
+                
+                // Video HTML with Mute Button for Desktop & Mobile
+                // Note: 'muted' attribute is required for autoplay to work initially
+                const videoHTML = `
+                    <div class="relative w-full h-full group">
+                        <video src="${src}" class="w-full h-full object-contain" autoplay muted loop playsinline preload="auto" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>
+                        <button class="absolute bottom-4 right-4 z-30 bg-black/50 hover:bg-cmyk-y hover:text-black text-white p-3 rounded-full transition-all backdrop-blur-sm shadow-lg border border-white/20" onclick="toggleMute(this)">
+                            <i class="fa-solid fa-volume-xmark text-lg"></i>
+                        </button>
+                    </div>
+                `;
+                
                 trackVideo.innerHTML += `
                     <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
                         ${videoHTML}
                     </div>`;
-
+                
                 mobileVideo.innerHTML += `
                     <div class="mobile-item aspect-9-16">
-                        ${videoHTML}
+                         ${videoHTML}
                     </div>`;
             }
 
@@ -1678,201 +476,195 @@
             updateCarousel('stories');
             updateCarousel('video');
             initMobileObserver();
-
-            // Auto-generate posters for all videos after DOM is populated
-            setTimeout(() => {
-                document.querySelectorAll('video').forEach(v => {
-                    generatePosterFromVideo(v, 10);
-                });
-            }, 500);
         }
 
         function moveCarousel(type, dir) {
             const total = type === 'graphics' ? config.graphics.count : (type === 'stories' ? config.stories.count : config.video.count);
-    
             state[type] = (state[type] + dir + total) % total;
-    
-            const track = document.getElementById(`track-${type}`);
-            if (!track) return;
-    
-            const currentItem = track.querySelector('.carousel-item');
-            const container = track.parentElement;
-            if (!currentItem || !container) return;
-    
-            const containerWidth = container.clientWidth;
-            const itemWidth = currentItem.clientWidth + 12;
-    
-            let visibleItems = Math.floor(containerWidth / itemWidth);
-            visibleItems = Math.max(1, visibleItems);
-    
-            const offset = Math.max(0, state[type] - Math.floor((visibleItems - 1) / 2));
-            const translateX = -(offset * itemWidth);
-    
-            track.style.transform = `translateX(${translateX}px)`;
+            updateCarousel(type);
         }
 
         function updateCarousel(type) {
             const track = document.getElementById(`track-${type}`);
-            if (!track) return;
-    
-            const index = state[type];
-            const itemWidth = track.querySelector('.carousel-item')?.clientWidth || 360;
-            const translation = -(index * (itemWidth + 12));
-    
-            track.style.transform = `translateX(${translation}px)`;
-        }
-
-        const mobileState = {
-            graphics: 0,
-            stories: 0,
-            video: 0
-        };
-
-        function moveMobile(type, dir) {
-            const container = document.getElementById(`mobile-${type}`);
-            if (!container) return;
-    
-            const items = container.querySelectorAll('.mobile-item');
-            if (!items.length) return;
-    
+            const items = track.querySelectorAll('.carousel-item');
+            const activeIdx = state[type];
             const total = items.length;
-            mobileState[type] = (mobileState[type] + dir + total) % total;
-    
-            items.forEach((item, index) => {
-                item.classList.toggle('active', index === mobileState[type]);
+
+            items.forEach((item, idx) => {
+                let diff = (idx - activeIdx + total) % total;
+                if (diff > total / 2) diff -= total;
+                
+                item.className = item.className.replace(/c-active|c-prev|c-next|c-hidden/g, '').trim();
+                const video = item.querySelector('video');
+                
+                if (idx === activeIdx) {
+                    item.classList.add('c-active');
+                    // Play logic: must check if video exists
+                    if (video) {
+                        // Always try to play. If sound is on (muted=false), browser might block if not user interacted.
+                        // But since we start muted, it should play.
+                        var playPromise = video.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log("Auto-play prevented (Desktop):", error);
+                                // Fallback: Ensure muted if play failed (sometimes browsers block unmuted autoplay even if we tried)
+                                if (!video.muted) {
+                                     // User has not interacted yet, maybe keep muted? 
+                                     // Actually, if we are here, likely the user manually unmuted another video and we swiped.
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    if(video) {
+                        video.pause(); 
+                        video.currentTime = 0;
+                        // Reset to mute when swiping away? Optional. 
+                        // Let's keep user preference? No, usually better to reset to mute to avoid blasting sound when swiping back unexpectedly.
+                        // But user requested control. Let's leave state as is, but pause.
+                        // Actually, for a smoother experience, let's reset icon to mute if we want consistent autoplay behavior on return.
+                        // For now, simple pause is safer.
+                    }
+                    if (diff === -1) item.classList.add('c-prev');
+                    else if (diff === 1) item.classList.add('c-next');
+                    else item.classList.add('c-hidden');
+                }
             });
         }
-
+        
         function initMobileObserver() {
-            const options = {
-                root: null,
-                threshold: 0.65
-            };
-    
-            function handleIntersection(entries) {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-    
                     const video = entry.target.querySelector('video');
-                    if (!video) return;
-    
-                    video.muted = true;
-                    video.play().catch(err => {
-                        console.log('Autoplay blocked on mobile:', err);
-                    });
+                    if(video) {
+                        if (entry.isIntersecting) {
+                             // Mobile autoplay requirement: Muted + Playsinline
+                             // We ensure muted is set if it wasn't manually unmuted by user previously (though intersection usually resets context)
+                             // To be safe for "autoplay", we generally need to ensure it's playing.
+                             video.muted = true; // Force mute to ensure autoplay
+                             var p = video.play();
+                             if(p !== undefined) {
+                                 p.catch(e => console.log("Mobile scroll play error:", e));
+                             }
+                        } else {
+                            video.pause();
+                        }
+                    }
                 });
-            }
-    
-            const observer = new IntersectionObserver(handleIntersection, options);
-    
-            ['mobile-stories', 'mobile-video'].forEach(id => {
-                const container = document.getElementById(id);
-                if (!container) return;
-                const items = container.querySelectorAll('.mobile-item');
-                items.forEach(item => observer.observe(item));
-            });
+            }, { root: null, rootMargin: '0px', threshold: 0.6 });
+            
+            document.querySelectorAll('.mobile-item').forEach(item => observer.observe(item));
         }
 
+        // --- DOM CONTENT LOADED ---
         document.addEventListener('DOMContentLoaded', () => {
             generateItems();
-            updateCarousel('graphics');
-            updateCarousel('stories');
-            updateCarousel('video');
-    
-            moveMobile('graphics', 0);
-            moveMobile('stories', 0);
-            moveMobile('video', 0);
-        });
 
-        window.addEventListener('resize', () => {
-            updateCarousel('graphics');
-            updateCarousel('stories');
-            updateCarousel('video');
-        });
-
-        function flashNavLink(hash) {
-            const id = hash.replace('#', '');
-            const link = document.querySelector(`a[href="#${id}"]`);
-            if (!link) return;
-    
-            link.classList.add('active');
-            setTimeout(() => link.classList.remove('active'), 1200);
-        }
-
-        document.addEventListener('click', (event) => {
-            const anchor = event.target.closest('a[href^="#"]');
-            if (!anchor) return;
-    
-            const href = anchor.getAttribute('href');
-            const target = document.querySelector(href);
-            if (!target) return;
-    
-            setTimeout(() => {
-                flashNavLink(href);
-            }, 280);
-        });
-
-        window.addEventListener('hashchange', () => {
-            flashNavLink(window.location.hash);
-        });
-
-        let lastScrollY = window.scrollY;
-        let ticking = false;
-        const header = document.querySelector('header');
-
-        function updateHeaderOnScroll() {
-            const currentY = window.scrollY;
-            if (!header) return;
-    
-            if (currentY > 40) {
-                header.classList.add('backdrop-blur-xs', 'bg-slate-950/75');
-                header.classList.add('border-b', 'border-slate-800/80');
-                header.classList.add('sticky', 'top-0', 'z-20');
-            } else {
-                header.classList.remove('backdrop-blur-xs', 'bg-slate-950/75');
-                header.classList.remove('border-b', 'border-slate-800/80');
-                header.classList.remove('sticky', 'top-0', 'z-20');
+            // --- PC CURSOR LOGIC ---
+            if (window.matchMedia("(min-width: 1024px)").matches) {
+                const cursorDot = document.getElementById('cursor-dot');
+                const cursorRing = document.getElementById('cursor-ring');
+                
+                if (cursorDot && cursorRing) {
+                    document.addEventListener('mousemove', (e) => { 
+                        cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
+                        cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
+                    });
+                    document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
+                    document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
+                    
+                    // Re-bind hoverables
+                    setInterval(() => {
+                        const newHoverables = document.querySelectorAll('.hoverable, .carousel-item, a, button');
+                        newHoverables.forEach(el => {
+                            if(!el.hasAttribute('data-hover-bound')) {
+                                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+                                el.setAttribute('data-hover-bound', 'true');
+                            }
+                        });
+                    }, 1000);
+                }
             }
-    
-            lastScrollY = currentY;
-            ticking = false;
-        }
 
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    updateHeaderOnScroll();
+            // Burger Menu
+            const burgerBtn = document.getElementById('burger-btn'); 
+            const mobileMenu = document.getElementById('mobile-menu'); 
+            let isMenuOpen = false;
+            if(burgerBtn) {
+                burgerBtn.addEventListener('click', () => { 
+                    isMenuOpen = !isMenuOpen; 
+                    const icon = burgerBtn.querySelector('i'); 
+                    if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } 
+                    else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } 
                 });
-                ticking = true;
             }
+            
+            // Language Init
+            applyLanguage(currentLang);
         });
 
-        updateHeaderOnScroll();
+        // TRANSLATIONS
+        const translations = {
+            en: {
+                'nav-home': 'HOME', 'nav-about': 'ABOUT US', 'nav-work': 'OUR WORK', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>',
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explore our portfolio across various formats.',
+                'sec-graphics': 'SOCIAL MEDIA POSTS', 'sec-stories': 'STORIES', 'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
+                'btn-quote': 'GET A QUOTE',
+                'sec4-title': 'CAPTIONS <span class="text-cmyk-c">& ADS</span>', 'sec4-desc': 'We write words that sell, convince, and connect.',
+                'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
+                'box2-title': 'Engaging Captions', 'box2-desc': 'From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.',
+                'box3-title': 'Video Scripts', 'box3-desc': 'Structuring your reels and TikToks for maximum retention, ensuring your message is heard.',
+                'footer-rights': '© 2025. All rights reserved.',
+                'footer-crafted': 'Agency in <span class="font-bold text-black">Baia Mare</span>. Serving <span class="text-black">Cluj, Suceava</span> & Worldwide.'
+            },
+            ro: {
+                'nav-home': 'ACASĂ', 'nav-about': 'DESPRE NOI', 'nav-work': 'PORTOFOLIU', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>', 
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explorează portofoliul nostru în diverse formate.',
+                'sec-graphics': 'POSTĂRI SOCIAL MEDIA', 'sec-stories': 'STORY-URI', 'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
+                'btn-quote': 'CERE O OFERTĂ',
+                'sec4-title': 'COPYWRITING <span class="text-cmyk-c">& RECLAME</span>', 'sec4-desc': 'Scriem texte care vând, conving și conectează.',
+                'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',
+                'box2-title': 'Potrivit ție', 'box2-desc': 'De la mesaje scurte și pline de umor până la postări lungi care spun o poveste, găsim tonul care se potrivește perfect brandului tău.',
+                'box3-title': 'Scripturi video', 'box3-desc': 'Structurarea reel-urilor și TikTok-urilor pentru o retenție maximă, asigurându-ne că mesajul tău este auzit.',
+                'footer-rights': 'Toate drepturile rezervate.',
+                'footer-crafted': 'Creat cu ❤️ în Baia Mare, România.'
+            }
+        };
 
-        function sparkBadge() {
-            const badge = document.querySelector('.badge-sparkle');
-            if (!badge) return;
-    
-            badge.classList.add('animate-[badge-sparkle_6.4s_ease-in-out_infinite]');
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+
+        function applyLanguage(lang) {
+            const icon = document.getElementById('flag-icon');
+            const iconMob = document.getElementById('flag-icon-mobile');
+            if(icon) icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+            if(iconMob) iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            
+            const titleEl = document.getElementById('work-title');
+            if (titleEl) {
+                if (lang === 'ro') titleEl.innerHTML = translations['ro']['work-title-ro'];
+                else titleEl.innerHTML = translations['en']['work-title-en'];
+            }
         }
 
-        setTimeout(sparkBadge, 1200);
-
-        const footerDocs = document.querySelectorAll('footer .credits-link');
-        footerDocs.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                footerDocs.forEach(l => l.classList.add('opacity-60'));
-                link.classList.remove('opacity-60');
-            });
-            link.addEventListener('mouseleave', () => {
-                footerDocs.forEach(l => l.classList.remove('opacity-60'));
-            });
-        });
-
-        function flipDots() {
-            const dots = document.querySelectorAll('.glow-dot-c, .glow-dot-m, .glow-dot-y');
-            dots.forEach(dot => dot.classList.add('flag-flip'));
-            setTimeout(() => dots.forEach(dot => dot.classList.remove('flag-flip')), 800);
+        function toggleLanguage() {
+            const newLang = currentLang === 'en' ? 'ro' : 'en';
+            currentLang = newLang;
+            localStorage.setItem('siteLang', newLang);
+            const icons = document.querySelectorAll('.flag-inner');
+            icons.forEach(ic => ic.classList.add('flag-flip'));
+            setTimeout(() => { applyLanguage(newLang); }, 400);
+            setTimeout(() => { icons.forEach(ic => ic.classList.remove('flag-flip')); }, 800);
         }
     </script>
 </body>

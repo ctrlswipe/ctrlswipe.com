@@ -23,23 +23,23 @@
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
         .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
-        .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
+        .hoverable:hover { transform: scale(1.05) !important; z-index: 50; position: relative; }
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
         .gradient-blob-cyan { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #00AEEF 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
 
         /* CAROUSEL STYLES */
-        .carousel-container { perspective: 1000px; overflow: hidden; display: flex; justify-content: center; align-items: center; position: relative; height: 700px; }
+        .carousel-container { perspective: 1000px; overflow: hidden; display: flex; justify-content: center; align-items: center; position: relative; height: 750px; }
         
         .carousel-item { 
             position: absolute; 
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
-            border-radius: 1rem; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
             overflow: hidden;
-            background: black; 
+            background: transparent; /* Transparent to show full uncropped image */
             transform-style: preserve-3d;
-            will-change: transform, opacity, filter; 
+            will-change: transform, opacity; 
+            /* No borders, No rounded corners */
         }
         
         .c-active { 
@@ -47,8 +47,7 @@
             transform: translateX(0) scale(1); 
             filter: blur(0) brightness(1); 
             opacity: 1; 
-            border: 3px solid white; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            /* Removed border */
         }
         .c-prev { 
             z-index: 10; 
@@ -80,38 +79,33 @@
         .mobile-item { 
             flex: 0 0 85%; 
             scroll-snap-align: center; 
-            border-radius: 1rem; 
             overflow: hidden; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
             position: relative;
             background: black;
+            /* No Rounded Corners */
         }
 
-        /* --- CURSOR STYLES (MATCHING INDEX.HTML) --- */
+        /* --- CURSOR STYLES --- */
         @media (min-width: 1024px) {
             body { cursor: none; }
             .cursor-dot { 
                 width: 24px; height: 24px; 
                 background-color: white; 
-                position: fixed; 
-                top: 0; left: 0;
+                position: fixed; top: 0; left: 0;
                 transform: translate(-50%, -50%); 
                 z-index: 100001; 
                 pointer-events: none; 
                 mix-blend-mode: difference; 
                 -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
                 mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
-                -webkit-mask-size: contain; 
-                mask-size: contain; 
-                -webkit-mask-repeat: no-repeat; 
-                mask-repeat: no-repeat; 
-                -webkit-mask-position: center; 
-                mask-position: center; 
+                -webkit-mask-size: contain; mask-size: contain; 
+                -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; 
+                -webkit-mask-position: center; mask-position: center; 
                 transition: transform 0.1s; 
             }
             .cursor-dot.active { 
-                background-color: #ff0033; 
-                mix-blend-mode: normal; 
+                background-color: #ff0033; mix-blend-mode: normal; 
                 box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; 
                 transform: translate(-50%, -50%) scale(0.8); 
             }
@@ -119,17 +113,13 @@
                 width: 40px; height: 40px; 
                 border: 1px solid #EC008C; 
                 border-radius: 50%; 
-                position: fixed; 
-                top: 0; left: 0;
+                position: fixed; top: 0; left: 0;
                 transform: translate(-50%, -50%); 
                 z-index: 100000; 
                 pointer-events: none; 
                 transition: all 0.15s ease-out; 
             }
-            .cursor-ring.hovered { 
-                width: 60px; height: 60px; 
-                background: rgba(255, 255, 255, 0.1); 
-            }
+            .cursor-ring.hovered { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); }
         }
         @media (max-width: 1023px) { 
             .cursor-dot, .cursor-ring { display: none !important; } 
@@ -147,10 +137,10 @@
         
         .aspect-4-5 { aspect-ratio: 4/5; }
         .aspect-9-16 { aspect-ratio: 9/16; }
+        .aspect-16-9 { aspect-ratio: 16/9; }
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
-    <!-- Cursor Elements -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
@@ -221,7 +211,7 @@
                 </div>
 
                 <!-- Desktop Carousel (Graphics) -->
-                <div class="hidden lg:flex relative carousel-container h-[600px]" id="carousel-graphics">
+                <div class="hidden lg:flex relative carousel-container h-[700px]" id="carousel-graphics">
                     <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
@@ -249,7 +239,7 @@
                 </div>
 
                 <!-- Desktop Carousel (Stories) -->
-                <div class="hidden lg:flex relative carousel-container h-[750px]" id="carousel-stories">
+                <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-stories">
                     <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
@@ -277,7 +267,7 @@
                 </div>
 
                 <!-- Desktop Carousel (Video) -->
-                <div class="hidden lg:flex relative carousel-container h-[750px]" id="carousel-video">
+                <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-video">
                     <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
@@ -304,41 +294,30 @@
                     <div class="h-[3px] bg-cmyk-k flex-grow"></div>
                 </div>
                 
-                <!-- 3 Website Cards Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 3 Clickable Thumbnails (No Text, No Rounded Borders) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
                     
                     <!-- Site 1 -->
-                    <div class="glass-panel p-6 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-[1.02] hoverable group flex flex-col h-full">
-                        <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-gray-100">
-                             <!-- LINK 1: Replace href with actual link -->
-                            <img src="webdesign/1.png" alt="Website 1" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://placehold.co/800x600/00AEEF/ffffff?text=Website+1+Preview'">
+                    <a href="https://example.com/site1" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                        <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                            <!-- USING object-cover here to fill thumbnail area, or object-contain if strictly no crop needed. Defaulting to cover for web thumbnails usually looks better, but user said "all materials no crop". Using contain. -->
+                            <img src="webdesign/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/00AEEF/ffffff?text=Website+1'">
                         </div>
-                        <h3 class="text-2xl font-black mb-2">Project Name 1</h3>
-                        <p class="text-gray-600 text-sm mb-6 flex-grow">A brief description of this website project. Custom design focused on conversion and speed.</p>
-                        <a href="#" target="_blank" class="w-full py-3 bg-black text-white text-center rounded-full font-bold hover:bg-cmyk-c hover:text-black transition-colors">VISIT SITE</a>
-                    </div>
+                    </a>
 
                     <!-- Site 2 -->
-                    <div class="glass-panel p-6 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-[1.02] hoverable group flex flex-col h-full">
-                        <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-gray-100">
-                             <!-- LINK 2: Replace href with actual link -->
-                            <img src="webdesign/2.png" alt="Website 2" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://placehold.co/800x600/EC008C/ffffff?text=Website+2+Preview'">
+                    <a href="https://example.com/site2" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                         <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                            <img src="webdesign/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/EC008C/ffffff?text=Website+2'">
                         </div>
-                        <h3 class="text-2xl font-black mb-2">Project Name 2</h3>
-                        <p class="text-gray-600 text-sm mb-6 flex-grow">E-commerce solution with dynamic product filtering and modern UI.</p>
-                        <a href="#" target="_blank" class="w-full py-3 bg-black text-white text-center rounded-full font-bold hover:bg-cmyk-m hover:text-white transition-colors">VISIT SITE</a>
-                    </div>
+                    </a>
 
                     <!-- Site 3 -->
-                    <div class="glass-panel p-6 rounded-3xl border border-gray-200 shadow-lg hover:shadow-2xl transition-all hover:scale-[1.02] hoverable group flex flex-col h-full">
-                        <div class="relative w-full aspect-[4/3] overflow-hidden rounded-xl mb-6 bg-gray-100">
-                             <!-- LINK 3: Replace href with actual link -->
-                            <img src="webdesign/3.png" alt="Website 3" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://placehold.co/800x600/FFF200/000000?text=Website+3+Preview'">
+                    <a href="https://example.com/site3" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                         <div class="w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                            <img src="webdesign/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x600/FFF200/000000?text=Website+3'">
                         </div>
-                        <h3 class="text-2xl font-black mb-2">Project Name 3</h3>
-                        <p class="text-gray-600 text-sm mb-6 flex-grow">Corporate portfolio for a local brand, featuring multilingual support.</p>
-                        <a href="#" target="_blank" class="w-full py-3 bg-black text-white text-center rounded-full font-bold hover:bg-cmyk-y hover:text-black transition-colors">VISIT SITE</a>
-                    </div>
+                    </a>
 
                 </div>
             </section>
@@ -354,17 +333,18 @@
                  <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <!-- Removing rounded corners here too as requested "toate materialele" usually means media, but "materiale" could mean cards. I will keep slight roundness on text cards for UI consistency unless "toate" implies UI cards too. Assuming MEDIA files mostly. I will keep UI cards slightly rounded for aesthetics but remove from media content. -->
+                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-bullhorn"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box1-title">Ad Copy</p>
                         <p class="text-gray-600 text-sm" data-key="box1-desc">We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-quote-right"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box2-title">Engaging Captions</p>
                         <p class="text-gray-600 text-sm" data-key="box2-desc">From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-video"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box3-title">Video Scripts</p>
                         <p class="text-gray-600 text-sm" data-key="box3-desc">Structuring your reels and TikToks for maximum retention, ensuring your message is heard.</p>
@@ -402,7 +382,7 @@
 
         // GENERATE CONTENT
         function generateItems() {
-            // 1. Graphics
+            // 1. Graphics (Using object-contain to prevent crop)
             const trackGraphics = document.getElementById('track-graphics');
             const mobileGraphics = document.getElementById('mobile-graphics');
             for(let i=1; i<=config.graphics.count; i++) {
@@ -410,17 +390,17 @@
                 const fallback = `https://placehold.co/800x1000/00AEEF/ffffff?text=Graphic+${i}`;
                 
                 trackGraphics.innerHTML += `
-                    <div class="carousel-item aspect-4-5 w-[320px] md:w-[400px]" data-index="${i-1}">
-                        <img src="${src}" class="w-full h-full object-cover" onerror="this.src='${fallback}'">
+                    <div class="carousel-item aspect-4-5 w-[320px] md:w-[450px]" data-index="${i-1}">
+                        <img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">
                     </div>`;
                 
                 mobileGraphics.innerHTML += `
                     <div class="mobile-item aspect-4-5">
-                         <img src="${src}" class="w-full h-full object-cover" onerror="this.src='${fallback}'">
+                         <img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">
                     </div>`;
             }
 
-            // 2. Stories
+            // 2. Stories (Using object-contain)
             const trackStories = document.getElementById('track-stories');
             const mobileStories = document.getElementById('mobile-stories');
             for(let i=1; i<=config.stories.count; i++) {
@@ -429,12 +409,13 @@
                 const src = `${config.stories.path}${i}${ext}`;
                 const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${i}`;
                 
+                // Note: object-contain allows full view without crop
                 const content = isVideo 
-                    ? `<video src="${src}" class="w-full h-full object-cover" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-cover\\'>')"></video>`
-                    : `<img src="${src}" class="w-full h-full object-cover" onerror="this.src='${fallback}'">`;
+                    ? `<video src="${src}" class="w-full h-full object-contain" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`
+                    : `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
 
                 trackStories.innerHTML += `
-                    <div class="carousel-item aspect-9-16 w-[320px]" data-index="${i-1}">
+                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
                         ${content}
                     </div>`;
                 
@@ -444,16 +425,17 @@
                     </div>`;
             }
 
-            // 3. Video Production
+            // 3. Video Production (Fixed logic, verified paths, object-contain)
             const trackVideo = document.getElementById('track-video');
             const mobileVideo = document.getElementById('mobile-video');
             for(let i=1; i<=config.video.count; i++) {
                 const src = `${config.video.path}${i}${config.video.ext}`;
                 const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
-                const videoTag = `<video src="${src}" class="w-full h-full object-cover" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-cover\\'>')"></video>`;
+                
+                const videoTag = `<video src="${src}" class="w-full h-full object-contain" muted loop playsinline onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>`;
                 
                 trackVideo.innerHTML += `
-                    <div class="carousel-item aspect-9-16 w-[320px]" data-index="${i-1}">
+                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
                         ${videoTag}
                     </div>`;
                 

@@ -22,8 +22,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
-        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
-        .hoverable:hover { transform: scale(1.05) !important; z-index: 50; position: relative; }
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
         .gradient-blob-cyan { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #00AEEF 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
@@ -36,7 +34,7 @@
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
             box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
             overflow: hidden;
-            background: transparent; 
+            background: black; 
             transform-style: preserve-3d;
             will-change: transform, opacity; 
         }
@@ -135,26 +133,42 @@
         .aspect-4-5 { aspect-ratio: 4/5; }
         .aspect-9-16 { aspect-ratio: 9/16; }
         .aspect-16-9 { aspect-ratio: 16/9; }
-		/* Add this to your existing <style> block */
-.play-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    color: white;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    z-index: 20;
-}
-.play-overlay.visible {
-    opacity: 1;
-}
-video {
-    background-color: #000; /* Prevents white flash before loading */
-}
+        
+        /* YouTube Embed Styling for Stories (Non-interactive) */
+        .yt-story-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .yt-story-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Stories: No interaction */
+        }
+        .yt-story-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+        }
+
+        /* YouTube Embed Styling for Video Production (Interactive) */
+        .yt-video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .yt-video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            pointer-events: auto; /* Video Prod: Interaction Allowed */
+        }
+        
+        /* Utility for hover effect removal */
+        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
+        .hoverable:hover { transform: scale(1.05) !important; z-index: 50; position: relative; }
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
@@ -219,7 +233,6 @@ video {
             </header>
 
             <!-- SECTION 1: SOCIAL MEDIA POSTS (4:5) -->
-            <!-- Separator: CYAN -->
             <section id="graphics">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
@@ -229,13 +242,13 @@ video {
 
                 <!-- Desktop Carousel (Graphics) -->
                 <div class="hidden lg:flex relative carousel-container h-[700px]" id="carousel-graphics">
-                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', -1)">
+                    <button class="absolute left-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('graphics', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
                     <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-graphics">
                         <!-- Items injected by JS -->
                     </div>
-                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', 1)">
+                    <button class="absolute right-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('graphics', 1)">
                         <i class="fa-solid fa-chevron-right text-2xl"></i>
                     </button>
                 </div>
@@ -247,7 +260,6 @@ video {
             </section>
 
             <!-- SECTION 2: STORIES (9:16) -->
-            <!-- Separator: MAGENTA -->
             <section id="stories">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-m flex-grow"></div>
@@ -257,13 +269,13 @@ video {
 
                 <!-- Desktop Carousel (Stories) -->
                 <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-stories">
-                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', -1)">
+                    <button class="absolute left-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('stories', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
                     <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-stories">
                         <!-- Items injected by JS -->
                     </div>
-                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', 1)">
+                    <button class="absolute right-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('stories', 1)">
                         <i class="fa-solid fa-chevron-right text-2xl"></i>
                     </button>
                 </div>
@@ -275,7 +287,6 @@ video {
             </section>
 
             <!-- SECTION 3: VIDEO PRODUCTION (9:16 Vertical) -->
-            <!-- Separator: YELLOW -->
             <section id="video">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-y flex-grow"></div>
@@ -285,13 +296,13 @@ video {
 
                 <!-- Desktop Carousel (Video) -->
                 <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-video">
-                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', -1)">
+                    <button class="absolute left-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('video', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
                     <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-video">
                         <!-- Items injected by JS -->
                     </div>
-                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', 1)">
+                    <button class="absolute right-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('video', 1)">
                         <i class="fa-solid fa-chevron-right text-2xl"></i>
                     </button>
                 </div>
@@ -303,7 +314,6 @@ video {
             </section>
 
             <!-- SECTION 4: WEB DESIGN -->
-            <!-- Separator: BLACK (KEY) -->
             <section id="webdesign">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-k flex-grow"></div>
@@ -311,36 +321,27 @@ video {
                     <div class="h-[3px] bg-cmyk-k flex-grow"></div>
                 </div>
                 
-                <!-- 3 Clickable Thumbnails (No Text, No Rounded Borders) -->
+                <!-- 3 Clickable Thumbnails -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
-                    
-                    <!-- Site 1 -->
                     <a href="https://ctrlswipe.github.io/antalya/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
-                            <!-- Using object-contain to allow full view without crop -->
                             <img src="web-design/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/00AEEF/ffffff?text=Website+1'">
                         </div>
                     </a>
-
-                    <!-- Site 2 -->
                     <a href="https://ctrlswipe.github.io/clinic/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-square overflow-hidden bg-gray-100">
                             <img src="web-design/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/EC008C/ffffff?text=Website+2'">
                         </div>
                     </a>
-
-                    <!-- Site 3 -->
                     <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-square overflow-hidden bg-gray-100">
                             <img src="web-design/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/FFF200/000000?text=Website+3'">
                         </div>
                     </a>
-
                 </div>
             </section>
 
             <!-- SECTION 5: CAPTIONS & ADS -->
-            <!-- Separator: CYAN (Restart Cycle) -->
             <section id="captions" class="pb-12">
                  <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
@@ -350,7 +351,6 @@ video {
                  <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Removing rounded corners here too as requested "toate materialele" usually means media, but "materiale" could mean cards. I will keep slight roundness on text cards for UI consistency unless "toate" implies UI cards too. Assuming MEDIA files mostly. I will keep UI cards slightly rounded for aesthetics but remove from media content. -->
                     <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-bullhorn"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box1-title">Ad Copy</p>
@@ -383,316 +383,308 @@ video {
         </div>
     </footer>
     
-<script>
-    // CONFIG
-    const config = {
-        graphics: { count: 8, path: 'graphics-portfolio/', ext: '.png' },
-        stories: { count: 12, path: 'story/', mixed: true }, // Logic: Odd=png, Even=mp4
-        video: { count: 8, path: 'videoproduction/video', ext: '.mp4' }
-    };
+    <script>
+        // CONFIG
+        const config = {
+            graphics: { count: 8, path: 'graphics-portfolio/', ext: '.png', type: 'image' },
+            // Removed local video config
+        };
 
-    const state = { graphics: 0, stories: 0, video: 0 };
+        // Custom config for Stories: Mix of Local & YouTube
+        const storyItems = [
+            { type: 'local', src: 'story/1.png' },
+            { type: 'youtube', id: 'ij8cZuwvsHc' },
+            { type: 'local', src: 'story/3.png' },
+            { type: 'youtube', id: '_NDznhjHcZE' },
+            { type: 'local', src: 'story/5.png' },
+            { type: 'youtube', id: 'dxLdeVH4nGc' },
+            { type: 'local', src: 'story/7.png' },
+            { type: 'local', src: 'story/8.png' }
+        ];
 
-    // --- CONTROLS FUNCTIONS ---
+        // Custom config for Video Production: YouTube Shorts Only
+        const videoItems = [
+            'ldlbhYZMnjc', 'XTdLFtDAT-w', '5HldxmXYjwU', '1olBmepUUtk', 'kNz_3sF1woI', 'm5hqnY_oU8c'
+        ];
 
-    // 1. Toggle Mute (Existing logic refined)
-    function toggleMute(btn, event) {
-        event.stopPropagation(); // Prevent triggering the Play/Pause tap
-        const video = btn.parentElement.querySelector('video');
-        const icon = btn.querySelector('i');
-        
-        if (video) {
-            video.muted = !video.muted;
-            if (video.muted) {
-                icon.className = 'fa-solid fa-volume-xmark text-lg';
-            } else {
-                icon.className = 'fa-solid fa-volume-high text-lg';
-                // Force play if it was paused
-                if(video.paused) video.play(); 
+        const state = {
+            graphics: 0,
+            stories: 0,
+            video: 0
+        };
+
+        // Helper function for mute toggling - not used for YouTube but kept if needed for other sections
+        function toggleMute(btn) {
+            const video = btn.parentElement.querySelector('video');
+            const icon = btn.querySelector('i');
+            
+            if (video) {
+                if (video.muted) {
+                    video.muted = false;
+                    icon.className = 'fa-solid fa-volume-high'; 
+                    video.play().catch(e => console.log('Play error on unmute:', e));
+                } else {
+                    video.muted = true;
+                    icon.className = 'fa-solid fa-volume-xmark'; 
+                }
             }
-        }
-    }
-
-    // 2. Toggle Play/Pause (New Mobile Logic)
-    function toggleVideoPlay(container) {
-        const video = container.querySelector('video');
-        const overlay = container.querySelector('.play-overlay');
-        const icon = overlay.querySelector('i');
-
-        if (video.paused) {
-            video.play();
-            icon.className = 'fa-solid fa-play'; // Show play briefly
-            animateOverlay(overlay);
-        } else {
-            video.pause();
-            icon.className = 'fa-solid fa-pause'; // Show pause briefly
-            animateOverlay(overlay);
-        }
-    }
-
-    function animateOverlay(overlay) {
-        overlay.classList.add('visible');
-        setTimeout(() => {
-            overlay.classList.remove('visible');
-        }, 600);
-    }
-
-    // --- GENERATE CONTENT ---
-    function generateItems() {
-        
-        // 1. Graphics (Unchanged)
-        const trackGraphics = document.getElementById('track-graphics');
-        const mobileGraphics = document.getElementById('mobile-graphics');
-        for(let i=1; i<=config.graphics.count; i++) {
-            const src = `${config.graphics.path}${i}${config.graphics.ext}`;
-            const fallback = `https://placehold.co/800x1000/00AEEF/ffffff?text=Graphic+${i}`;
-            const html = `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'" loading="lazy">`;
-            
-            trackGraphics.innerHTML += `<div class="carousel-item aspect-4-5 w-[320px] md:w-[450px]">${html}</div>`;
-            mobileGraphics.innerHTML += `<div class="mobile-item aspect-4-5">${html}</div>`;
+            event.stopPropagation();
         }
 
-        // 2. Stories (Auto-play muted, no extra controls needed as per request)
-        const trackStories = document.getElementById('track-stories');
-        const mobileStories = document.getElementById('mobile-stories');
-        for(let i=1; i<=config.stories.count; i++) {
-            const isVideo = (i % 2 === 0);
-            const ext = isVideo ? '.mp4' : '.png';
-            // Add #t=3 for thumbnail generation
-            const src = `${config.stories.path}${i}${ext}${isVideo ? '#t=3' : ''}`;
-            const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${i}`;
-            
-            let content;
-            if (isVideo) {
-                // Stories only need to play muted on scroll. No extra UI requested.
-                content = `<video src="${src}" class="w-full h-full object-contain" muted loop playsinline preload="metadata" onerror="this.style.display='none'"></video>`;
-            } else {
-                content = `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'" loading="lazy">`;
+        // GENERATE CONTENT
+        function generateItems() {
+            // 1. Graphics
+            const trackGraphics = document.getElementById('track-graphics');
+            const mobileGraphics = document.getElementById('mobile-graphics');
+            for(let i=1; i<=config.graphics.count; i++) {
+                const src = `${config.graphics.path}${i}${config.graphics.ext}`;
+                const fallback = `https://placehold.co/800x1000/00AEEF/ffffff?text=Graphic+${i}`;
+                
+                trackGraphics.innerHTML += `
+                    <div class="carousel-item aspect-4-5 w-[320px] md:w-[450px]" data-index="${i-1}">
+                        <img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">
+                    </div>`;
+                
+                mobileGraphics.innerHTML += `
+                    <div class="mobile-item aspect-4-5">
+                         <img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">
+                    </div>`;
             }
 
-            trackStories.innerHTML += `<div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">${content}</div>`;
-            mobileStories.innerHTML += `<div class="mobile-item aspect-9-16">${content}</div>`;
-        }
-
-        // 3. Video Production (With Controls & Thumbnails)
-        const trackVideo = document.getElementById('track-video');
-        const mobileVideo = document.getElementById('mobile-video');
-        for(let i=1; i<=config.video.count; i++) {
-            // Add #t=3 to force browser to load 3rd second frame
-            const src = `${config.video.path}${i}${config.video.ext}#t=3`;
-            const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
+            // 2. Stories (Custom Mix)
+            const trackStories = document.getElementById('track-stories');
+            const mobileStories = document.getElementById('mobile-stories');
             
-            // HTML Structure:
-            // 1. Video (playsinline, muted, preload metadata)
-            // 2. Play/Pause Overlay Icon (Center)
-            // 3. Mute Button (Bottom Right)
-            // 4. Onclick on container triggers toggleVideoPlay
-            const videoHTML = `
-                <div class="relative w-full h-full group bg-black cursor-pointer" onclick="toggleVideoPlay(this)">
-                    <video src="${src}" class="w-full h-full object-contain" muted loop playsinline preload="metadata" onerror="this.style.display='none';"></video>
-                    
-                    <!-- Center Play/Pause Feedback Icon -->
-                    <div class="play-overlay">
-                        <i class="fa-solid fa-play"></i>
+            storyItems.forEach((item, index) => {
+                let content = '';
+                
+                if (item.type === 'youtube') {
+                    // Embed YouTube Shorts loop + overlay to prevent clicks/title
+                    const embedUrl = `https://www.youtube.com/embed/${item.id}?autoplay=1&mute=1&loop=1&playlist=${item.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1`;
+                    content = `
+                        <div class="yt-story-wrapper">
+                             <div class="yt-story-overlay"></div>
+                             <iframe src="${embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    `;
+                } else {
+                    const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${index+1}`;
+                    content = `<img src="${item.src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
+                }
+
+                trackStories.innerHTML += `
+                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${index}">
+                        ${content}
+                    </div>`;
+                
+                mobileStories.innerHTML += `
+                    <div class="mobile-item aspect-9-16">
+                         ${content}
+                    </div>`;
+            });
+
+            // 3. Video Production (Youtube with Controls)
+            const trackVideo = document.getElementById('track-video');
+            const mobileVideo = document.getElementById('mobile-video');
+            
+            videoItems.forEach((id, index) => {
+                // Autoplay muted, Loop, Controls enabled
+                const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1`;
+                const content = `
+                    <div class="yt-video-wrapper">
+                        <iframe src="${embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
+                `;
 
-                    <!-- Mute Button -->
-                    <button class="absolute bottom-4 right-4 z-30 bg-black/50 hover:bg-cmyk-y hover:text-black text-white p-3 rounded-full transition-all backdrop-blur-sm shadow-lg border border-white/20" onclick="toggleMute(this, event)">
-                        <i class="fa-solid fa-volume-xmark text-lg"></i>
-                    </button>
-                </div>
-            `;
-            
-            trackVideo.innerHTML += `<div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">${videoHTML}</div>`;
-            mobileVideo.innerHTML += `<div class="mobile-item aspect-9-16">${videoHTML}</div>`;
+                trackVideo.innerHTML += `
+                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${index}">
+                        ${content}
+                    </div>`;
+                
+                mobileVideo.innerHTML += `
+                    <div class="mobile-item aspect-9-16">
+                         ${content}
+                    </div>`;
+            });
+
+            updateCarousel('graphics');
+            updateCarousel('stories');
+            updateCarousel('video');
+            initMobileObserver();
         }
 
-        updateCarousel('graphics');
-        updateCarousel('stories');
-        updateCarousel('video');
-        initMobileObserver();
-    }
+        function moveCarousel(type, dir) {
+            let total = 0;
+            if (type === 'graphics') total = config.graphics.count;
+            else if (type === 'stories') total = storyItems.length;
+            else total = videoItems.length; // Use videoItems length
 
-    // --- CAROUSEL LOGIC (Desktop) ---
-    function moveCarousel(type, dir) {
-        const total = type === 'graphics' ? config.graphics.count : (type === 'stories' ? config.stories.count : config.video.count);
-        state[type] = (state[type] + dir + total) % total;
-        updateCarousel(type);
-    }
+            state[type] = (state[type] + dir + total) % total;
+            updateCarousel(type);
+        }
 
-    function updateCarousel(type) {
-        const track = document.getElementById(`track-${type}`);
-        const items = track.querySelectorAll('.carousel-item');
-        const activeIdx = state[type];
-        const total = items.length;
+        function updateCarousel(type) {
+            const track = document.getElementById(`track-${type}`);
+            const items = track.querySelectorAll('.carousel-item');
+            const activeIdx = state[type];
+            const total = items.length;
 
-        items.forEach((item, idx) => {
-            let diff = (idx - activeIdx + total) % total;
-            if (diff > total / 2) diff -= total;
-            
-            item.className = item.className.replace(/c-active|c-prev|c-next|c-hidden/g, '').trim();
-            const video = item.querySelector('video');
-            
-            if (idx === activeIdx) {
-                item.classList.add('c-active');
-                if (video) {
-                    // Desktop auto-play
-                    video.muted = true; // Always start muted
-                    video.play().catch(e => console.log("Desktop autoplay blocked:", e));
-                }
-            } else {
-                if(video) {
-                    video.pause(); 
-                    video.currentTime = 3; // Reset to thumbnail frame
-                }
-                if (diff === -1) item.classList.add('c-prev');
-                else if (diff === 1) item.classList.add('c-next');
-                else item.classList.add('c-hidden');
-            }
-        });
-    }
-
-    // --- MOBILE OBSERVER (Fix for scroll playing) ---
-    function initMobileObserver() {
-        const options = { root: null, rootMargin: '0px', threshold: 0.7 };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const video = entry.target.querySelector('video');
-                if (!video) return;
-
-                if (entry.isIntersecting) {
-                    // 1. Ensure it's muted (Browser requirement for scroll autoplay)
-                    if (video.muted === false) {
-                        // If user previously unmuted, we try to keep it playing, 
-                        // but usually scroll autoplay requires mute. 
-                        // We will trust the state, but if play fails, we mute and retry.
-                    }
-                    
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(error => {
-                            // Auto-play was prevented.
-                            // Often because it wasn't muted or Low Power Mode is on.
-                            if(!video.muted) {
-                                video.muted = true;
-                                video.play().catch(e => console.log("Still blocked:", e));
-                            }
-                        });
+            items.forEach((item, idx) => {
+                let diff = (idx - activeIdx + total) % total;
+                if (diff > total / 2) diff -= total;
+                
+                item.className = item.className.replace(/c-active|c-prev|c-next|c-hidden/g, '').trim();
+                const video = item.querySelector('video');
+                
+                if (idx === activeIdx) {
+                    item.classList.add('c-active');
+                    if (video) {
+                        var playPromise = video.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log("Auto-play prevented (Desktop):", error);
+                            });
+                        }
                     }
                 } else {
-                    video.pause();
+                    if(video) {
+                        video.pause(); 
+                        video.currentTime = 0;
+                    }
+                    if (diff === -1) item.classList.add('c-prev');
+                    else if (diff === 1) item.classList.add('c-next');
+                    else item.classList.add('c-hidden');
                 }
             });
-        }, options);
+        }
         
-        document.querySelectorAll('.mobile-item').forEach(item => observer.observe(item));
-    }
-
-    // --- INITIALIZATION ---
-    document.addEventListener('DOMContentLoaded', () => {
-        generateItems();
-
-        // Desktop Cursor
-        if (window.matchMedia("(min-width: 1024px)").matches) {
-            const cursorDot = document.getElementById('cursor-dot');
-            const cursorRing = document.getElementById('cursor-ring');
-            if (cursorDot && cursorRing) {
-                document.addEventListener('mousemove', (e) => { 
-                    cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
-                    cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
-                });
-                document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
-                document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
-                
-                setInterval(() => {
-                    document.querySelectorAll('.hoverable, .carousel-item, a, button').forEach(el => {
-                        if(!el.hasAttribute('data-hover-bound')) {
-                            el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
-                            el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
-                            el.setAttribute('data-hover-bound', 'true');
+        function initMobileObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target.querySelector('video');
+                    if(video) {
+                        if (entry.isIntersecting) {
+                             video.muted = true; 
+                             var p = video.play();
+                             if(p !== undefined) {
+                                 p.catch(e => console.log("Mobile scroll play error:", e));
+                             }
+                        } else {
+                            video.pause();
                         }
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.6 });
+            
+            document.querySelectorAll('.mobile-item').forEach(item => observer.observe(item));
+        }
+
+        // --- DOM CONTENT LOADED ---
+        document.addEventListener('DOMContentLoaded', () => {
+            generateItems();
+
+            // --- PC CURSOR LOGIC ---
+            if (window.matchMedia("(min-width: 1024px)").matches) {
+                const cursorDot = document.getElementById('cursor-dot');
+                const cursorRing = document.getElementById('cursor-ring');
+                
+                if (cursorDot && cursorRing) {
+                    document.addEventListener('mousemove', (e) => { 
+                        cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
+                        cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
                     });
-                }, 1000);
+                    document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
+                    document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
+                    
+                    setInterval(() => {
+                        const newHoverables = document.querySelectorAll('.hoverable, .carousel-item, a, button');
+                        newHoverables.forEach(el => {
+                            if(!el.hasAttribute('data-hover-bound')) {
+                                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+                                el.setAttribute('data-hover-bound', 'true');
+                            }
+                        });
+                    }, 1000);
+                }
+            }
+
+            const burgerBtn = document.getElementById('burger-btn'); 
+            const mobileMenu = document.getElementById('mobile-menu'); 
+            let isMenuOpen = false;
+            if(burgerBtn) {
+                burgerBtn.addEventListener('click', () => { 
+                    isMenuOpen = !isMenuOpen; 
+                    const icon = burgerBtn.querySelector('i'); 
+                    if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } 
+                    else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } 
+                });
+            }
+            applyLanguage(currentLang);
+        });
+
+        // TRANSLATIONS
+        const translations = {
+            en: {
+                'nav-home': 'HOME', 'nav-about': 'ABOUT US', 'nav-work': 'OUR WORK', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>',
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explore our portfolio across various formats.',
+                'sec-graphics': 'SOCIAL MEDIA POSTS', 'sec-stories': 'STORIES', 'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
+                'btn-quote': 'GET A QUOTE',
+                'sec4-title': 'CAPTIONS <span class="text-cmyk-c">& ADS</span>', 'sec4-desc': 'We write words that sell, convince, and connect.',
+                'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
+                'box2-title': 'Engaging Captions', 'box2-desc': 'From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.',
+                'box3-title': 'Video Scripts', 'box3-desc': 'Structuring your reels and TikToks for maximum retention, ensuring your message is heard.',
+                'footer-rights': '© 2025. All rights reserved.',
+                'footer-crafted': 'Agency in <span class="font-bold text-black">Baia Mare</span>. Serving <span class="text-black">Cluj, Suceava</span> & Worldwide.'
+            },
+            ro: {
+                'nav-home': 'ACASĂ', 'nav-about': 'DESPRE NOI', 'nav-work': 'PORTOFOLIU', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>', 
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explorează portofoliul nostru în diverse formate.',
+                'sec-graphics': 'POSTĂRI SOCIAL MEDIA', 'sec-stories': 'STORY-URI', 'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
+                'btn-quote': 'CERE O OFERTĂ',
+                'sec4-title': 'COPYWRITING <span class="text-cmyk-c">& RECLAME</span>', 'sec4-desc': 'Scriem texte care vând, conving și conectează.',
+                'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',
+                'box2-title': 'Potrivit ție', 'box2-desc': 'De la mesaje scurte și pline de umor până la postări lungi care spun o poveste, găsim tonul care se potrivește perfect brandului tău.',
+                'box3-title': 'Scripturi video', 'box3-desc': 'Structurarea reel-urilor și TikTok-urilor pentru o retenție maximă, asigurându-ne că mesajul tău este auzit.',
+                'footer-rights': 'Toate drepturile rezervate.',
+                'footer-crafted': 'Creat cu ❤️ în Baia Mare, România.'
+            }
+        };
+
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+
+        function applyLanguage(lang) {
+            const icon = document.getElementById('flag-icon');
+            const iconMob = document.getElementById('flag-icon-mobile');
+            if(icon) icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+            if(iconMob) iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            
+            const titleEl = document.getElementById('work-title');
+            if (titleEl) {
+                if (lang === 'ro') titleEl.innerHTML = translations['ro']['work-title-ro'];
+                else titleEl.innerHTML = translations['en']['work-title-en'];
             }
         }
 
-        // Mobile Menu
-        const burgerBtn = document.getElementById('burger-btn'); 
-        const mobileMenu = document.getElementById('mobile-menu'); 
-        let isMenuOpen = false;
-        if(burgerBtn) {
-            burgerBtn.addEventListener('click', () => { 
-                isMenuOpen = !isMenuOpen; 
-                const icon = burgerBtn.querySelector('i'); 
-                if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } 
-                else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } 
-            });
+        function toggleLanguage() {
+            const newLang = currentLang === 'en' ? 'ro' : 'en';
+            currentLang = newLang;
+            localStorage.setItem('siteLang', newLang);
+            const icons = document.querySelectorAll('.flag-inner');
+            icons.forEach(ic => ic.classList.add('flag-flip'));
+            setTimeout(() => { applyLanguage(newLang); }, 400);
+            setTimeout(() => { icons.forEach(ic => ic.classList.remove('flag-flip')); }, 800);
         }
-        
-        applyLanguage(currentLang);
-    });
-
-    // TRANSLATIONS
-    const translations = {
-        en: {
-            'nav-home': 'HOME', 'nav-about': 'ABOUT US', 'nav-work': 'OUR WORK', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
-            'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>',
-            'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
-            'work-desc': 'Explore our portfolio across various formats.',
-            'sec-graphics': 'SOCIAL MEDIA POSTS', 'sec-stories': 'STORIES', 'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
-            'sec4-title': 'CAPTIONS <span class="text-cmyk-c">& ADS</span>', 'sec4-desc': 'We write words that sell, convince, and connect.',
-            'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
-            'box2-title': 'Engaging Captions', 'box2-desc': 'From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.',
-            'box3-title': 'Video Scripts', 'box3-desc': 'Structuring your reels and TikToks for maximum retention, ensuring your message is heard.',
-            'footer-rights': '© 2025. All rights reserved.',
-            'footer-crafted': 'Agency in <span class="font-bold text-black">Baia Mare</span>. Serving <span class="text-black">Cluj, Suceava</span> & Worldwide.'
-        },
-        ro: {
-            'nav-home': 'ACASĂ', 'nav-about': 'DESPRE NOI', 'nav-work': 'PORTOFOLIU', 'nav-blog': 'BLOG', 'nav-contact': 'CONTACT',
-            'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>', 
-            'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
-            'work-desc': 'Explorează portofoliul nostru în diverse formate.',
-            'sec-graphics': 'POSTĂRI SOCIAL MEDIA', 'sec-stories': 'STORY-URI', 'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
-            'sec4-title': 'COPYWRITING <span class="text-cmyk-c">& RECLAME</span>', 'sec4-desc': 'Scriem texte care vând, conving și conectează.',
-            'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',
-            'box2-title': 'Potrivit ție', 'box2-desc': 'De la mesaje scurte și pline de umor până la postări lungi care spun o poveste, găsim tonul care se potrivește perfect brandului tău.',
-            'box3-title': 'Scripturi video', 'box3-desc': 'Structurarea reel-urilor și TikTok-urilor pentru o retenție maximă, asigurându-ne că mesajul tău este auzit.',
-            'footer-rights': 'Toate drepturile rezervate.',
-            'footer-crafted': 'Creat cu ❤️ în Baia Mare, România.'
-        }
-    };
-
-    let currentLang = localStorage.getItem('siteLang') || 'en';
-
-    function applyLanguage(lang) {
-        const icon = document.getElementById('flag-icon');
-        const iconMob = document.getElementById('flag-icon-mobile');
-        if(icon) icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
-        if(iconMob) iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
-
-        const elements = document.querySelectorAll('[data-key]');
-        elements.forEach(el => {
-            const key = el.getAttribute('data-key');
-            if(translations[lang][key]) el.innerHTML = translations[lang][key];
-        });
-        
-        const titleEl = document.getElementById('work-title');
-        if (titleEl) {
-            if (lang === 'ro') titleEl.innerHTML = translations['ro']['work-title-ro'];
-            else titleEl.innerHTML = translations['en']['work-title-en'];
-        }
-    }
-
-    function toggleLanguage() {
-        const newLang = currentLang === 'en' ? 'ro' : 'en';
-        currentLang = newLang;
-        localStorage.setItem('siteLang', newLang);
-        const icons = document.querySelectorAll('.flag-inner');
-        icons.forEach(ic => ic.classList.add('flag-flip'));
-        setTimeout(() => { applyLanguage(newLang); }, 400);
-        setTimeout(() => { icons.forEach(ic => ic.classList.remove('flag-flip')); }, 800);
-    }
-</script>
+    </script>
 </body>
 </html>

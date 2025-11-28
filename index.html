@@ -73,20 +73,36 @@
         #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
         #mobile-menu.open { opacity: 1; visibility: visible; }
         #mobile-menu.closed { opacity: 0; visibility: hidden; }
-		/* Add this inside the <style> tag in index.html */
-#hero-video {
-    pointer-events: none; /* Prevents user interaction */
-    user-select: none;
-}
 
-/* Hides the default play button overlay on WebKit/iOS */
-#hero-video::-webkit-media-controls {
-    display: none !important;
-}
-#hero-video::-webkit-media-controls-start-playback-button {
-    display: none !important;
-    -webkit-appearance: none;
-}
+        /* Video Styles */
+        #hero-video {
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Hides the default play button overlay on WebKit/iOS */
+        #hero-video::-webkit-media-controls {
+            display: none !important;
+        }
+        #hero-video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+            -webkit-appearance: none;
+        }
+
+        /* --- MOBILE HERO IMAGE LOGIC --- */
+        @media (max-width: 1023px) {
+            /* 1. Hide the video on mobile */
+            #hero-video {
+                display: none !important;
+            }
+            /* 2. Apply the image to the background container */
+            #hero-background {
+                background-image: url('heroimage.jpg'); /* Use heroimage.jpg as requested */
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
@@ -102,7 +118,8 @@
             <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
                 <a href="index.html" class="absolute left-0 top-0 w-1/2 h-full z-50 cursor-pointer"></a>
                 <div class="w-full h-full origin-left pointer-events-none">
-                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain">
+                     <!-- Placeholder logo if file missing -->
+                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.src='https://placehold.co/200x50?text=CTRL+Swipe'">
                 </div>
             </div>
 
@@ -145,13 +162,16 @@
 
     <!-- Hero Section -->
     <header class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 w-full h-full z-0">
-            <!-- Added id="hero-video" and ensuring muted attributes are robust -->
+        <!-- Added ID 'hero-background' for CSS targeting -->
+        <div class="absolute inset-0 w-full h-full z-0" id="hero-background">
             <video id="hero-video" autoplay loop muted playsinline webkit-playsinline preload="auto" class="w-full h-full object-cover">
-    <source src="hero-video.mp4" type="video/mp4">
-</video>
+                <!-- Using a placeholder video if the file is missing in preview -->
+                <source src="hero-video.mp4" type="video/mp4">
+            </video>
+            <!-- Overlay remains visible on both video and image -->
             <div class="absolute inset-0 bg-black/50"></div>
         </div>
+        
         <div class="hero-container relative z-10 text-center px-4 w-full max-w-5xl mt-20 pb-12">
             <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[0.9] tracking-tighter mb-8 text-white drop-shadow-lg" data-key="hero-title">
                 TAKE CTRL<br>OF YOUR <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED</span>
@@ -352,41 +372,45 @@
         
         // --- MOBILE VIDEO FORCE PLAY ---
         document.addEventListener('DOMContentLoaded', () => {
-    const heroVideo = document.getElementById('hero-video');
-    if(heroVideo) {
-        // Critical for Mobile Autoplay
-        heroVideo.muted = true;
-        heroVideo.defaultMuted = true;
-        heroVideo.playsInline = true;
+            const heroVideo = document.getElementById('hero-video');
+            if(heroVideo) {
+                // Critical for Mobile Autoplay
+                heroVideo.muted = true;
+                heroVideo.defaultMuted = true;
+                heroVideo.playsInline = true;
 
-        // Force play
-        const attemptPlay = () => {
-            heroVideo.play().catch(e => {
-                console.log("Autoplay blocked. Waiting for interaction.");
-                // Fallback: If browser blocks it, play on first touch anywhere
-                document.addEventListener('touchstart', () => {
-                    heroVideo.play();
-                }, { once: true });
-            });
-        };
+                // Force play
+                const attemptPlay = () => {
+                    heroVideo.play().catch(e => {
+                        console.log("Autoplay blocked. Waiting for interaction.");
+                        // Fallback: If browser blocks it, play on first touch anywhere
+                        document.addEventListener('touchstart', () => {
+                            heroVideo.play();
+                        }, { once: true });
+                    });
+                };
 
-        attemptPlay();
-    }
+                // Play only on desktop (when visible)
+                if (window.matchMedia("(min-width: 1024px)").matches) {
+                    attemptPlay();
+                }
+            }
 
-        if (window.matchMedia("(min-width: 1024px)").matches) {
-            const cursorDot = document.getElementById('cursor-dot');
-            const cursorRing = document.getElementById('cursor-ring');
-            const hoverables = document.querySelectorAll('.hoverable');
-            document.addEventListener('mousemove', (e) => { 
-                cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
-                cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
-            });
-            document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
-            document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
-            hoverables.forEach(el => { el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); }); el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); }); });
-        }
-        const burgerBtn = document.getElementById('burger-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
-        burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
+            if (window.matchMedia("(min-width: 1024px)").matches) {
+                const cursorDot = document.getElementById('cursor-dot');
+                const cursorRing = document.getElementById('cursor-ring');
+                const hoverables = document.querySelectorAll('.hoverable');
+                document.addEventListener('mousemove', (e) => { 
+                    cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
+                    cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
+                });
+                document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
+                document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
+                hoverables.forEach(el => { el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); }); el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); }); });
+            }
+            const burgerBtn = document.getElementById('burger-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
+            burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
+        });
     </script>
 </body>
 </html>

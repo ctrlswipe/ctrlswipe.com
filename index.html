@@ -73,6 +73,20 @@
         #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
         #mobile-menu.open { opacity: 1; visibility: visible; }
         #mobile-menu.closed { opacity: 0; visibility: hidden; }
+		/* Add this inside the <style> tag in index.html */
+#hero-video {
+    pointer-events: none; /* Prevents user interaction */
+    user-select: none;
+}
+
+/* Hides the default play button overlay on WebKit/iOS */
+#hero-video::-webkit-media-controls {
+    display: none !important;
+}
+#hero-video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+}
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
@@ -133,9 +147,9 @@
     <header class="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 w-full h-full z-0">
             <!-- Added id="hero-video" and ensuring muted attributes are robust -->
-            <video id="hero-video" autoplay loop muted playsinline class="w-full h-full object-cover">
-                <source src="hero-video.mp4" type="video/mp4">
-            </video>
+            <video id="hero-video" autoplay loop muted playsinline webkit-playsinline preload="auto" class="w-full h-full object-cover">
+    <source src="hero-video.mp4" type="video/mp4">
+</video>
             <div class="absolute inset-0 bg-black/50"></div>
         </div>
         <div class="hero-container relative z-10 text-center px-4 w-full max-w-5xl mt-20 pb-12">
@@ -338,15 +352,26 @@
         
         // --- MOBILE VIDEO FORCE PLAY ---
         document.addEventListener('DOMContentLoaded', () => {
-            const heroVideo = document.getElementById('hero-video');
-            if(heroVideo) {
-                // Ensure muted is true for mobile autoplay policies
-                heroVideo.muted = true;
-                heroVideo.play().catch(e => {
-                    console.log("Autoplay forced: ", e);
-                });
-            }
-        });
+    const heroVideo = document.getElementById('hero-video');
+    if(heroVideo) {
+        // Critical for Mobile Autoplay
+        heroVideo.muted = true;
+        heroVideo.defaultMuted = true;
+        heroVideo.playsInline = true;
+
+        // Force play
+        const attemptPlay = () => {
+            heroVideo.play().catch(e => {
+                console.log("Autoplay blocked. Waiting for interaction.");
+                // Fallback: If browser blocks it, play on first touch anywhere
+                document.addEventListener('touchstart', () => {
+                    heroVideo.play();
+                }, { once: true });
+            });
+        };
+
+        attemptPlay();
+    }
 
         if (window.matchMedia("(min-width: 1024px)").matches) {
             const cursorDot = document.getElementById('cursor-dot');

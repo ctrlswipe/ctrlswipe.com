@@ -22,6 +22,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
+        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
+        .hoverable:hover { transform: scale(1.05) !important; z-index: 50; position: relative; }
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
         .gradient-blob-cyan { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #00AEEF 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
@@ -34,28 +36,29 @@
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
             box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
             overflow: hidden;
-            background: black; 
+            background: transparent; 
             transform-style: preserve-3d;
             will-change: transform, opacity; 
         }
         
+        /* NO BLUR styles */
         .c-active { 
             z-index: 20; 
             transform: translateX(0) scale(1); 
-            filter: blur(0) brightness(1); 
+            filter: brightness(1); 
             opacity: 1; 
         }
         .c-prev { 
             z-index: 10; 
             transform: translateX(-100%) scale(0.85) rotateY(15deg); 
-            filter: blur(3px) brightness(0.7); 
+            filter: brightness(0.7); 
             opacity: 0.8; 
             pointer-events: none; 
         }
         .c-next { 
             z-index: 10; 
             transform: translateX(100%) scale(0.85) rotateY(-15deg); 
-            filter: blur(3px) brightness(0.7); 
+            filter: brightness(0.7); 
             opacity: 0.8; 
             pointer-events: none; 
         }
@@ -79,6 +82,35 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
             position: relative;
             background: black;
+        }
+
+        /* Video Play Button Overlay */
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            transition: opacity 0.3s;
+            cursor: pointer;
+            z-index: 40;
+        }
+        .play-overlay:hover {
+            background: rgba(0,0,0,0.1);
+        }
+        .play-overlay i {
+            font-size: 4rem;
+            color: white;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+            transition: transform 0.2s;
+        }
+        .play-overlay:hover i {
+            transform: scale(1.1);
+        }
+        .playing .play-overlay {
+            opacity: 0;
+            pointer-events: none;
         }
 
         /* --- CURSOR STYLES --- */
@@ -133,42 +165,6 @@
         .aspect-4-5 { aspect-ratio: 4/5; }
         .aspect-9-16 { aspect-ratio: 9/16; }
         .aspect-16-9 { aspect-ratio: 16/9; }
-        
-        /* YouTube Embed Styling for Stories (Non-interactive) */
-        .yt-story-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        .yt-story-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Stories: No interaction */
-        }
-        .yt-story-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 10;
-            background: transparent;
-        }
-
-        /* YouTube Embed Styling for Video Production (Interactive) */
-        .yt-video-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        .yt-video-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            pointer-events: auto; /* Video Prod: Interaction Allowed */
-        }
-        
-        /* Utility for hover effect removal */
-        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
-        .hoverable:hover { transform: scale(1.05) !important; z-index: 50; position: relative; }
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
@@ -242,13 +238,13 @@
 
                 <!-- Desktop Carousel (Graphics) -->
                 <div class="hidden lg:flex relative carousel-container h-[700px]" id="carousel-graphics">
-                    <button class="absolute left-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('graphics', -1)">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
                     <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-graphics">
                         <!-- Items injected by JS -->
                     </div>
-                    <button class="absolute right-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('graphics', 1)">
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', 1)">
                         <i class="fa-solid fa-chevron-right text-2xl"></i>
                     </button>
                 </div>
@@ -269,13 +265,13 @@
 
                 <!-- Desktop Carousel (Stories) -->
                 <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-stories">
-                    <button class="absolute left-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('stories', -1)">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
                     <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-stories">
                         <!-- Items injected by JS -->
                     </div>
-                    <button class="absolute right-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('stories', 1)">
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', 1)">
                         <i class="fa-solid fa-chevron-right text-2xl"></i>
                     </button>
                 </div>
@@ -296,13 +292,13 @@
 
                 <!-- Desktop Carousel (Video) -->
                 <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-video">
-                    <button class="absolute left-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('video', -1)">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', -1)">
                         <i class="fa-solid fa-chevron-left text-2xl"></i>
                     </button>
                     <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-video">
                         <!-- Items injected by JS -->
                     </div>
-                    <button class="absolute right-10 z-30 bg-white/80 hover:bg-white p-4 rounded-full shadow-lg text-cmyk-m transition-colors cursor-pointer" onclick="moveCarousel('video', 1)">
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', 1)">
                         <i class="fa-solid fa-chevron-right text-2xl"></i>
                     </button>
                 </div>
@@ -321,21 +317,24 @@
                     <div class="h-[3px] bg-cmyk-k flex-grow"></div>
                 </div>
                 
-                <!-- 3 Clickable Thumbnails -->
+                <!-- 3 Clickable Thumbnails (WebP) -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
                     <a href="https://ctrlswipe.github.io/antalya/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
-                            <img src="web-design/1.png" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/00AEEF/ffffff?text=Website+1'">
+                            <!-- UPDATED: .webp -->
+                            <img src="web-design/1.webp" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/00AEEF/ffffff?text=Website+1'">
                         </div>
                     </a>
                     <a href="https://ctrlswipe.github.io/clinic/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-square overflow-hidden bg-gray-100">
-                            <img src="web-design/2.png" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/EC008C/ffffff?text=Website+2'">
+                            <!-- UPDATED: .webp -->
+                            <img src="web-design/2.webp" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/EC008C/ffffff?text=Website+2'">
                         </div>
                     </a>
                     <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-square overflow-hidden bg-gray-100">
-                            <img src="web-design/3.png" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/FFF200/000000?text=Website+3'">
+                            <!-- UPDATED: .webp -->
+                            <img src="web-design/3.webp" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/FFF200/000000?text=Website+3'">
                         </div>
                     </a>
                 </div>
@@ -351,17 +350,18 @@
                  <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <!-- UPDATED: Added rounded-3xl to cards -->
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-bullhorn"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box1-title">Ad Copy</p>
                         <p class="text-gray-600 text-sm" data-key="box1-desc">We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.</p>
                     </div>
-                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-quote-right"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box2-title">Engaging Captions</p>
                         <p class="text-gray-600 text-sm" data-key="box2-desc">From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.</p>
                     </div>
-                    <div class="glass-panel p-8 border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-video"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box3-title">Video Scripts</p>
                         <p class="text-gray-600 text-sm" data-key="box3-desc">Structuring your reels and TikToks for maximum retention, ensuring your message is heard.</p>
@@ -386,26 +386,10 @@
     <script>
         // CONFIG
         const config = {
-            graphics: { count: 8, path: 'graphics-portfolio/', ext: '.png', type: 'image' },
-            // Removed local video config
+            graphics: { count: 7, path: 'graphics-portfolio/', ext: '.webp', type: 'image' },
+            stories: { count: 5, path: 'story/', ext: '.webp', type: 'image' },
+            video: { count: 8, path: 'videos/', ext: '.mp4', thumbPath: 'videos/thumbnails/', thumbExt: '.jpg', type: 'video' } 
         };
-
-        // Custom config for Stories: Mix of Local & YouTube
-        const storyItems = [
-            { type: 'local', src: 'story/1.png' },
-            { type: 'youtube', id: 'ij8cZuwvsHc' },
-            { type: 'local', src: 'story/3.png' },
-            { type: 'youtube', id: '_NDznhjHcZE' },
-            { type: 'local', src: 'story/5.png' },
-            { type: 'youtube', id: 'dxLdeVH4nGc' },
-            { type: 'local', src: 'story/7.png' },
-            { type: 'local', src: 'story/8.png' }
-        ];
-
-        // Custom config for Video Production: YouTube Shorts Only
-        const videoItems = [
-            'ldlbhYZMnjc', 'XTdLFtDAT-w', '5HldxmXYjwU', '1olBmepUUtk', 'kNz_3sF1woI', 'm5hqnY_oU8c'
-        ];
 
         const state = {
             graphics: 0,
@@ -413,27 +397,36 @@
             video: 0
         };
 
-        // Helper function for mute toggling - not used for YouTube but kept if needed for other sections
+        // NEW: Function to play video when overlay clicked
+        function playVideo(btn) {
+            const container = btn.closest('.group'); 
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.play-overlay');
+
+            if (video) {
+                // Play from start as requested
+                video.currentTime = 0; 
+                video.muted = false; // Unmute on explicit play
+                video.play().then(() => {
+                    container.classList.add('playing'); // Hide overlay via CSS
+                }).catch(e => console.log('Play error:', e));
+            }
+        }
+
+        // Helper function for mute toggling
         function toggleMute(btn) {
             const video = btn.parentElement.querySelector('video');
             const icon = btn.querySelector('i');
-            
             if (video) {
-                if (video.muted) {
-                    video.muted = false;
-                    icon.className = 'fa-solid fa-volume-high'; 
-                    video.play().catch(e => console.log('Play error on unmute:', e));
-                } else {
-                    video.muted = true;
-                    icon.className = 'fa-solid fa-volume-xmark'; 
-                }
+                video.muted = !video.muted;
+                icon.className = video.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
             }
             event.stopPropagation();
         }
 
         // GENERATE CONTENT
         function generateItems() {
-            // 1. Graphics
+            // 1. Graphics (WebP)
             const trackGraphics = document.getElementById('track-graphics');
             const mobileGraphics = document.getElementById('mobile-graphics');
             for(let i=1; i<=config.graphics.count; i++) {
@@ -451,29 +444,17 @@
                     </div>`;
             }
 
-            // 2. Stories (Custom Mix)
+            // 2. Stories (Images Only - WebP)
             const trackStories = document.getElementById('track-stories');
             const mobileStories = document.getElementById('mobile-stories');
-            
-            storyItems.forEach((item, index) => {
-                let content = '';
+            for(let i=1; i<=config.stories.count; i++) {
+                const src = `${config.stories.path}${i}${config.stories.ext}`;
+                const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${i}`;
                 
-                if (item.type === 'youtube') {
-                    // Embed YouTube Shorts loop + overlay to prevent clicks/title
-                    const embedUrl = `https://www.youtube.com/embed/${item.id}?autoplay=1&mute=1&loop=1&playlist=${item.id}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1`;
-                    content = `
-                        <div class="yt-story-wrapper">
-                             <div class="yt-story-overlay"></div>
-                             <iframe src="${embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        </div>
-                    `;
-                } else {
-                    const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${index+1}`;
-                    content = `<img src="${item.src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
-                }
+                const content = `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
 
                 trackStories.innerHTML += `
-                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${index}">
+                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
                         ${content}
                     </div>`;
                 
@@ -481,31 +462,38 @@
                     <div class="mobile-item aspect-9-16">
                          ${content}
                     </div>`;
-            });
+            }
 
-            // 3. Video Production (Youtube with Controls)
+            // 3. Video Production (Thumbnails from folder, Play Button, Path: videos/)
             const trackVideo = document.getElementById('track-video');
             const mobileVideo = document.getElementById('mobile-video');
-            
-            videoItems.forEach((id, index) => {
-                // Autoplay muted, Loop, Controls enabled
-                const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1`;
-                const content = `
-                    <div class="yt-video-wrapper">
-                        <iframe src="${embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            for(let i=1; i<=config.video.count; i++) {
+                const src = `${config.video.path}${i}${config.video.ext}`;
+                const thumb = `${config.video.thumbPath}${i}${config.video.thumbExt}`;
+                const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
+                
+                // Uses POSTER attribute for the JPG thumbnail
+                const videoHTML = `
+                    <div class="relative w-full h-full group">
+                        <video src="${src}" poster="${thumb}" class="w-full h-full object-contain" muted loop playsinline preload="metadata" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>
+                        
+                        <!-- Play Overlay -->
+                        <div class="play-overlay" onclick="playVideo(this)">
+                            <i class="fa-solid fa-play-circle text-white opacity-80 hover:opacity-100"></i>
+                        </div>
                     </div>
                 `;
-
+                
                 trackVideo.innerHTML += `
-                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${index}">
-                        ${content}
+                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
+                        ${videoHTML}
                     </div>`;
                 
                 mobileVideo.innerHTML += `
                     <div class="mobile-item aspect-9-16">
-                         ${content}
+                         ${videoHTML}
                     </div>`;
-            });
+            }
 
             updateCarousel('graphics');
             updateCarousel('stories');
@@ -514,11 +502,7 @@
         }
 
         function moveCarousel(type, dir) {
-            let total = 0;
-            if (type === 'graphics') total = config.graphics.count;
-            else if (type === 'stories') total = storyItems.length;
-            else total = videoItems.length; // Use videoItems length
-
+            const total = type === 'graphics' ? config.graphics.count : (type === 'stories' ? config.stories.count : config.video.count);
             state[type] = (state[type] + dir + total) % total;
             updateCarousel(type);
         }
@@ -535,21 +519,23 @@
                 
                 item.className = item.className.replace(/c-active|c-prev|c-next|c-hidden/g, '').trim();
                 const video = item.querySelector('video');
-                
+                const container = item.querySelector('.group');
+
                 if (idx === activeIdx) {
                     item.classList.add('c-active');
-                    if (video) {
-                        var playPromise = video.play();
-                        if (playPromise !== undefined) {
-                            playPromise.catch(error => {
-                                console.log("Auto-play prevented (Desktop):", error);
-                            });
-                        }
-                    }
+                    // No autoplay logic here
                 } else {
                     if(video) {
-                        video.pause(); 
-                        video.currentTime = 0;
+                        video.pause();
+                        if (type === 'video') {
+                             video.currentTime = 0; 
+                             if(container) container.classList.remove('playing');
+                             video.muted = true;
+                             // This forces the poster to show again
+                             video.load(); 
+                        } else {
+                            video.currentTime = 0;
+                        }
                     }
                     if (diff === -1) item.classList.add('c-prev');
                     else if (diff === 1) item.classList.add('c-next');
@@ -562,15 +548,21 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const video = entry.target.querySelector('video');
+                    const isVideoSection = entry.target.closest('#mobile-video');
+                    
                     if(video) {
                         if (entry.isIntersecting) {
-                             video.muted = true; 
-                             var p = video.play();
-                             if(p !== undefined) {
-                                 p.catch(e => console.log("Mobile scroll play error:", e));
+                             if (!isVideoSection) {
+                                // Logic for other videos if any
                              }
                         } else {
                             video.pause();
+                            if(isVideoSection) {
+                                video.currentTime = 0;
+                                const container = video.parentElement;
+                                if(container) container.classList.remove('playing');
+                                video.load(); // Reset to poster
+                            }
                         }
                     }
                 });
@@ -597,7 +589,7 @@
                     document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
                     
                     setInterval(() => {
-                        const newHoverables = document.querySelectorAll('.hoverable, .carousel-item, a, button');
+                        const newHoverables = document.querySelectorAll('.hoverable, .carousel-item, a, button, .play-overlay');
                         newHoverables.forEach(el => {
                             if(!el.hasAttribute('data-hover-bound')) {
                                 el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });

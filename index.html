@@ -29,8 +29,6 @@
     
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
-        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
-        .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-yellow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, #FFF200 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
         
@@ -97,12 +95,17 @@
             }
             /* 2. Apply the image to the background container */
             #hero-background {
-                background-image: url('heroimage.jpg'); /* Use heroimage.jpg as requested */
+                /* Updated to webp as per site-wide rule */
+                background-image: url('heroimage.webp'); 
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
             }
         }
+        
+        /* Utility for hover effect */
+        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
+        .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
     </style>
 </head>
 <body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
@@ -314,8 +317,8 @@
         function applyLanguage(lang) {
             const icon = document.getElementById('flag-icon');
             const iconMob = document.getElementById('flag-icon-mobile');
-            icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
-            iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+            if(icon) icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+            if(iconMob) iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
             
             const elements = document.querySelectorAll('[data-key]');
             elements.forEach(el => {
@@ -399,17 +402,31 @@
             if (window.matchMedia("(min-width: 1024px)").matches) {
                 const cursorDot = document.getElementById('cursor-dot');
                 const cursorRing = document.getElementById('cursor-ring');
-                const hoverables = document.querySelectorAll('.hoverable');
-                document.addEventListener('mousemove', (e) => { 
-                    cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
-                    cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
-                });
-                document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
-                document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
-                hoverables.forEach(el => { el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); }); el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); }); });
+                
+                if (cursorDot && cursorRing) {
+                    document.addEventListener('mousemove', (e) => { 
+                        cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
+                        cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
+                    });
+                    document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
+                    document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
+                    
+                    setInterval(() => {
+                        const newHoverables = document.querySelectorAll('.hoverable, .carousel-item, a, button');
+                        newHoverables.forEach(el => {
+                            if(!el.hasAttribute('data-hover-bound')) {
+                                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+                                el.setAttribute('data-hover-bound', 'true');
+                            }
+                        });
+                    }, 1000);
+                }
             }
             const burgerBtn = document.getElementById('burger-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
-            burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
+            if(burgerBtn) {
+                burgerBtn.addEventListener('click', () => { isMenuOpen = !isMenuOpen; const icon = burgerBtn.querySelector('i'); if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
+            }
         });
     </script>
 </body>

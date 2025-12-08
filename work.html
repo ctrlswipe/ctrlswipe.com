@@ -230,7 +230,7 @@
 
             <!-- SECTION 1: SOCIAL MEDIA PORTFOLIO -->
             <section id="social-portfolio">
-                <!-- RESTORED: Section Header "SOCIAL MEDIA" -->
+                <!-- Section Header -->
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
                     <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-social">SOCIAL MEDIA</h2>
@@ -238,16 +238,20 @@
                 </div>
                 
                 <div class="flex justify-center px-4">
-                    <a href="https://www.behance.net/gallery/240026241/Social-media-portfolio" target="_blank" class="relative block w-full max-w-4xl h-64 md:h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl group hoverable hover:scale-[1.01] transition-transform duration-300">
+                    <!-- CHANGED: Wrapper is now a DIV (not 'a'), shadow and hover scale removed -->
+                    <div class="relative w-full max-w-4xl h-64 md:h-80 mx-auto rounded-2xl overflow-hidden">
                         
-                        <!-- Main Image -->                        
-                        <!-- Fixed Overlay Button (Blue Box) - Text "Social Media Portfolio" is ABSENT -->
-                        <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                            <div class="bg-cmyk-c text-white px-6 md:px-10 py-3 md:py-4 rounded-lg font-bold text-lg md:text-2xl shadow-lg border-2 border-white tracking-wider flex items-center gap-3 transform group-hover:scale-105 transition-transform">
+                        <!-- Main Image (Static Background) -->
+                        <img src="image_9383ff.jpg" alt="Social Media Portfolio" class="w-full h-full object-cover object-top opacity-100" onerror="this.src='https://placehold.co/1920x1080/00AEEF/ffffff?text=Social+Media+Portfolio'">
+                        
+                        <!-- Overlay with Clickable Button -->
+                        <div class="absolute inset-0 flex items-center justify-center z-10">
+                            <!-- This inner element is now the only link/button -->
+                            <a href="https://www.behance.net/gallery/240026241/Social-media-portfolio" target="_blank" class="bg-cmyk-c text-white px-6 md:px-10 py-3 md:py-4 rounded-lg font-bold text-lg md:text-2xl shadow-lg border-2 border-white tracking-wider flex items-center gap-3 hoverable hover:scale-105 transition-transform">
                                 <span data-key="click-behance">CLICK HERE TO VIEW ON BEHANCE</span>
-                            </div>
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </section>
 

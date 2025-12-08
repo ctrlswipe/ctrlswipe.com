@@ -23,7 +23,7 @@
     <style>
         html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
         .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
-        .hoverable:hover { transform: scale(1.05) !important; z-index: 50; position: relative; }
+        .hoverable:hover { transform: scale(1.02) !important; z-index: 50; position: relative; }
         .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
         .gradient-blob-cyan { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #00AEEF 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
@@ -41,7 +41,6 @@
             will-change: transform, opacity; 
         }
         
-        /* NO BLUR styles */
         .c-active { 
             z-index: 20; 
             transform: translateX(0) scale(1); 
@@ -228,61 +227,30 @@
                 </p>
             </header>
 
-            <!-- SECTION 1: SOCIAL MEDIA POSTS (4:5) -->
-            <section id="graphics">
+            <!-- SECTION 1: SOCIAL MEDIA PORTFOLIO (Replaces Posts & Stories) -->
+            <section id="social-portfolio">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
-                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-graphics">SOCIAL MEDIA POSTS</h2>
+                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-social">SOCIAL MEDIA</h2>
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
                 </div>
 
-                <!-- Desktop Carousel (Graphics) -->
-                <div class="hidden lg:flex relative carousel-container h-[700px]" id="carousel-graphics">
-                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', -1)">
-                        <i class="fa-solid fa-chevron-left text-2xl"></i>
-                    </button>
-                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-graphics">
-                        <!-- Items injected by JS -->
-                    </div>
-                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('graphics', 1)">
-                        <i class="fa-solid fa-chevron-right text-2xl"></i>
-                    </button>
-                </div>
-                
-                <!-- Mobile Scroll (Graphics) -->
-                <div class="lg:hidden mobile-scroll" id="mobile-graphics">
-                    <!-- Items injected by JS -->
+                <div class="flex justify-center px-4">
+                    <a href="https://www.behance.net/gallery/240026241/Social-media-portfolio" target="_blank" class="block w-full max-w-4xl hoverable hover:scale-[1.01] transition-transform duration-300 shadow-2xl group relative rounded-2xl overflow-hidden">
+                        <!-- Overlay with Text -->
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                            <div class="bg-white/90 px-8 py-4 rounded-full font-bold text-xl md:text-2xl text-black flex items-center gap-3">
+                                <i class="fa-brands fa-behance text-2xl"></i> <span data-key="view-behance">View on Behance</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Main Image -->
+                        <img src="image_9383ff.jpg" alt="Social Media Portfolio" class="w-full h-auto object-cover block" onerror="this.src='https://placehold.co/1920x1080/00AEEF/ffffff?text=Social+Media+Portfolio'">
+                    </a>
                 </div>
             </section>
 
-            <!-- SECTION 2: STORIES (9:16) -->
-            <section id="stories">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="h-[3px] bg-cmyk-m flex-grow"></div>
-                    <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-stories">STORIES</h2>
-                    <div class="h-[3px] bg-cmyk-m flex-grow"></div>
-                </div>
-
-                <!-- Desktop Carousel (Stories) -->
-                <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-stories">
-                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', -1)">
-                        <i class="fa-solid fa-chevron-left text-2xl"></i>
-                    </button>
-                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-stories">
-                        <!-- Items injected by JS -->
-                    </div>
-                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('stories', 1)">
-                        <i class="fa-solid fa-chevron-right text-2xl"></i>
-                    </button>
-                </div>
-
-                <!-- Mobile Scroll (Stories) -->
-                <div class="lg:hidden mobile-scroll" id="mobile-stories">
-                    <!-- Items injected by JS -->
-                </div>
-            </section>
-
-            <!-- SECTION 3: VIDEO PRODUCTION (9:16 Vertical) -->
+            <!-- SECTION 2: VIDEO PRODUCTION (9:16 Vertical) -->
             <section id="video">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-y flex-grow"></div>
@@ -309,7 +277,7 @@
                 </div>
             </section>
 
-            <!-- SECTION 4: WEB DESIGN -->
+            <!-- SECTION 3: WEB DESIGN -->
             <section id="webdesign">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-k flex-grow"></div>
@@ -321,26 +289,23 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
                     <a href="https://ctrlswipe.github.io/antalya/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
-                            <!-- UPDATED: .webp -->
                             <img src="web-design/1.webp" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/00AEEF/ffffff?text=Website+1'">
                         </div>
                     </a>
                     <a href="https://ctrlswipe.github.io/clinic/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-square overflow-hidden bg-gray-100">
-                            <!-- UPDATED: .webp -->
                             <img src="web-design/2.webp" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/EC008C/ffffff?text=Website+2'">
                         </div>
                     </a>
                     <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
                          <div class="w-full aspect-square overflow-hidden bg-gray-100">
-                            <!-- UPDATED: .webp -->
                             <img src="web-design/3.webp" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/FFF200/000000?text=Website+3'">
                         </div>
                     </a>
                 </div>
             </section>
 
-            <!-- SECTION 5: CAPTIONS & ADS -->
+            <!-- SECTION 4: CAPTIONS & ADS -->
             <section id="captions" class="pb-12">
                  <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
@@ -350,7 +315,6 @@
                  <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- UPDATED: Added rounded-3xl to cards -->
                     <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
                         <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-bullhorn"></i></div>
                         <p class="text-2xl font-bold mb-2" data-key="box1-title">Ad Copy</p>
@@ -384,16 +348,12 @@
     </footer>
     
     <script>
-        // CONFIG
+        // CONFIG - Graphics & Stories removed
         const config = {
-            graphics: { count: 7, path: 'graphics-portfolio/', ext: '.webp', type: 'image' },
-            stories: { count: 5, path: 'story/', ext: '.webp', type: 'image' },
             video: { count: 8, path: 'videos/', ext: '.mp4', thumbPath: 'videos/thumbnails/', thumbExt: '.jpg', type: 'video' } 
         };
 
         const state = {
-            graphics: 0,
-            stories: 0,
             video: 0
         };
 
@@ -426,43 +386,7 @@
 
         // GENERATE CONTENT
         function generateItems() {
-            // 1. Graphics (WebP)
-            const trackGraphics = document.getElementById('track-graphics');
-            const mobileGraphics = document.getElementById('mobile-graphics');
-            for(let i=1; i<=config.graphics.count; i++) {
-                const src = `${config.graphics.path}${i}${config.graphics.ext}`;
-                const fallback = `https://placehold.co/800x1000/00AEEF/ffffff?text=Graphic+${i}`;
-                
-                trackGraphics.innerHTML += `
-                    <div class="carousel-item aspect-4-5 w-[320px] md:w-[450px]" data-index="${i-1}">
-                        <img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">
-                    </div>`;
-                
-                mobileGraphics.innerHTML += `
-                    <div class="mobile-item aspect-4-5">
-                         <img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">
-                    </div>`;
-            }
-
-            // 2. Stories (Images Only - WebP)
-            const trackStories = document.getElementById('track-stories');
-            const mobileStories = document.getElementById('mobile-stories');
-            for(let i=1; i<=config.stories.count; i++) {
-                const src = `${config.stories.path}${i}${config.stories.ext}`;
-                const fallback = `https://placehold.co/450x800/EC008C/ffffff?text=Story+${i}`;
-                
-                const content = `<img src="${src}" class="w-full h-full object-contain" onerror="this.src='${fallback}'">`;
-
-                trackStories.innerHTML += `
-                    <div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">
-                        ${content}
-                    </div>`;
-                
-                mobileStories.innerHTML += `
-                    <div class="mobile-item aspect-9-16">
-                         ${content}
-                    </div>`;
-            }
+            // Graphics & Stories generation loops removed
 
             // 3. Video Production (Thumbnails from folder, Play Button, Path: videos/)
             const trackVideo = document.getElementById('track-video');
@@ -495,20 +419,20 @@
                     </div>`;
             }
 
-            updateCarousel('graphics');
-            updateCarousel('stories');
             updateCarousel('video');
             initMobileObserver();
         }
 
         function moveCarousel(type, dir) {
-            const total = type === 'graphics' ? config.graphics.count : (type === 'stories' ? config.stories.count : config.video.count);
+            // Simplified for just video (and kept logic extensible)
+            const total = config.video.count;
             state[type] = (state[type] + dir + total) % total;
             updateCarousel(type);
         }
 
         function updateCarousel(type) {
             const track = document.getElementById(`track-${type}`);
+            if(!track) return;
             const items = track.querySelectorAll('.carousel-item');
             const activeIdx = state[type];
             const total = items.length;
@@ -533,8 +457,6 @@
                              video.muted = true;
                              // This forces the poster to show again
                              video.load(); 
-                        } else {
-                            video.currentTime = 0;
                         }
                     }
                     if (diff === -1) item.classList.add('c-prev');
@@ -622,7 +544,8 @@
                 'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>',
                 'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
                 'work-desc': 'Explore our portfolio across various formats.',
-                'sec-graphics': 'SOCIAL MEDIA POSTS', 'sec-stories': 'STORIES', 'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
+                'sec-social': 'SOCIAL MEDIA PORTFOLIO', 'view-behance': 'View on Behance',
+                'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
                 'btn-quote': 'GET A QUOTE',
                 'sec4-title': 'CAPTIONS <span class="text-cmyk-c">& ADS</span>', 'sec4-desc': 'We write words that sell, convince, and connect.',
                 'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
@@ -636,7 +559,8 @@
                 'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>', 
                 'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
                 'work-desc': 'Explorează portofoliul nostru în diverse formate.',
-                'sec-graphics': 'POSTĂRI SOCIAL MEDIA', 'sec-stories': 'STORY-URI', 'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
+                'sec-social': 'PORTOFOLIU SOCIAL MEDIA', 'view-behance': 'Vezi pe Behance',
+                'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
                 'btn-quote': 'CERE O OFERTĂ',
                 'sec4-title': 'COPYWRITING <span class="text-cmyk-c">& RECLAME</span>', 'sec4-desc': 'Scriem texte care vând, conving și conectează.',
                 'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',

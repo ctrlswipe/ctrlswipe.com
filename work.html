@@ -230,20 +230,20 @@
 
             <!-- SECTION 1: SOCIAL MEDIA PORTFOLIO -->
             <section id="social-portfolio">
+                <!-- RESTORED: Section Header "SOCIAL MEDIA" -->
                 <div class="flex items-center gap-4 mb-8">
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
                     <h2 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-social">SOCIAL MEDIA</h2>
                     <div class="h-[3px] bg-cmyk-c flex-grow"></div>
                 </div>
-
+                
                 <div class="flex justify-center px-4">
-                    <!-- Adjusted Height (h-64 md:h-80 is roughly half of previous), Button always visible with blue box -->
                     <a href="https://www.behance.net/gallery/240026241/Social-media-portfolio" target="_blank" class="relative block w-full max-w-4xl h-64 md:h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl group hoverable hover:scale-[1.01] transition-transform duration-300">
                         
-                        <!-- Main Image (Cropped via object-cover) -->
+                        <!-- Main Image -->
                         <img src="image_9383ff.jpg" alt="Social Media Portfolio" class="w-full h-full object-cover object-top opacity-100 group-hover:opacity-90 transition-opacity" onerror="this.src='https://placehold.co/1920x1080/00AEEF/ffffff?text=Social+Media+Portfolio'">
                         
-                        <!-- Fixed Overlay Button (Blue Box) -->
+                        <!-- Fixed Overlay Button (Blue Box) - Text "Social Media Portfolio" is ABSENT -->
                         <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                             <div class="bg-cmyk-c text-white px-6 md:px-10 py-3 md:py-4 rounded-lg font-bold text-lg md:text-2xl shadow-lg border-2 border-white tracking-wider flex items-center gap-3 transform group-hover:scale-105 transition-transform">
                                 <span data-key="click-behance">CLICK HERE TO VIEW ON BEHANCE</span>
@@ -360,9 +360,8 @@
             video: 0
         };
 
-        // NEW: Function to toggle Play/Pause on Video Click
+        // Function to toggle Play/Pause on Video Click
         function togglePlayVideo(element) {
-            // Can be clicked on video itself OR the play overlay
             const container = element.closest('.group'); 
             const video = container.querySelector('video');
 
@@ -378,17 +377,6 @@
             }
         }
 
-        // Helper function for mute toggling
-        function toggleMute(btn) {
-            const video = btn.parentElement.querySelector('video');
-            const icon = btn.querySelector('i');
-            if (video) {
-                video.muted = !video.muted;
-                icon.className = video.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
-            }
-            event.stopPropagation();
-        }
-
         // GENERATE CONTENT
         function generateItems() {
             // 3. Video Production
@@ -399,7 +387,6 @@
                 const thumb = `${config.video.thumbPath}${i}${config.video.thumbExt}`;
                 const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
                 
-                // Add onclick="togglePlayVideo(this)" to video element so it pauses on tap
                 const videoHTML = `
                     <div class="relative w-full h-full group">
                         <video src="${src}" poster="${thumb}" class="w-full h-full object-contain cursor-pointer" muted loop playsinline preload="metadata" onclick="togglePlayVideo(this)" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>

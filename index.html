@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO METADATA -->
+    <title>CTRL Swipe | One Page Portfolio</title>
+    <meta name="description" content="CTRL Swipe is a marketing agency in Romania. We offer remote social media video editing services, graphic design, and strategy.">
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Flag Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'], display: ['Montserrat', 'sans-serif'], hand: ['Patrick Hand', 'cursive'] },
+                    colors: { 'cmyk-c': '#00AEEF', 'cmyk-m': '#EC008C', 'cmyk-y': '#FFF200', 'cmyk-k': '#101010', 'cmyk-m-light': '#ff4da6' },
+                    boxShadow: { 'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)', 'pixel': '4px 4px 0px 0px #000000', 'pixel-hover': '2px 2px 0px 0px #000000' }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <style>
+        html, body { overflow-x: hidden; width: 100%; position: relative; -webkit-tap-highlight-color: transparent; }
+        .glass-panel { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.8); }
+        
+        /* Gradient Blobs */
+        .gradient-blob-yellow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, #FFF200 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+        .gradient-blob-cyan { position: absolute; width: 800px; height: 800px; background: radial-gradient(circle, #00AEEF 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+        .gradient-blob-magenta { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #EC008C 0%, transparent 70%); opacity: 0.15; filter: blur(150px); z-index: 0; pointer-events: none; }
+
+        /* Marquee */
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        /* Cursor */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            .cursor-dot { width: 24px; height: 24px; background-color: white; position: fixed; transform: translate(-50%, -50%); z-index: 100001; pointer-events: none; mix-blend-mode: difference; 
+                -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
+                mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E"); 
+                -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; transition: transform 0.1s; }
+            .cursor-dot.active { transform: translate(-50%, -50%) scale(0.8); background-color: #ff0033; mix-blend-mode: normal; box-shadow: 0 0 15px #ff0033, 0 0 30px #ff0033; }
+            .cursor-ring { width: 40px; height: 40px; border: 1px solid #EC008C; border-radius: 50%; position: fixed; transform: translate(-50%, -50%); z-index: 100000; pointer-events: none; transition: all 0.15s ease-out; }
+            .cursor-ring.hovered { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); }
+        }
+        @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none !important; } body { cursor: auto; } }
+
+        /* Flag Animation */
+        .flag-btn { perspective: 1000px; display: inline-block; cursor: pointer; }
+        .flag-inner { transition: transform 0.6s; transform-style: preserve-3d; display: inline-block; }
+        .flag-flip { animation: flipShine 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both; }
+        @keyframes flipShine { 0% { transform: rotateY(0); filter: brightness(1); } 50% { filter: brightness(2) drop-shadow(0 0 10px gold); } 100% { transform: rotateY(360deg); filter: brightness(1); } }
+        
+        #mobile-menu { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
+        #mobile-menu.open { opacity: 1; visibility: visible; }
+        #mobile-menu.closed { opacity: 0; visibility: hidden; }
+
+        /* Carousel Styles */
+        .carousel-container { perspective: 1000px; overflow: hidden; display: flex; justify-content: center; align-items: center; position: relative; height: 750px; }
+        .carousel-item { position: absolute; transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 20px 50px rgba(0,0,0,0.2); overflow: hidden; background: transparent; transform-style: preserve-3d; will-change: transform, opacity; }
+        .c-active { z-index: 20; transform: translateX(0) scale(1); filter: brightness(1); opacity: 1; }
+        .c-prev { z-index: 10; transform: translateX(-100%) scale(0.85) rotateY(15deg); filter: brightness(0.7); opacity: 0.8; pointer-events: none; }
+        .c-next { z-index: 10; transform: translateX(100%) scale(0.85) rotateY(-15deg); filter: brightness(0.7); opacity: 0.8; pointer-events: none; }
+        .c-hidden { z-index: 0; transform: scale(0.5); opacity: 0; pointer-events: none; display: none; }
+
+        /* Mobile Scroll */
+        .mobile-scroll { display: flex; overflow-x: auto; gap: 1rem; padding: 1rem 2rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+        .mobile-scroll::-webkit-scrollbar { display: none; }
+        .mobile-item { flex: 0 0 85%; scroll-snap-align: center; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15); position: relative; background: black; }
+
+        /* Video Play Overlay */
+        .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); transition: opacity 0.3s; cursor: pointer; z-index: 40; }
+        .play-overlay:hover { background: rgba(0,0,0,0.1); }
+        .play-overlay i { font-size: 4rem; color: white; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); transition: transform 0.2s; }
+        .play-overlay:hover i { transform: scale(1.1); }
+        .playing .play-overlay { opacity: 0; pointer-events: none; }
+
+        /* Copy Tooltip */
+        #copy-tooltip { position: fixed; background: black; color: white; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: bold; pointer-events: none; opacity: 0; transition: opacity 0.3s; z-index: 999999; }
+        #copy-tooltip.visible { opacity: 1; }
+
+        /* Mobile Hero Background */
+        @media (max-width: 1023px) {
+            #hero-video { display: none !important; }
+            #hero-background { background-image: url('heroimage.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; }
+        }
+        
+        .hoverable { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; display: inline-block; }
+        .hoverable:hover { transform: scale(1.15) !important; z-index: 50; position: relative; }
+        .aspect-9-16 { aspect-ratio: 9/16; }
+    </style>
+</head>
+<body class="bg-gray-50 text-cmyk-k font-sans selection:bg-cmyk-m selection:text-white">
+
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div id="copy-tooltip">Copied!</div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-4 px-4">
+        <div class="glass-panel rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4 flex justify-between items-center shadow-glass relative z-50">
+            <!-- LOGO -->
+            <div class="w-32 md:w-48 h-10 md:h-12 relative flex items-center justify-start z-50">
+                <a href="#home" class="absolute left-0 top-0 w-1/2 h-full z-50 cursor-pointer"></a>
+                <div class="w-full h-full origin-left pointer-events-none">
+                     <img src="logo.svg" alt="CTRL Swipe Logo" class="h-full w-auto object-contain" onerror="this.src='https://placehold.co/200x50?text=CTRL+Swipe'">
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex space-x-8 font-bold text-sm tracking-wide items-center">
+                <a href="#home" class="text-cmyk-m transition-colors hoverable" data-key="nav-home">HOME</a>
+                <a href="#about" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-about">ABOUT US</a>
+                <a href="#services" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-services">SERVICES</a>
+                <a href="#work" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-work">OUR WORK</a>
+                <a href="#contact" class="text-cmyk-k hover:text-cmyk-m-light transition-colors hoverable" data-key="nav-contact">CONTACT</a>
+                <div class="flag-btn hoverable ml-4" onclick="toggleLanguage()">
+                    <span id="flag-icon" class="flag-inner fi fi-us text-xl rounded-sm shadow-sm"></span>
+                </div>
+            </div>
+
+            <!-- Mobile Controls -->
+            <div class="lg:hidden flex items-center gap-4 z-[60]">
+                <div class="flag-btn" onclick="toggleLanguage()">
+                    <span id="flag-icon-mobile" class="flag-inner fi fi-us text-xl rounded-sm shadow-sm"></span>
+                </div>
+                <button id="burger-btn" class="w-10 h-10 flex items-center justify-center text-black bg-white rounded-full shadow-lg focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 closed bg-white/80 backdrop-blur-xl lg:hidden flex flex-col items-center justify-center">
+        <div class="flex flex-col space-y-8 text-center font-display font-black text-3xl text-black">
+            <a href="#home" class="text-cmyk-m" data-key="nav-home" onclick="closeMenu()">HOME</a>
+            <a href="#about" class="text-black hover:text-cmyk-m-light" data-key="nav-about" onclick="closeMenu()">ABOUT US</a>
+            <a href="#services" class="text-black hover:text-cmyk-m-light" data-key="nav-services" onclick="closeMenu()">SERVICES</a>
+            <a href="#work" class="text-black hover:text-cmyk-m-light" data-key="nav-work" onclick="closeMenu()">OUR WORK</a>
+            <a href="#contact" class="text-black hover:text-cmyk-m-light" data-key="nav-contact" onclick="closeMenu()">CONTACT</a>
+        </div>
+    </div>
+
+    <!-- ================= HERO SECTION ================= -->
+    <header id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 w-full h-full z-0" id="hero-background">
+            <video id="hero-video" autoplay loop muted playsinline webkit-playsinline preload="auto" class="w-full h-full object-cover">
+                <source src="hero-video.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black/50"></div>
+        </div>
+        
+        <div class="hero-container relative z-10 text-center px-4 w-full max-w-5xl mt-20 pb-12">
+            <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[0.9] tracking-tighter mb-8 text-white drop-shadow-lg" data-key="hero-title">
+                TAKE CTRL<br>OF YOUR <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED</span>
+            </h1>
+            <p class="hero-desc text-base md:text-lg font-regular text-white max-w-2xl mx-auto mb-12 px-4" data-key="hero-desc">
+                We turn scrollers into followers. A creative duo crafting videos, branding, and social strategies that convert.
+            </p>
+            <div class="hero-socials flex justify-center gap-4 mb-12">
+                <a href="https://instagram.com/ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#00AEEF] hoverable"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com/ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#EC008C] hoverable"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://tiktok.com/@ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#FFF200] hoverable"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+            <div class="text-center relative z-20">
+                <a href="#contact" class="inline-block bg-cmyk-c text-black font-bold text-2xl px-12 py-5 rounded-full border-2 border-transparent hover:border-black hover:shadow-lg transition-all transform hover:scale-105 hoverable relative overflow-visible" data-key="btn-contact">
+                    GET STARTED <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Marquee -->
+    <div class="bg-black text-white py-4 relative z-20 overflow-hidden pt-4">
+        <div class="marquee-container font-black text-2xl tracking-wider">
+            <div class="marquee-content" id="marquee-text-1">
+                CONTENT CREATION <span class="text-cmyk-y mx-4">♦</span> SOCIAL MANAGEMENT <span class="text-cmyk-c mx-4">♦</span> BRANDING <span class="text-cmyk-m mx-4">♦</span> VIDEO EDITING <span class="text-cmyk-y mx-4">♦</span> STRATEGY <span class="text-cmyk-c mx-4">♦</span> 
+            </div>
+            <div class="marquee-content" id="marquee-text-2" aria-hidden="true">
+                CONTENT CREATION <span class="text-cmyk-y mx-4">♦</span> SOCIAL MANAGEMENT <span class="text-cmyk-c mx-4">♦</span> BRANDING <span class="text-cmyk-m mx-4">♦</span> VIDEO EDITING <span class="text-cmyk-y mx-4">♦</span> STRATEGY <span class="text-cmyk-c mx-4">♦</span> 
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <section id="about" class="py-24 px-6 relative min-h-screen overflow-hidden bg-gray-50 flex items-center">
+         <div class="gradient-blob-cyan" style="top: 20%; right: -300px;"></div>
+         <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-start relative z-10">
+            <div class="w-full lg:w-1/2 flex flex-col gap-16 relative">
+                <div class="relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500 hoverable aspect-square">
+                        <img src="aboutus.webp" class="w-full h-full object-cover" alt="Tudor and Didi" onerror="this.src='https://images.unsplash.com/photo-1625425361083-87a29c9522a5?q=80&w=2000&auto=format&fit=crop'">
+                    </div>
+                    <div class="absolute -top-4 -left-4 w-20 h-20 bg-cmyk-y z-0 rounded-lg"></div>
+                </div>
+
+                <div class="relative w-3/4 mx-auto mt-8">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500 hoverable aspect-square">
+                        <img src="cat.webp" class="w-full h-full object-cover" alt="Bagheta" onerror="this.src='https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1000&auto=format&fit=crop'">
+                    </div>
+                    <div class="absolute top-0 -right-6 w-24 h-24 bg-cmyk-c z-0 rounded-full"></div>
+                    <p class="text-center font-hand text-3xl mt-6 text-cmyk-k transform -rotate-1" data-key="bagheta">Our manager: Bagheta</p>
+                </div>
+            </div>
+            
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-5xl md:text-7xl font-display font-black mb-6" data-key="about-title">WHO IS <span class="text-cmyk-m">CTRL Swipe?</span></h2>
+                <p class="text-xl font-bold mb-4 text-cmyk-c tracking-widest" data-key="about-subtitle">TUDOR & DIDI // FOUNDERS</p>
+                
+                <div class="space-y-6 text-gray-600 text-lg leading-relaxed font-regular">
+                    <p data-key="p1">CTRL Swipe is a social media marketing agency from Baia Mare, Romania, built to help small and medium-sized businesses communicate clearly, consistently and professionally online. We combine creative production with strategic thinking to deliver content that looks good, sounds right and performs well across Facebook, Instagram and TikTok.</p>
+                    <p data-key="p2">We are a compact two-person team, Tudor and Didi, which means every client works directly with the people who plan, create, film, edit and manage their content. No layers, no delays. Just a streamlined process and personal involvement in every step.</p>
+                    <p data-key="p3">We create full online ecosystems for brands: static posts, branded graphics, short-form videos, captions, ad campaigns and monthly on-site filming sessions in northern Romania. In parallel, we offer complete remote social media management for brands worldwide, including planning, design, copywriting, scheduling and maintaining a consistent content flow, regardless of location.</p>
+                    <p data-key="p4">Our approach is built on clarity, aesthetics, speed and honesty. Every project starts with understanding the client’s identity and ends with content that strengthens it. Our mission is simple: help businesses grow through modern storytelling, clean visuals and a structured, reliable workflow that takes social media off their shoulders, whether they are nearby or across the globe.</p>
+                </div>
+
+                <div class="flex gap-4 mt-8">
+                     <div class="bg-white p-4 rounded-xl shadow-lg">
+                        <div class="font-black text-3xl">10+</div>
+                        <div class="text-sm font-bold tracking-wide" data-key="exp">YEARS EXP</div>
+                     </div>
+                     <div class="bg-white p-4 rounded-xl shadow-lg">
+                        <div class="font-black text-3xl">100%</div>
+                        <div class="text-sm font-bold tracking-wide" data-key="inhouse">IN-HOUSE</div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SERVICES SECTION ================= -->
+    <section id="services" class="py-24 px-6 relative bg-white overflow-hidden">
+        <div class="gradient-blob-yellow" style="top: 10%; left: -200px;"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h2 class="text-5xl md:text-7xl font-display font-black mb-16 text-center text-cmyk-k" data-key="craft-title">
+                OUR <span class="text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-m">SERVICES</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80">
+                    <div class="font-bold text-cmyk-c text-2xl mb-4 tracking-widest" data-key="service-1-small">MANAGEMENT</div>
+                    <h3 class="text-3xl font-bold mb-4" data-key="service-1-large">Social Media Mgmt</h3>
+                    <p class="text-gray-600 font-regular" data-key="service-1-desc">We take the wheel. Posting, captioning, and engagement.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80">
+                    <div class="font-bold text-cmyk-m text-2xl mb-4 tracking-widest" data-key="service-2-small">VIDEO</div>
+                    <h3 class="text-3xl font-bold mb-4" data-key="service-2-large">Short-Form Video</h3>
+                    <p class="text-gray-600 font-regular" data-key="service-2-desc">Reels & TikToks that stop the scroll. High-energy editing.</p>
+                </div>
+                 <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#FFF200] hoverable bg-white/80">
+                    <div class="font-bold text-yellow-600 text-2xl mb-4 tracking-widest" data-key="service-3-small">BRANDING</div>
+                    <h3 class="text-3xl font-bold mb-4" data-key="service-3-large">Visual Identity</h3>
+                    <p class="text-gray-600 font-regular" data-key="service-3-desc">Logos, color systems, and brand bibles.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#000000] hoverable bg-white/80">
+                    <div class="font-bold text-black text-2xl mb-4 tracking-widest" data-key="service-4-small">STRATEGY</div>
+                    <h3 class="text-3xl font-bold mb-4" data-key="service-4-large">Growth Strategy</h3>
+                    <p class="text-gray-600 font-regular" data-key="service-4-desc">No guessing. We analyze the data to build a roadmap.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="100000">0</div>
+                    <p class="text-xl font-bold mb-2" data-key="stat-1-title">People Reached</p>
+                    <p class="text-gray-500 text-sm font-mono" data-key="stat-1-sub">In the past 2 years</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="16000">0</div>
+                    <p class="text-xl font-bold mb-2" data-key="stat-2-title">Followers Gained</p>
+                    <p class="text-gray-500 text-sm font-mono" data-key="stat-2-sub">On managed accounts</p>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#EC008C] hoverable bg-white/80 transform transition-all hover:scale-105">
+                    <div class="font-black text-5xl md:text-6xl mb-2 text-cmyk-m counter" data-target="50000">0</div>
+                    <p class="text-xl font-bold mb-2" data-key="stat-3-title">Monthly Reach</p>
+                    <p class="text-gray-500 text-sm font-mono" data-key="stat-3-sub">Through our posts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= WORK SECTION ================= -->
+    <section id="work" class="pt-24 pb-10 px-4 md:px-6 relative min-h-screen overflow-hidden bg-gray-50">
+         <div class="gradient-blob-magenta" style="top: 10%; left: -200px;"></div>
+         <div class="gradient-blob-cyan" style="bottom: 20%; right: -200px;"></div>
+         
+        <div class="max-w-7xl mx-auto relative z-10 space-y-32">
+            
+            <header class="text-center max-w-4xl mx-auto">
+                <h2 class="text-6xl md:text-8xl font-display font-black mb-6 leading-none" id="work-title">
+                    <span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>
+                </h2>
+                <p class="text-xl text-gray-600 mb-12 font-regular" data-key="work-desc">
+                    Explore our portfolio across various formats.
+                </p>
+            </header>
+
+            <!-- Social Portfolio -->
+            <div id="social-portfolio">
+                <div class="flex items-center gap-4 mb-16">
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                    <h3 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-social">SOCIAL MEDIA</h3>
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 px-4 mb-16">
+                    <!-- Image 1 -->
+                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                        <img src="socials/1.webp" alt="Social Media 1" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/00AEEF/ffffff?text=Social+1'">
+                    </div>
+                     <!-- Image 2 -->
+                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                        <img src="socials/2.webp" alt="Social Media 2" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/EC008C/ffffff?text=Social+2'">
+                    </div>
+                     <!-- Image 3 -->
+                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                        <img src="socials/3.webp" alt="Social Media 3" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/FFF200/000000?text=Social+3'">
+                    </div>
+                     <!-- Image 4 -->
+                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                        <img src="socials/4.webp" alt="Social Media 4" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/000000/ffffff?text=Social+4'">
+                    </div>
+                     <!-- Image 5 -->
+                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100 md:col-span-1 col-span-2 md:w-auto w-1/2 mx-auto">
+                        <img src="socials/5.webp" alt="Social Media 5" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/00AEEF/ffffff?text=Social+5'">
+                    </div>
+                </div>
+
+                <div class="flex justify-center px-4">
+                    <a href="https://www.behance.net/gallery/240026241/Social-media-portfolio" target="_blank" class="bg-cmyk-c text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-bold text-sm md:text-lg shadow-lg border-2 border-white tracking-wider flex items-center gap-3 hoverable hover:scale-105 transition-transform max-w-2xl text-center">
+                        <span data-key="click-behance">SEE THE FULL PORTFOLIO ON BEHANCE</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Video Production -->
+            <div id="video">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-y flex-grow"></div>
+                    <h3 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-video">VIDEO PRODUCTION</h3>
+                    <div class="h-[3px] bg-cmyk-y flex-grow"></div>
+                </div>
+
+                <!-- Desktop Carousel (Video) -->
+                <div class="hidden lg:flex relative carousel-container h-[800px]" id="carousel-video">
+                    <button class="absolute left-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', -1)">
+                        <i class="fa-solid fa-chevron-left text-2xl"></i>
+                    </button>
+                    <div class="carousel-track relative w-full h-full flex justify-center items-center" id="track-video">
+                        <!-- Items injected by JS -->
+                    </div>
+                    <button class="absolute right-10 z-30 bg-white/80 p-4 rounded-full shadow-lg text-cmyk-m hover:scale-110 transition-transform hoverable" onclick="moveCarousel('video', 1)">
+                        <i class="fa-solid fa-chevron-right text-2xl"></i>
+                    </button>
+                </div>
+
+                 <!-- Mobile Scroll (Video) -->
+                 <div class="lg:hidden mobile-scroll" id="mobile-video">
+                    <!-- Items injected by JS -->
+                </div>
+            </div>
+
+            <!-- Web Design -->
+            <div id="webdesign">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-k flex-grow"></div>
+                    <h3 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec-web">WEB DESIGN</h3>
+                    <div class="h-[3px] bg-cmyk-k flex-grow"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
+                    <a href="https://ctrlswipe.github.io/antalya/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                        <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <img src="web-design/1.webp" alt="Website 1" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/00AEEF/ffffff?text=Website+1'">
+                        </div>
+                    </a>
+                    <a href="https://ctrlswipe.github.io/clinic/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <img src="web-design/2.webp" alt="Website 2" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/EC008C/ffffff?text=Website+2'">
+                        </div>
+                    </a>
+                    <a href="https://ctrlswipe.github.io/lodge/" target="_blank" class="block hoverable hover:scale-[1.02] transition-transform duration-300 shadow-xl group">
+                         <div class="w-full aspect-square overflow-hidden bg-gray-100">
+                            <img src="web-design/3.webp" alt="Website 3" class="w-full h-full object-contain bg-white" onerror="this.src='https://placehold.co/800x800/FFF200/000000?text=Website+3'">
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Captions & Ads -->
+            <div id="captions" class="pb-12">
+                 <div class="flex items-center gap-4 mb-8">
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                    <h3 class="text-3xl md:text-5xl font-black text-center uppercase" data-key="sec4-title">CAPTIONS & ADS</h3>
+                    <div class="h-[3px] bg-cmyk-c flex-grow"></div>
+                </div>
+                 <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto font-medium" data-key="sec4-desc">We write words that sell, convince, and connect.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-bullhorn"></i></div>
+                        <p class="text-2xl font-bold mb-2" data-key="box1-title">Ad Copy</p>
+                        <p class="text-gray-600 text-sm" data-key="box1-desc">We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-quote-right"></i></div>
+                        <p class="text-2xl font-bold mb-2" data-key="box2-title">Engaging Captions</p>
+                        <p class="text-gray-600 text-sm" data-key="box2-desc">From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_#00AEEF] hoverable bg-white/80 transform transition-all hover:scale-105">
+                        <div class="text-4xl mb-4 text-cmyk-c"><i class="fa-solid fa-video"></i></div>
+                        <p class="text-2xl font-bold mb-2" data-key="box3-title">Video Scripts</p>
+                        <p class="text-gray-600 text-sm" data-key="box3-desc">Structuring your reels and TikToks for maximum retention, ensuring your message is heard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CONTACT SECTION ================= -->
+    <section id="contact" class="py-12 w-full flex items-center justify-center relative overflow-hidden bg-white">
+        <div class="gradient-blob-cyan" style="top: 20%; left: -300px;"></div>
+        <div class="gradient-blob-magenta" style="bottom: 10%; right: -200px;"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+             <h2 class="text-6xl md:text-8xl font-display font-black mb-8" data-key="contact-title">
+                READY TO <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-y pr-4">START?</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-12 font-regular" data-key="contact-desc">Let's clean up that feed.</p>
+            
+            <div class="flex flex-col items-center gap-6">
+                <button id="email-btn" class="glass-panel px-10 py-6 rounded-full text-2xl md:text-4xl font-bold font-mono border-2 border-black shadow-pixel hover:shadow-pixel-hover hover:translate-x-1 hover:translate-y-1 transition-all hoverable">
+                    ctrlswipe@gmail.com
+                </button>
+                
+                <p class="text-sm text-gray-400 font-mono mt-4" data-key="or-dm">Or DM us on socials</p>
+                 <div class="flex justify-center gap-4 mt-4">
+                    <a href="https://instagram.com/ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#00AEEF] hoverable"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://facebook.com/ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#EC008C] hoverable"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://tiktok.com/@ctrlswipe" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl border-2 border-black shadow-[4px_4px_0px_0px_#FFF200] hoverable"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-8 text-center border-t-4 border-black">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="font-sans font-medium text-sm text-gray-500">
+                <span class="font-bold">CTRL <span class="italic">Swipe</span></span> <span data-key="footer-rights">© 2025. All rights reserved.</span>
+            </div>
+            <div class="font-sans font-medium text-sm text-gray-500 max-w-md text-right" data-key="footer-crafted">
+                Made with ❤️ in Baia Mare, Romania
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- TRANSLATIONS (MERGED) ---
+        const translations = {
+            en: {
+                'nav-home': 'HOME', 'nav-about': 'ABOUT US', 'nav-services': 'SERVICES', 'nav-work': 'OUR WORK', 'nav-contact': 'CONTACT',
+                'hero-title': 'TAKE CTRL<br>OF YOUR <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED</span>',
+                'hero-desc': 'We turn scrollers into followers. A creative duo crafting videos, branding, and social strategies that convert.',
+                'btn-contact': 'GET STARTED <i class="fa-solid fa-arrow-right ml-2"></i>',
+                'about-title': 'WHO IS <span class="text-cmyk-m">CTRL Swipe?</span>',
+                'about-subtitle': 'TUDOR & DIDI // FOUNDERS',
+                'p1': 'CTRL Swipe is a social media marketing agency from Baia Mare, Romania, built to help small and medium-sized businesses communicate clearly, consistently and professionally online. We combine creative production with strategic thinking to deliver content that looks good, sounds right and performs well across Facebook, Instagram and TikTok.',
+                'p2': 'We are a compact two-person team, Tudor and Didi, which means every client works directly with the people who plan, create, film, edit and manage their content. No layers, no delays. Just a streamlined process and personal involvement in every step.',
+                'p3': 'We create full online ecosystems for brands: static posts, branded graphics, short-form videos, captions, ad campaigns and monthly on-site filming sessions in northern Romania. In parallel, we offer complete remote social media management for brands worldwide, including planning, design, copywriting, scheduling and maintaining a consistent content flow, regardless of location.',
+                'p4': 'Our approach is built on clarity, aesthetics, speed and honesty. Every project starts with understanding the client’s identity and ends with content that strengthens it. Our mission is simple: help businesses grow through modern storytelling, clean visuals and a structured, reliable workflow that takes social media off their shoulders, whether they are nearby or across the globe.',
+                'exp': 'YEARS EXP', 'inhouse': 'IN-HOUSE', 'bagheta': 'Our manager: Bagheta',
+                'craft-title': 'OUR <span class="text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-m">SERVICES</span>',
+                'service-1-small': 'MANAGEMENT', 'service-1-large': 'Social Media Mgmt', 'service-1-desc': 'We take the wheel. Posting, captioning, and engagement.',
+                'service-2-small': 'VIDEO', 'service-2-large': 'Short-Form Video', 'service-2-desc': 'Reels & TikToks that stop the scroll. High-energy editing.',
+                'service-3-small': 'BRANDING', 'service-3-large': 'Visual Identity', 'service-3-desc': 'Logos, color systems, and brand bibles.',
+                'service-4-small': 'STRATEGY', 'service-4-large': 'Growth Strategy', 'service-4-desc': 'No guessing. We analyze the data to build a roadmap.',
+                'stat-1-title': 'People Reached', 'stat-1-sub': 'In the past 2 years',
+                'stat-2-title': 'Followers Gained', 'stat-2-sub': 'On managed accounts',
+                'stat-3-title': 'Monthly Reach', 'stat-3-sub': 'Through our posts',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>',
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explore our portfolio across various formats.',
+                'sec-social': 'SOCIAL MEDIA', 'click-behance': 'SEE THE FULL PORTFOLIO ON BEHANCE',
+                'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
+                'sec4-title': 'CAPTIONS <span class="text-cmyk-c">& ADS</span>', 'sec4-desc': 'We write words that sell, convince, and connect.',
+                'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
+                'box2-title': 'Engaging Captions', 'box2-desc': 'From witty one-liners to storytelling long-form posts, we find the voice that fits your brand perfectly.',
+                'box3-title': 'Video Scripts', 'box3-desc': 'Structuring your reels and TikToks for maximum retention, ensuring your message is heard.',
+                'contact-title': 'READY TO <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-y pr-4">START?</span>',
+                'contact-desc': 'Let\'s clean up that feed.',
+                'or-dm': 'Or DM us on socials', 'copied': 'Copied!',
+                'footer-rights': '© 2025. All rights reserved.',
+                'footer-crafted': 'Made with ❤️ in Baia Mare, Romania'
+            },
+            ro: {
+                'nav-home': 'ACASĂ', 'nav-about': 'DESPRE NOI', 'nav-services': 'SERVICII', 'nav-work': 'PORTOFOLIU', 'nav-contact': 'CONTACT',
+                'hero-title': 'PREIA CTRL-UL<br>ASUPRA <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED-ULUI TĂU</span>',
+                'hero-desc': 'Transformăm simplii vizitatori în urmăritori. Un duo creativ crafting videos, branding, and social strategies that convert.',
+                'btn-contact': 'SĂ TRECEM LA TREABĂ <i class="fa-solid fa-arrow-right ml-2"></i>',
+                'about-title': 'CINE SUNT <span class="text-cmyk-m">CTRL SWIPE?</span>',
+                'about-subtitle': 'TUDOR & DIDI // FONDATORII',
+                'p1': 'CTRL Swipe este o agenție de marketing pentru rețelele sociale, înființată în Baia Mare, România, cu scopul de a ajuta companiile mici și mijlocii să comunice online în mod clar, consecvent și profesional. Combinăm producția creativă cu gândirea strategică pentru a livra conținut care arată bine, sună bine și are performanțe bune pe Facebook, Instagram și TikTok.',
+                'p2': 'Suntem o echipă compactă , formată din două persoane, Tudor și Didi, ceea ce înseamnă că fiecare client lucrează direct cu persoanele care planifică, creează, filmează, editează și gestionează content-ul . Un proces simplificat și implicare personală în fiecare etapă.',
+                'p3': 'Realizăm un întreg ecosistem online pentru branduri: postări statice, grafică de brand, videoclipuri scurte, subtitrări, campanii publicitare și sesiuni lunare de filmare la sediul clientului (din nordul României). În paralel, oferim servicii complete de gestionare a rețelelor sociale la distanță pentru branduri din întreaga lume, inclusiv planificare, design, redactare, programare și menținerea unui flux constant de conținut, indiferent de locație.',
+                'p4': 'Abordarea noastră se bazează pe claritate, estetică, viteză și onestitate. Fiecare proiect începe cu înțelegerea identității clientului și se încheie cu un conținut care o consolidează. Misiunea noastră este simplă: să ajutăm companiile să crească prin storytelling modern, imagini clare și un flux de lucru structurat și fiabil, care le scutește de grija rețelelor sociale, indiferent dacă se află aproape sau la capătul lumii.',
+                'exp': 'ANI DE EXPERIENȚĂ', 'inhouse': 'IN-HOUSE', 'bagheta': 'Managerul nostru: Bagheta',
+                'craft-title': '<span class="text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-m">SERVICII</span>',
+                'service-1-small': 'ADMINISTRARE', 'service-1-large': 'Social Media Mgmt', 'service-1-desc': 'Ne ocupăm de tot. Postări, descrieri și interacțiune.',
+                'service-2-small': 'VIDEO', 'service-2-large': 'Video-uri Scurte', 'service-2-desc': 'Reels & TikToks that stop the scroll. High-energy editing.',
+                'service-3-small': 'BRANDING', 'service-3-large': 'Identitate Vizuală', 'service-3-desc': 'Logos, color systems, and brand bibles.',
+                'service-4-small': 'STRATEGIE', 'service-4-large': 'Strategie de Creștere', 'service-4-desc': 'No guessing. We analyze the data to build a roadmap.',
+                'stat-1-title': 'Vizualizări', 'stat-1-sub': 'În ultimii 2 ani',
+                'stat-2-title': 'Urmăritori', 'stat-2-sub': 'Pe conturile administrate',
+                'stat-3-title': 'Impact lunar', 'stat-3-sub': 'Prin postările noastre',
+                'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>', 
+                'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
+                'work-desc': 'Explorează portofoliul nostru în diverse formate.',
+                'sec-social': 'SOCIAL MEDIA', 'click-behance': 'VEZI PORTOFOLIUL COMPLET PE BEHANCE',
+                'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
+                'sec4-title': 'COPYWRITING <span class="text-cmyk-c">& RECLAME</span>', 'sec4-desc': 'Scriem texte care vând, conving și conectează.',
+                'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',
+                'box2-title': 'Potrivit ție', 'box2-desc': 'De la mesaje scurte și pline de umor până la postări lungi care spun o poveste, găsim tonul care se potrivește perfect brandului tău.',
+                'box3-title': 'Scripturi video', 'box3-desc': 'Structurarea reel-urilor și TikTok-urilor pentru o retenție maximă, asigurându-ne că mesajul tău este auzit.',
+                'contact-title': 'SĂ TRECEM LA <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-y pr-4">TREABĂ!</span>',
+                'contact-desc': 'Vom face ordine în postările tale.',
+                'or-dm': 'Sau trimite-ne un mesaj pe rețelele sociale.', 'copied': 'Copiat!',
+                'footer-rights': '© Toate drepturile rezervate.',
+                'footer-crafted': 'Creat cu ❤️ în Baia Mare, România'
+            }
+        };
+
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+
+        function applyLanguage(lang) {
+            const icon = document.getElementById('flag-icon');
+            const iconMob = document.getElementById('flag-icon-mobile');
+            if(icon) icon.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+            if(iconMob) iconMob.className = 'flag-inner fi text-xl rounded-sm shadow-sm ' + (lang === 'ro' ? 'fi-ro' : 'fi-us');
+
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            
+            const titleEl = document.getElementById('work-title');
+            if (titleEl) {
+                if (lang === 'ro') titleEl.innerHTML = translations['ro']['work-title-ro'];
+                else titleEl.innerHTML = translations['en']['work-title-en'];
+            }
+        }
+
+        function toggleLanguage() {
+            const newLang = currentLang === 'en' ? 'ro' : 'en';
+            currentLang = newLang;
+            localStorage.setItem('siteLang', newLang);
+            const icons = document.querySelectorAll('.flag-inner');
+            icons.forEach(ic => ic.classList.add('flag-flip'));
+            setTimeout(() => { applyLanguage(newLang); }, 400);
+            setTimeout(() => { icons.forEach(ic => ic.classList.remove('flag-flip')); }, 800);
+        }
+
+        // --- CAROUSEL LOGIC ---
+        const config = { video: { count: 8, path: 'videos/', ext: '.mp4', thumbPath: 'videos/thumbnails/', thumbExt: '.jpg', type: 'video' } };
+        const state = { video: 0 };
+
+        function togglePlayVideo(element) {
+            const container = element.closest('.group'); 
+            const video = container.querySelector('video');
+            if (video.paused) {
+                video.currentTime = 0; video.muted = false;
+                video.play().then(() => { container.classList.add('playing'); }).catch(e => console.log('Play error:', e));
+            } else {
+                video.pause(); container.classList.remove('playing');
+            }
+        }
+
+        function generateItems() {
+            const trackVideo = document.getElementById('track-video');
+            const mobileVideo = document.getElementById('mobile-video');
+            if (!trackVideo || !mobileVideo) return;
+
+            for(let i=1; i<=config.video.count; i++) {
+                const src = `${config.video.path}${i}${config.video.ext}`;
+                const thumb = `${config.video.thumbPath}${i}${config.video.thumbExt}`;
+                const fallback = `https://placehold.co/450x800/FFF200/000000?text=Video+${i}`;
+                
+                const videoHTML = `
+                    <div class="relative w-full h-full group">
+                        <video src="${src}" poster="${thumb}" class="w-full h-full object-contain cursor-pointer" muted loop playsinline preload="metadata" onclick="togglePlayVideo(this)" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterend', '<img src=\\'${fallback}\\' class=\\'w-full h-full object-contain\\'>')"></video>
+                        <div class="play-overlay" onclick="togglePlayVideo(this)"><i class="fa-solid fa-play-circle text-white opacity-80 hover:opacity-100"></i></div>
+                    </div>
+                `;
+                trackVideo.innerHTML += `<div class="carousel-item aspect-9-16 w-[320px] md:w-[360px]" data-index="${i-1}">${videoHTML}</div>`;
+                mobileVideo.innerHTML += `<div class="mobile-item aspect-9-16">${videoHTML}</div>`;
+            }
+            updateCarousel('video');
+            initMobileObserver();
+        }
+
+        function moveCarousel(type, dir) {
+            const total = config.video.count;
+            state[type] = (state[type] + dir + total) % total;
+            updateCarousel(type);
+        }
+
+        function updateCarousel(type) {
+            const track = document.getElementById(`track-${type}`);
+            if(!track) return;
+            const items = track.querySelectorAll('.carousel-item');
+            const activeIdx = state[type];
+            const total = items.length;
+
+            items.forEach((item, idx) => {
+                let diff = (idx - activeIdx + total) % total;
+                if (diff > total / 2) diff -= total;
+                item.className = item.className.replace(/c-active|c-prev|c-next|c-hidden/g, '').trim();
+                const video = item.querySelector('video');
+                const container = item.querySelector('.group');
+
+                if (idx === activeIdx) {
+                    item.classList.add('c-active');
+                } else {
+                    if(video) {
+                        video.pause(); video.currentTime = 0; video.muted = true; video.load();
+                        if(container) container.classList.remove('playing');
+                    }
+                    if (diff === -1) item.classList.add('c-prev');
+                    else if (diff === 1) item.classList.add('c-next');
+                    else item.classList.add('c-hidden');
+                }
+            });
+        }
+        
+        function initMobileObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target.querySelector('video');
+                    if(video && !entry.isIntersecting) {
+                        video.pause(); video.currentTime = 0; video.load();
+                        const container = video.parentElement;
+                        if(container) container.classList.remove('playing');
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.6 });
+            document.querySelectorAll('.mobile-item').forEach(item => observer.observe(item));
+        }
+
+        // --- MENU LOGIC ---
+        function closeMenu() {
+            const burgerBtn = document.getElementById('burger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const icon = burgerBtn.querySelector('i');
+            mobileMenu.classList.remove('open');
+            mobileMenu.classList.add('closed');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            applyLanguage(currentLang);
+            generateItems();
+
+            // Counters
+            const counters = document.querySelectorAll('.counter');
+            let hasCounted = false;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasCounted) {
+                        hasCounted = true;
+                        counters.forEach(counter => {
+                            const target = +counter.getAttribute('data-target');
+                            const duration = 2000; 
+                            const increment = target / (duration / 16); 
+                            let current = 0;
+                            const updateCounter = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.innerText = Math.ceil(current).toLocaleString() + (target > 100 ? "+" : "");
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.innerText = target.toLocaleString() + "+";
+                                }
+                            };
+                            updateCounter();
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+            const resultsSection = document.querySelector('.counter'); 
+            if(resultsSection) observer.observe(resultsSection.parentElement);
+
+            // Copy Email
+            const emailBtn = document.getElementById('email-btn');
+            const tooltip = document.getElementById('copy-tooltip');
+            if(emailBtn) {
+                emailBtn.addEventListener('click', (e) => {
+                    const email = "ctrlswipe@gmail.com";
+                    navigator.clipboard.writeText(email).then(() => {
+                        tooltip.style.left = e.clientX + 15 + 'px'; tooltip.style.top = e.clientY + 'px'; tooltip.classList.add('visible');
+                        setTimeout(() => { tooltip.classList.remove('visible'); }, 2000);
+                    });
+                });
+            }
+
+            // Mobile Menu
+            const burgerBtn = document.getElementById('burger-btn'); 
+            const mobileMenu = document.getElementById('mobile-menu'); 
+            let isMenuOpen = false;
+            if(burgerBtn) {
+                burgerBtn.addEventListener('click', () => { 
+                    isMenuOpen = !isMenuOpen; 
+                    const icon = burgerBtn.querySelector('i'); 
+                    if (isMenuOpen) { mobileMenu.classList.remove('closed'); mobileMenu.classList.add('open'); icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } 
+                    else { mobileMenu.classList.remove('open'); mobileMenu.classList.add('closed'); icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } 
+                });
+            }
+
+            // Custom Cursor
+            if (window.matchMedia("(min-width: 1024px)").matches) {
+                const cursorDot = document.getElementById('cursor-dot');
+                const cursorRing = document.getElementById('cursor-ring');
+                
+                if (cursorDot && cursorRing) {
+                    document.addEventListener('mousemove', (e) => { 
+                        cursorDot.style.left = e.clientX + 'px'; cursorDot.style.top = e.clientY + 'px'; 
+                        cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; 
+                    });
+                    document.addEventListener('mousedown', () => { cursorDot.classList.add('active'); });
+                    document.addEventListener('mouseup', () => { cursorDot.classList.remove('active'); });
+                    
+                    setInterval(() => {
+                        const newHoverables = document.querySelectorAll('.hoverable, .carousel-item, a, button');
+                        newHoverables.forEach(el => {
+                            if(!el.hasAttribute('data-hover-bound')) {
+                                el.addEventListener('mouseenter', () => { cursorDot.classList.add('hovered'); cursorRing.classList.add('hovered'); });
+                                el.addEventListener('mouseleave', () => { cursorDot.classList.remove('hovered'); cursorRing.classList.remove('hovered'); });
+                                el.setAttribute('data-hover-bound', 'true');
+                            }
+                        });
+                    }, 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

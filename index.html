@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO METADATA -->
-    <title>CTRL Swipe | Marketing Agency</title>
+    <title>CTRL Swipe | One Page Portfolio</title>
     <meta name="description" content="CTRL Swipe is a marketing agency in Romania. We offer remote social media video editing services, graphic design, and strategy.">
     
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -87,6 +87,10 @@
         /* Copy Tooltip */
         #copy-tooltip { position: fixed; background: black; color: white; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: bold; pointer-events: none; opacity: 0; transition: opacity 0.3s; z-index: 999999; }
         #copy-tooltip.visible { opacity: 1; }
+        
+        /* Modal Scrollbar Hide */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* Mobile Hero Background */
         @media (max-width: 1023px) {
@@ -315,31 +319,25 @@
                 
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 px-4 mb-16">
                     <!-- Image 1 -->
-                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                    <div class="aspect-[4/5] hoverable hover:scale-110 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:z-20 transition-all duration-300 border-2 border-white rounded-lg overflow-hidden bg-gray-100 cursor-pointer relative" onclick="openSocialModal(0)">
                         <img src="socials/1.webp" alt="Social Media 1" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/00AEEF/ffffff?text=Social+1'">
                     </div>
                      <!-- Image 2 -->
-                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                    <div class="aspect-[4/5] hoverable hover:scale-110 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:z-20 transition-all duration-300 border-2 border-white rounded-lg overflow-hidden bg-gray-100 cursor-pointer relative" onclick="openSocialModal(1)">
                         <img src="socials/2.webp" alt="Social Media 2" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/EC008C/ffffff?text=Social+2'">
                     </div>
                      <!-- Image 3 -->
-                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                    <div class="aspect-[4/5] hoverable hover:scale-110 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:z-20 transition-all duration-300 border-2 border-white rounded-lg overflow-hidden bg-gray-100 cursor-pointer relative" onclick="openSocialModal(2)">
                         <img src="socials/3.webp" alt="Social Media 3" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/FFF200/000000?text=Social+3'">
                     </div>
                      <!-- Image 4 -->
-                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100">
+                    <div class="aspect-[4/5] hoverable hover:scale-110 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:z-20 transition-all duration-300 border-2 border-white rounded-lg overflow-hidden bg-gray-100 cursor-pointer relative" onclick="openSocialModal(3)">
                         <img src="socials/4.webp" alt="Social Media 4" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/000000/ffffff?text=Social+4'">
                     </div>
                      <!-- Image 5 -->
-                    <div class="aspect-[4/5] hoverable hover:scale-105 transition-transform shadow-lg border-2 border-white rounded-lg overflow-hidden bg-gray-100 md:col-span-1 col-span-2 md:w-auto w-1/2 mx-auto">
+                    <div class="aspect-[4/5] hoverable hover:scale-110 hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:z-20 transition-all duration-300 border-2 border-white rounded-lg overflow-hidden bg-gray-100 cursor-pointer relative md:col-span-1 col-span-2 md:w-auto w-1/2 mx-auto" onclick="openSocialModal(4)">
                         <img src="socials/5.webp" alt="Social Media 5" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x500/00AEEF/ffffff?text=Social+5'">
                     </div>
-                </div>
-
-                <div class="flex justify-center px-4">
-                    <a href="https://www.behance.net/gallery/240026241/Social-media-portfolio" target="_blank" class="bg-cmyk-c text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-bold text-sm md:text-lg shadow-lg border-2 border-white tracking-wider flex items-center gap-3 hoverable hover:scale-105 transition-transform max-w-2xl text-center">
-                        <span data-key="click-behance">SEE THE FULL PORTFOLIO ON BEHANCE</span>
-                    </a>
                 </div>
             </div>
 
@@ -460,10 +458,19 @@
                 <span class="font-bold">CTRL <span class="italic">Swipe</span></span> <span data-key="footer-rights">© 2025. All rights reserved.</span>
             </div>
             <div class="font-sans font-medium text-sm text-gray-500 max-w-md text-right" data-key="footer-crafted">
-                Made with ❤️ in Baia Mare, Romania
+               Made with ❤️ in Baia Mare, Romania
             </div>
         </div>
     </footer>
+    
+    <!-- FULLSCREEN MODAL -->
+    <div id="social-modal" class="fixed inset-0 z-[1000] bg-black/95 hidden flex-col justify-center opacity-0 transition-opacity duration-300">
+        <button class="absolute top-6 right-6 text-white text-5xl z-[1001] font-bold hover:text-cmyk-m transition-colors cursor-pointer" onclick="closeSocialModal()">&times;</button>
+        
+        <div class="flex overflow-x-auto snap-x snap-mandatory h-full items-center w-full no-scrollbar px-4 md:px-20" id="social-modal-track">
+            <!-- Images injected via JS -->
+        </div>
+    </div>
 
     <script>
         // --- TRANSLATIONS (MERGED) ---
@@ -491,7 +498,7 @@
                 'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>',
                 'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
                 'work-desc': 'Explore our portfolio across various formats.',
-                'sec-social': 'SOCIAL MEDIA', 'click-behance': 'SEE THE FULL PORTFOLIO ON BEHANCE',
+                'sec-social': 'SOCIAL MEDIA', 
                 'sec-video': 'VIDEO PRODUCTION', 'sec-web': 'WEB DESIGN',
                 'sec4-title': 'CAPTIONS <span class="text-cmyk-c">& ADS</span>', 'sec4-desc': 'We write words that sell, convince, and connect.',
                 'box1-title': 'Ad Copy', 'box1-desc': 'We know how to write ads that appeal to the public, creating hooks that stop the scroll and CTAs that convert.',
@@ -505,7 +512,7 @@
             },
             ro: {
                 'nav-home': 'ACASĂ', 'nav-about': 'DESPRE NOI', 'nav-services': 'SERVICII', 'nav-work': 'PORTOFOLIU', 'nav-contact': 'CONTACT',
-                'hero-title': 'PREIA CTRL-UL<br>ASUPRA <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED-ULUI TĂU</span>',
+                'hero-title': 'PREIA CTRL<br>ASUPRA <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c via-cmyk-m to-cmyk-y pr-4">FEED-ULUI TĂU</span>',
                 'hero-desc': 'Transformăm simplii vizitatori în urmăritori. Un duo creativ crafting videos, branding, and social strategies that convert.',
                 'btn-contact': 'SĂ TRECEM LA TREABĂ <i class="fa-solid fa-arrow-right ml-2"></i>',
                 'about-title': 'CINE SUNT <span class="text-cmyk-m">CTRL SWIPE?</span>',
@@ -526,7 +533,7 @@
                 'work-title-en': '<span class="text-cmyk-k">OUR</span> <span class="text-cmyk-c">WORK</span>', 
                 'work-title-ro': '<span class="text-cmyk-c">PORTOFOLIU</span>',
                 'work-desc': 'Explorează portofoliul nostru în diverse formate.',
-                'sec-social': 'SOCIAL MEDIA', 'click-behance': 'VEZI PORTOFOLIUL COMPLET PE BEHANCE',
+                'sec-social': 'SOCIAL MEDIA', 
                 'sec-video': 'PRODUCȚIE VIDEO', 'sec-web': 'DESIGN WEB',
                 'sec4-title': 'COPYWRITING <span class="text-cmyk-c">& RECLAME</span>', 'sec4-desc': 'Scriem texte care vând, conving și conectează.',
                 'box1-title': 'Texte pentru reclame', 'box1-desc': 'Știm cum să scriem reclame care să atragă publicul, creând elemente captivante care să oprească scroll-ul și CTA-uri care să aducă profit.',
@@ -535,7 +542,7 @@
                 'contact-title': 'SĂ TRECEM LA <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-cmyk-c to-cmyk-y pr-4">TREABĂ!</span>',
                 'contact-desc': 'Vom face ordine în postările tale.',
                 'or-dm': 'Sau trimite-ne un mesaj pe rețelele sociale.', 'copied': 'Copiat!',
-                'footer-rights': '© Toate drepturile rezervate.',
+                'footer-rights': 'Toate drepturile rezervate.',
                 'footer-crafted': 'Creat cu ❤️ în Baia Mare, România'
             }
         };
@@ -657,6 +664,57 @@
                 });
             }, { root: null, rootMargin: '0px', threshold: 0.6 });
             document.querySelectorAll('.mobile-item').forEach(item => observer.observe(item));
+        }
+
+        // --- MODAL LOGIC (New) ---
+        const socialImages = [
+            'socials/1.webp', 'socials/2.webp', 'socials/3.webp', 'socials/4.webp', 'socials/5.webp'
+        ];
+
+        function openSocialModal(startIndex) {
+            const modal = document.getElementById('social-modal');
+            const track = document.getElementById('social-modal-track');
+            
+            // Clear current contents
+            track.innerHTML = '';
+            
+            // Re-populate all images for scrolling
+            socialImages.forEach((src, idx) => {
+                const div = document.createElement('div');
+                div.className = 'w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-4 md:p-10';
+                
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'max-h-full max-w-full object-contain shadow-2xl rounded-sm';
+                img.onerror = function() { this.src = 'https://placehold.co/400x500?text=Image+' + (idx+1); };
+                
+                div.appendChild(img);
+                track.appendChild(div);
+            });
+
+            // Show modal
+            modal.classList.remove('hidden');
+            // Trigger reflow
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+
+            // Scroll to specific image (slight delay for layout)
+            setTimeout(() => {
+                const width = track.offsetWidth;
+                track.scrollLeft = width * startIndex;
+            }, 50);
+        }
+
+        function closeSocialModal() {
+            const modal = document.getElementById('social-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300);
         }
 
         // --- MENU LOGIC ---

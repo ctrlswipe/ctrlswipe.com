@@ -1,0 +1,195 @@
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field {
+  display: block;
+  zoom: 1;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field:before {
+  content: '';
+  display: block;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field label {
+  display: block;
+  margin-bottom: 5px;
+  
+  text-align: left;
+  
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field label strong {
+  
+  font-size: 1.1em;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field label.sow-form-field-label-left {
+  float: left;
+  margin-right: 10px;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field label.sow-form-field-label-right {
+  float: right;
+  margin-left: 10px;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field .sow-field-container {
+  overflow: hidden;
+  display: block;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field .sow-field-container textarea:focus,
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field .sow-field-container input:focus,
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field .sow-field-container > :focus {
+  outline-style: solid;
+  
+  outline-width: 1px;
+}
+@media (min-width: 780px) {
+  .so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-datepicker .sow-text-field,
+  .so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-location .sow-text-field {
+    max-width: none;
+  }
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field .sow-field-container {
+  margin: 0px 0px 15px 0px;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field textarea,
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field .sow-text-field {
+  display: block;
+  width: 100%;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 0px;
+  
+  
+  
+  
+  
+  
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-radio ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-radio ul li {
+  margin: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-radio ul label {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-radio ul input {
+  float: left;
+  margin-right: 0.5em;
+  height: auto;
+  flex: none;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-checkboxes ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-checkboxes ul li {
+  align-items: center;
+  display: flex;
+  margin: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-checkboxes ul label {
+  margin-bottom: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-checkboxes ul input {
+  height: auto;
+  margin-right: 0.5em;
+  flex: none;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select select,
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-container {
+  
+  border-radius: 0px;
+  
+  
+  
+  
+  
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-container,
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-search__field {
+  width: 100% !important;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-selection__rendered,
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-search__field {
+  padding: 0;
+  margin: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-selection__rendered:focus,
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-search__field:focus {
+  outline: none;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-search {
+  margin-left: 3px;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-selection__choice__remove {
+  height: 100%;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-selection__choice {
+  margin-left: 2px;
+  margin-top: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field.sow-form-field-select .select2-selection--multiple {
+  align-items: center;
+  border: none;
+  display: flex;
+  padding: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-form-field .sow-form-field-description {
+  font-size: 0.9em;
+  margin-top: 0.2em;
+  margin-left: 0.2em;
+  color: #999999;
+  font-style: italic;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-recaptcha {
+  margin-bottom: 1em;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-contact-form {
+  padding: 0px;
+  border: #c0c0c0 solid 0px;
+  
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-contact-form .sow-error {
+  background: #fce4e5;
+  border: 1px solid #ec666a;
+  color: #ec666a;
+  border-radius: 2px;
+  padding: 5px;
+  font-size: 0.8em;
+  list-style: none;
+  margin: 0 0 10px 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-contact-form .sow-error li {
+  margin: 0;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-contact-form .sow-submit-styled {
+  text-align: left;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-contact-form .sow-submit-styled .sow-submit {
+  border-radius: 0px;
+  border: 0px solid #f14e4e;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 1.15em;
+  font-weight: 500;
+  padding: 15px 30px;
+  
+  background: #f14e4e;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-contact-form .sow-submit-styled .sow-submit:disabled {
+  color: #ffffff;
+  cursor: not-allowed;
+  background: #f8adad;
+  border: 0px solid #f8adad;
+}
+.so-widget-sow-contact-form-default-e0ca8b2c6729-1 .sow-contact-form-success p:last-of-type {
+  margin-bottom: 0;
+}

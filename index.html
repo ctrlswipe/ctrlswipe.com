@@ -4207,6 +4207,159 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
     display: none !important;
   }
 </style>
-<script src="./js/work-video-marquee.js" defer></script>
+<!-- CTRL SWIPE - INTERACTIVE VIDEO MARQUEE V3 (self-contained) -->
+<style id="ctrl-video-interactive-v3-css">
+  .ctrl-video-marquee {
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    overscroll-behavior-x: contain;
+  }
+  .ctrl-video-marquee.is-dragging { cursor: grabbing; }
+  .ctrl-video-marquee .ctrl-video-track {
+    animation: none !important;
+    transform: translate3d(0,0,0);
+    will-change: transform;
+  }
+  .ctrl-video-marquee .ctrl-video-card,
+  .ctrl-video-marquee .ctrl-video-card img {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ctrl-video-marquee { overflow-x: hidden; }
+  }
+</style>
+<script id="ctrl-video-interactive-v3-js">
+(function () {
+  'use strict';
+  function initVideoMarquee() {
+    const viewport = document.querySelector('.ctrl-video-marquee');
+    if (!viewport || viewport.dataset.ctrlInteractiveReady === '1') return;
+    const track = viewport.querySelector('.ctrl-video-track');
+    const original = track && track.querySelector('.ctrl-video-group');
+    if (!original) return;
+    viewport.dataset.ctrlInteractiveReady = '1';
+
+    // Resolve thumbnails for LocalWP, GitHub Pages and local HTML previews.
+    const isLocalWP = /(?:^|\.)(?:ctrl-swipe\.local|localhost|127\.0\.0\.1)$/i.test(location.hostname);
+    original.querySelectorAll('img[data-local-src][data-static-src]').forEach(img => {
+      const wanted = img.getAttribute(isLocalWP ? 'data-local-src' : 'data-static-src');
+      if (wanted && img.getAttribute('src') !== wanted) img.setAttribute('src', wanted);
+      img.setAttribute('draggable', 'false');
+    });
+
+    // Remove copies left by older scripts, then create exactly one seamless copy.
+    track.querySelectorAll('.ctrl-video-group').forEach((group, i) => {
+      if (i !== 0) group.remove();
+    });
+    const clone = original.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
+    track.appendChild(clone);
+    track.querySelectorAll('a, img').forEach(el => el.setAttribute('draggable', 'false'));
+
+    let groupWidth = 0;
+    let position = 0; // Negative = moving to the left.
+    let lastTime = 0;
+    let pointer = null;
+    let dragDistance = 0;
+    let suppressClick = false;
+    let hoveredByMouse = false;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function measure() {
+      const previousWidth = groupWidth;
+      groupWidth = original.getBoundingClientRect().width;
+      if (previousWidth > 0 && groupWidth > 0) position = position / previousWidth * groupWidth;
+      draw();
+    }
+    function wrap() {
+      if (groupWidth > 0) position = ((position % groupWidth) + groupWidth) % groupWidth - groupWidth;
+    }
+    function draw() {
+      wrap();
+      track.style.transform = 'translate3d(' + position + 'px, 0, 0)';
+    }
+    function isDesktopMouse() {
+      return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+    function tick(time) {
+      if (lastTime) {
+        const dt = Math.min((time - lastTime) / 1000, 0.06);
+        if (!pointer && !hoveredByMouse && !reduceMotion.matches && groupWidth > 0) {
+          const speedSeconds = parseFloat(getComputedStyle(viewport).getPropertyValue('--ctrl-video-speed')) || 95;
+          position -= groupWidth / speedSeconds * dt;
+          draw();
+        }
+      }
+      lastTime = time;
+      requestAnimationFrame(tick);
+    }
+
+    viewport.addEventListener('pointerenter', e => {
+      if (e.pointerType === 'mouse' && isDesktopMouse()) hoveredByMouse = true;
+    });
+    viewport.addEventListener('pointerleave', e => {
+      if (e.pointerType === 'mouse') hoveredByMouse = false;
+    });
+    viewport.addEventListener('wheel', e => {
+      if (!isDesktopMouse() || !groupWidth) return;
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      e.preventDefault(); // Wheel over the cards navigates horizontally.
+      const pixels = e.deltaMode === 1 ? delta * 16 : e.deltaMode === 2 ? delta * viewport.clientWidth : delta;
+      position -= pixels;
+      draw();
+    }, { passive: false });
+
+    viewport.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      pointer = { id: e.pointerId, x: e.clientX, lastX: e.clientX };
+      dragDistance = 0;
+      suppressClick = false;
+      viewport.classList.add('is-dragging');
+      if (e.pointerType === 'mouse') e.preventDefault();
+      viewport.setPointerCapture(e.pointerId);
+    });
+    viewport.addEventListener('pointermove', e => {
+      if (!pointer || e.pointerId !== pointer.id) return;
+      const dx = e.clientX - pointer.lastX;
+      dragDistance += Math.abs(dx);
+      pointer.lastX = e.clientX;
+      position += dx;
+      draw();
+    });
+    function finishDrag(e) {
+      if (!pointer || e.pointerId !== pointer.id) return;
+      if (dragDistance > 7) suppressClick = true;
+      pointer = null;
+      viewport.classList.remove('is-dragging');
+      if (viewport.hasPointerCapture(e.pointerId)) viewport.releasePointerCapture(e.pointerId);
+    }
+    viewport.addEventListener('pointerup', finishDrag);
+    viewport.addEventListener('pointercancel', finishDrag);
+    viewport.addEventListener('lostpointercapture', () => {
+      pointer = null;
+      viewport.classList.remove('is-dragging');
+    });
+    viewport.addEventListener('click', e => {
+      if (!suppressClick) return;
+      e.preventDefault();
+      e.stopPropagation();
+      suppressClick = false;
+    }, true);
+
+    // Keyboard users can still open individual video links normally.
+    if (typeof ResizeObserver !== 'undefined') new ResizeObserver(measure).observe(original);
+    else window.addEventListener('resize', measure);
+    measure();
+    requestAnimationFrame(tick);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initVideoMarquee);
+  else initVideoMarquee();
+})();
+</script>
 </body>
 </html>

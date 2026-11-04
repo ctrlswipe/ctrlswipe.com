@@ -332,9 +332,13 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 }
 </style>
                                                         <style>
+
 /* ==========================================
-   CTRL SWIPE - OUR WORK V1
+   CTRL SWIPE - OUR WORK V2
+   STATIC PROJECTS + VIDEO MARQUEE
 ========================================== */
+
+/* MAIN SECTION */
 
 .ctrl-work {
   position: relative;
@@ -344,7 +348,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   min-height: 650px;
 
   margin: 0;
-  padding: 180px 6% 100px;
+  padding: 180px 0 100px;
 
   background-color: #F7E274;
 
@@ -352,7 +356,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   overflow: hidden;
 }
 
-/* MAGENTA SWIRL */
+/* MAGENTA TRANSITION */
 
 .ctrl-work-transition {
   position: absolute;
@@ -373,31 +377,33 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   height: 100%;
 }
 
-/* CONTAINER */
+/* CONTENT CONTAINER */
 
 .ctrl-work-container {
   position: relative;
   z-index: 1;
 
-  width: 100%;
+  width: 88%;
   max-width: 1440px;
 
   margin: 0 auto;
 }
 
-/* HEADING */
+/* SECTION TITLE */
 
 .ctrl-work .ctrl-work-title {
   margin: 0 0 30px;
   padding: 0;
 
   color: #141414;
+
   font-family: 'Work Sans', sans-serif;
   font-size: clamp(56px, 6.5vw, 108px);
   font-weight: 900;
 
   letter-spacing: 0.005em;
   line-height: 1.05;
+
   text-transform: none;
   text-align: left;
 }
@@ -412,15 +418,16 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   padding: 0;
 
   color: #141414;
+
   font-family: 'PT Sans', sans-serif;
   font-size: clamp(18px, 1.5vw, 23px);
   font-weight: 400;
-  line-height: 1.65;
 
+  line-height: 1.65;
   text-align: left;
 }
 
-/* COMING SOON BOX */
+/* STATIC PROJECTS PLACEHOLDER */
 
 .ctrl-work-placeholder {
   display: flex;
@@ -447,22 +454,325 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   font-size: clamp(22px, 3vw, 38px);
   font-weight: 700;
 
-  letter-spacing: -0.02em;
+  text-transform: lowercase;
   text-align: center;
+}
+
+/* ==========================================
+   VIDEO PROJECTS
+========================================== */
+
+.ctrl-work-videos {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  margin-top: 90px;
+}
+
+/* VIDEO SECTION HEADING */
+
+.ctrl-work-videos-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.ctrl-work .ctrl-work-videos-heading h3 {
+  margin: 0;
+  padding: 0;
+
+  color: #141414;
+
+  font-family: 'Work Sans', sans-serif;
+  font-size: clamp(28px, 3.2vw, 46px);
+  font-weight: 900;
+
+  letter-spacing: 0;
+  line-height: 1.1;
   text-transform: lowercase;
 }
 
-/* TABLET */
+.ctrl-work-videos-direction {
+  color: #141414;
+
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ==========================================
+   VIDEO MARQUEE
+========================================== */
+
+.ctrl-video-marquee {
+  position: relative;
+
+  width: 100%;
+  overflow: hidden;
+
+  padding: 12px 0 18px;
+
+  --ctrl-video-width: 240px;
+  --ctrl-video-gap: 22px;
+  --ctrl-video-speed: 95s;
+
+  /* SOFT FADING EDGES */
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+.ctrl-video-track {
+  display: flex;
+  align-items: center;
+
+  width: max-content;
+
+  animation:
+    ctrl-video-marquee-scroll
+    var(--ctrl-video-speed)
+    linear
+    infinite;
+
+  will-change: transform;
+}
+
+/* ONE SEQUENCE OF NINE VIDEOS */
+
+.ctrl-video-group {
+  display: flex;
+  align-items: center;
+
+  flex: 0 0 auto;
+
+  gap: var(--ctrl-video-gap);
+
+  /* KEEP SEAM SPACING EQUAL */
+  padding-right: var(--ctrl-video-gap);
+}
+
+/* ==========================================
+   INDIVIDUAL VIDEO CARD
+========================================== */
+
+.ctrl-work a.ctrl-video-card {
+  position: relative;
+  display: block;
+
+  flex: 0 0 var(--ctrl-video-width);
+
+  width: var(--ctrl-video-width);
+  aspect-ratio: 9 / 16;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    145deg,
+    #343434 0%,
+    #141414 100%
+  );
+
+  overflow: hidden;
+
+  color: #FFFFFF;
+  text-decoration: none;
+
+  box-shadow: none !important;
+
+  transform: scale(1);
+
+  transition: transform 0.3s ease;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* THUMBNAIL */
+
+.ctrl-video-card img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  border: none;
+
+  transition:
+    transform 0.4s ease,
+    filter 0.4s ease;
+}
+
+/* SUBTLE DARK OVERLAY */
+
+.ctrl-video-card::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.32),
+    transparent 27%,
+    transparent 65%,
+    rgba(0,0,0,0.20)
+  );
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   PLATFORM LABEL
+========================================== */
+
+.ctrl-video-platform {
+  position: absolute;
+  z-index: 2;
+
+  top: 13px;
+  left: 13px;
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 13px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.93);
+  color: #141414;
+
+  font-family: 'PT Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 1;
+  letter-spacing: 0;
+
+  text-transform: none;
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   PLAY ICON
+========================================== */
+
+.ctrl-video-play {
+  position: absolute;
+  z-index: 2;
+
+  top: 50%;
+  left: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 54px;
+  height: 54px;
+
+  border-radius: 50%;
+
+  background: rgba(20,20,20,0.48);
+  border: 1px solid rgba(255,255,255,0.6);
+
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+/* CSS TRIANGLE */
+
+.ctrl-video-play::before {
+  content: "";
+
+  display: block;
+
+  width: 0;
+  height: 0;
+
+  margin-left: 4px;
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid #FFFFFF;
+}
+
+/* ==========================================
+   HOVER EFFECTS
+========================================== */
+
+.ctrl-video-marquee:hover .ctrl-video-track,
+.ctrl-video-marquee:focus-within .ctrl-video-track {
+  animation-play-state: paused;
+}
+
+.ctrl-work a.ctrl-video-card:hover {
+  transform: scale(1.035);
+}
+
+.ctrl-work a.ctrl-video-card:hover img {
+  transform: scale(1.07);
+  filter: brightness(1.04);
+}
+
+/* CONTINUOUS LOOP */
+
+@keyframes ctrl-video-marquee-scroll {
+  from {
+    transform: translate3d(0,0,0);
+  }
+
+  to {
+    transform: translate3d(-50%,0,0);
+  }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
 
 @media (max-width: 1024px) {
 
   .ctrl-work {
     min-height: 560px;
-    padding: 155px 5% 80px;
+    padding-top: 155px;
+    padding-bottom: 80px;
   }
 
   .ctrl-work-transition {
     height: 125px;
+  }
+
+  .ctrl-work-container {
+    width: 90%;
   }
 
   .ctrl-work .ctrl-work-title {
@@ -476,19 +786,36 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   .ctrl-work-placeholder {
     min-height: 210px;
   }
+
+  .ctrl-work-videos {
+    margin-top: 70px;
+  }
+
+  .ctrl-video-marquee {
+    --ctrl-video-width: 200px;
+    --ctrl-video-gap: 18px;
+    --ctrl-video-speed: 90s;
+  }
 }
 
-/* MOBILE PORTRAIT */
+/* ==========================================
+   MOBILE
+========================================== */
 
-@media (max-width: 767px) and (orientation: portrait) {
+@media (max-width: 767px) {
 
   .ctrl-work {
     min-height: 0;
-    padding: 110px 6% 55px;
+    padding-top: 110px;
+    padding-bottom: 55px;
   }
 
   .ctrl-work-transition {
     height: 85px;
+  }
+
+  .ctrl-work-container {
+    width: 88%;
   }
 
   .ctrl-work .ctrl-work-title {
@@ -508,22 +835,67 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   .ctrl-work-placeholder {
     min-height: 170px;
     padding: 25px;
-
     border-radius: 12px;
   }
 
   .ctrl-work-placeholder span {
     font-size: 24px;
   }
+
+  .ctrl-work-videos {
+    margin-top: 55px;
+  }
+
+  .ctrl-work-videos-heading {
+    margin-bottom: 22px;
+  }
+
+  .ctrl-work .ctrl-work-videos-heading h3 {
+    font-size: 28px;
+  }
+
+  .ctrl-work-videos-direction {
+    font-size: 32px;
+  }
+
+  .ctrl-video-marquee {
+    --ctrl-video-width: 160px;
+    --ctrl-video-gap: 14px;
+    --ctrl-video-speed: 85s;
+  }
+
+  .ctrl-work a.ctrl-video-card {
+    border-radius: 11px;
+  }
+
+  .ctrl-video-platform {
+    top: 9px;
+    left: 9px;
+
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .ctrl-video-play {
+    width: 42px;
+    height: 42px;
+  }
+
+  .ctrl-video-play::before {
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 13px;
+  }
 }
 
-/* MOBILE LANDSCAPE */
+/* ==========================================
+   MOBILE LANDSCAPE
+========================================== */
 
 @media (max-width: 767px) and (orientation: landscape) {
 
   .ctrl-work {
-    min-height: 0;
-    padding: 120px 6% 55px;
+    padding-top: 120px;
   }
 
   .ctrl-work-transition {
@@ -536,261 +908,47 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
   .ctrl-work .ctrl-work-description {
     font-size: 16px;
-    margin-bottom: 30px;
-  }
-
-  .ctrl-work-placeholder {
-    min-height: 150px;
   }
 }
 
-/* SMALL PHONES */
-
-@media (max-width: 380px) and (orientation: portrait) {
-
-  .ctrl-work {
-    padding-top: 100px;
-  }
-
-  .ctrl-work .ctrl-work-title {
-    font-size: 12vw;
-  }
-
-  .ctrl-work .ctrl-work-description {
-    font-size: 17px;
-  }
-}
-</style>
-                                                        <style>
 /* ==========================================
-   CTRL SWIPE - WEBSITES V1
+   REDUCED MOTION
 ========================================== */
 
-.ctrl-websites {
-  position: relative;
-  isolation: isolate;
+@media (prefers-reduced-motion: reduce) {
 
-  width: 100%;
-  min-height: 650px;
+  .ctrl-video-track {
+    animation: none !important;
+  }
 
-  margin: 0;
-  padding: 180px 6% 100px;
+  .ctrl-video-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 
-  background-color: #00ADEE;
-
-  box-sizing: border-box;
-  overflow: hidden;
+  .ctrl-video-card,
+  .ctrl-video-card img {
+    transition: none !important;
+  }
 }
 
-/* YELLOW SWIRL */
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
 
-.ctrl-websites-transition {
-  position: absolute;
-
-  top: -1px;
-  left: 0;
-
-  width: 100%;
-  height: 150px;
-
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
+.ctrl-work a.ctrl-video-card:focus-visible {
+  outline: 3px solid #141414;
+  outline-offset: 4px;
 }
 
-.ctrl-websites-transition svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+/* BOX SIZING */
 
-/* CONTENT */
-
-.ctrl-websites-container {
-  position: relative;
-  z-index: 1;
-
-  width: 100%;
-  max-width: 1440px;
-
-  margin: 0 auto;
-}
-
-/* HEADING */
-
-.ctrl-websites .ctrl-websites-title {
-  margin: 0 0 30px;
-  padding: 0;
-
-  color: #141414;
-
-  font-family: 'Work Sans', sans-serif;
-  font-size: clamp(56px, 6.5vw, 108px);
-  font-weight: 900;
-
-  letter-spacing: 0.005em;
-  line-height: 1.05;
-
-  text-transform: none;
-  text-align: left;
-}
-
-/* DESCRIPTION */
-
-.ctrl-websites .ctrl-websites-description {
-  width: 100%;
-  max-width: 850px;
-
-  margin: 0 0 55px;
-  padding: 0;
-
-  color: #141414;
-
-  font-family: 'PT Sans', sans-serif;
-  font-size: clamp(18px, 1.5vw, 23px);
-  font-weight: 400;
-
-  line-height: 1.65;
-  text-align: left;
-}
-
-/* COMING SOON */
-
-.ctrl-websites-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  min-height: 240px;
-
-  padding: 35px;
-
-  border: 2px dashed rgba(20,20,20,0.42);
-  border-radius: 16px;
-
-  background-color: rgba(255,255,255,0.10);
-
+.ctrl-work,
+.ctrl-work * {
   box-sizing: border-box;
 }
 
-.ctrl-websites-placeholder span {
-  color: #141414;
-
-  font-family: 'Work Sans', sans-serif;
-  font-size: clamp(22px, 3vw, 38px);
-  font-weight: 700;
-
-  letter-spacing: -0.02em;
-  text-transform: lowercase;
-  text-align: center;
-}
-
-/* TABLET */
-
-@media (max-width: 1024px) {
-
-  .ctrl-websites {
-    min-height: 560px;
-    padding: 155px 5% 80px;
-  }
-
-  .ctrl-websites-transition {
-    height: 125px;
-  }
-
-  .ctrl-websites .ctrl-websites-title {
-    font-size: clamp(48px, 6.5vw, 78px);
-  }
-
-  .ctrl-websites .ctrl-websites-description {
-    font-size: 18px;
-  }
-
-  .ctrl-websites-placeholder {
-    min-height: 210px;
-  }
-}
-
-/* MOBILE PORTRAIT */
-
-@media (max-width: 767px) and (orientation: portrait) {
-
-  .ctrl-websites {
-    min-height: 0;
-    padding: 110px 6% 55px;
-  }
-
-  .ctrl-websites-transition {
-    height: 85px;
-  }
-
-  .ctrl-websites .ctrl-websites-title {
-    margin-bottom: 25px;
-    font-size: clamp(46px, 10vw, 76px);
-    letter-spacing: 0;
-  }
-
-  .ctrl-websites .ctrl-websites-description {
-    margin-bottom: 35px;
-    font-size: 18px;
-    line-height: 1.65;
-  }
-
-  .ctrl-websites-placeholder {
-    min-height: 170px;
-    padding: 25px;
-    border-radius: 12px;
-  }
-
-  .ctrl-websites-placeholder span {
-    font-size: 24px;
-  }
-}
-
-/* MOBILE LANDSCAPE */
-
-@media (max-width: 767px) and (orientation: landscape) {
-
-  .ctrl-websites {
-    min-height: 0;
-    padding: 120px 6% 55px;
-  }
-
-  .ctrl-websites-transition {
-    height: 90px;
-  }
-
-  .ctrl-websites .ctrl-websites-title {
-    font-size: clamp(42px, 7vw, 65px);
-  }
-
-  .ctrl-websites .ctrl-websites-description {
-    margin-bottom: 30px;
-    font-size: 16px;
-  }
-
-  .ctrl-websites-placeholder {
-    min-height: 150px;
-  }
-}
-
-/* SMALL PHONES */
-
-@media (max-width: 380px) and (orientation: portrait) {
-
-  .ctrl-websites {
-    padding-top: 100px;
-  }
-
-  .ctrl-websites .ctrl-websites-title {
-    font-size: 12vw;
-  }
-
-  .ctrl-websites .ctrl-websites-description {
-    font-size: 17px;
-  }
-}
 </style>
                                                         <style>
 /* ==========================================
@@ -2482,38 +2640,248 @@ h6 {
      CTRL SWIPE - OUR WORK V1
 ====================================== -->
 
+
+<!-- ======================================
+     CTRL SWIPE - OUR WORK V4
+     LOCALWP + GITHUB PAGES
+====================================== -->
+
 <section class="ctrl-work" id="work">
 
   <!-- MAGENTA TO YELLOW TRANSITION -->
   <div class="ctrl-work-transition" aria-hidden="true">
-    <svg viewbox="0 0 1440 180" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="
+    <svg
+      viewBox="0 0 1440 180"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="
           M0 0 H1440 V15
           C1270 10 1210 130 1030 138
           C830 155 740 45 535 58
           C330 70 220 180 0 155
           Z
-        " fill="#F08CFF"></path>
+        "
+        fill="#F08CFF"
+      />
     </svg>
   </div>
 
+  <!-- MAIN CONTENT -->
   <div class="ctrl-work-container">
 
     <h2 class="ctrl-work-title">our work</h2>
 
-    <p class="ctrl-work-description">
-      Explore our graphic design, social media
-      content and creative projects for brands.
-    </p>
+    <!-- STATIC SOCIAL MEDIA POSTS -->
+    <div class="ctrl-work-videos-heading">
+      <h3>social media posts</h3>
+    </div>
 
-    <!-- FUTURE PROJECT GALLERY -->
     <div class="ctrl-work-placeholder">
       <span>coming soon...</span>
     </div>
 
   </div>
 
+  <!-- VIDEO PORTFOLIO -->
+  <div class="ctrl-work-videos">
+
+    <div class="ctrl-work-container">
+      <div class="ctrl-work-videos-heading">
+        <h3>video projects</h3>
+      </div>
+    </div>
+
+    <div
+      class="ctrl-video-marquee"
+      role="region"
+      aria-label="Our video portfolio"
+    >
+
+      <div class="ctrl-video-track">
+        <div class="ctrl-video-group">
+
+          <!-- VIDEO 1: TIKTOK ESCUTERE -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.tiktok.com/@escutere/video/7667082238848175382"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 1 on TikTok"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video1.jpeg"
+              data-local-src="/wp-content/uploads/2026/11/video1.jpeg"
+              data-static-src="./wp-content/uploads/2026/10/video1.jpeg"
+              alt="Video 1 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">TikTok</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 2: INSTAGRAM -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.instagram.com/reel/DSO6kxmiLhU/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 2 on Instagram"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video2.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video2.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video2.jpg"
+              alt="Video 2 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">Instagram</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 3: TIKTOK ENIGMA PLANT -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.tiktok.com/@enigma.plant/video/7680081671357615382"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 3 on TikTok"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video3.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video3.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video3.jpg"
+              alt="Video 3 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">TikTok</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 4: INSTAGRAM -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.instagram.com/reel/DawVOP8x1Ax/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 4 on Instagram"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video4.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video4.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video4.jpg"
+              alt="Video 4 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">Instagram</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 5: INSTAGRAM -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.instagram.com/reel/DdcCHQbRU_2/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 5 on Instagram"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video5.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video5.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video5.jpg"
+              alt="Video 5 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">Instagram</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 6: TIKTOK ESCUTERE -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.tiktok.com/@escutere/video/7703510012471135510"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 6 on TikTok"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video6.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video6.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video6.jpg"
+              alt="Video 6 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">TikTok</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 7: TIKTOK ENIGMA PLANT -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.tiktok.com/@enigma.plant/video/7668628509148957974"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 7 on TikTok"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video7.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video7.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video7.jpg"
+              alt="Video 7 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">TikTok</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 8: TIKTOK ENIGMA PLANT -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.tiktok.com/@enigma.plant/video/7657816254320823574"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 8 on TikTok"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video8.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video8.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video8.jpg"
+              alt="Video 8 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">TikTok</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+          <!-- VIDEO 9: FACEBOOK -->
+          <a
+            class="ctrl-video-card"
+            href="https://www.facebook.com/reel/983763018078736"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Watch video 9 on Facebook"
+          >
+            <img
+              src="./wp-content/uploads/2026/10/video9.jpg"
+              data-local-src="/wp-content/uploads/2026/11/video9.jpg"
+              data-static-src="./wp-content/uploads/2026/10/video9.jpg"
+              alt="Video 9 thumbnail"
+              loading="lazy"
+            >
+            <span class="ctrl-video-platform">Facebook</span>
+            <span class="ctrl-video-play" aria-hidden="true"></span>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
+
 
 <!-- ======================================
      CTRL SWIPE - WEBSITES V1
@@ -3695,6 +4063,6 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
     display: none !important;
   }
 </style>
-
+<script src="./js/work-video-marquee.js" defer></script>
 </body>
 </html>

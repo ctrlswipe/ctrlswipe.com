@@ -459,59 +459,127 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 }
 
 
-/* CTRL Swipe | Social Cards slider V3 | 5 desktop / 3 mobile */
-.ctrl-posts-stage {position:relative;width:100%;padding:12px 0 4px;min-height:510px;user-select:none;}
-.ctrl-posts-deck {position:relative;height:430px;width:100%;isolation:isolate;touch-action:pan-y;cursor:grab;}
-.ctrl-posts-deck.is-dragging {cursor:grabbing;}
+/* ==========================================
+   CTRL SWIPE - SOCIAL POSTS GRID V4
+   3 columns x 3 rows, desktop + mobile
+========================================== */
+.ctrl-posts-stage {
+  width: 100%;
+  max-width: 930px;
+  margin: 0 auto;
+  padding: 12px 0 6px;
+}
+.ctrl-posts-deck {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: visible;
+}
 .ctrl-work .ctrl-post-card {
- --spread:clamp(94px,13vw,165px);
- position:absolute;top:48px;left:50%;display:block;width:clamp(175px,22vw,270px);aspect-ratio:4/5;
- margin:0;padding:0;border:0;border-radius:15px;background:transparent;
- box-shadow:0 9px 26px rgba(20,20,20,.23),0 2px 5px rgba(20,20,20,.12);
- overflow:hidden;cursor:pointer;transform-origin:50% 85%;
- transform:translateX(calc(-50% + var(--card-step,0) * var(--spread))) translateY(calc(var(--card-arc,0) * 1px)) rotate(calc(var(--card-step,0) * 7deg));
- z-index:var(--card-layer,1);opacity:0;visibility:hidden;pointer-events:none;
- transition:transform .48s cubic-bezier(.22,.72,.2,1),opacity .32s ease,visibility .32s,box-shadow .3s ease;
- -webkit-tap-highlight-color:transparent;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 15px;
+  background: #fff;
+  overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  cursor: zoom-in;
+  box-shadow: 0 5px 15px rgba(20,20,20,.12);
+  transition: transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.ctrl-work .ctrl-post-card.is-visible {opacity:1;visibility:visible;pointer-events:auto;animation:ctrl-post-float 9s ease-in-out infinite alternate;animation-delay:calc(var(--card-layer) * -.72s);}
-.ctrl-work .ctrl-post-card img {display:block;width:100%;height:100%;object-fit:contain;background:transparent;pointer-events:none;user-select:none;-webkit-user-drag:none;}
-@keyframes ctrl-post-float {from {translate:0 2px}to {translate:0 -4px}}
-.ctrl-work .ctrl-post-card.is-visible:hover,.ctrl-work .ctrl-post-card.is-visible:focus-visible {
- transform:translateX(calc(-50% + var(--card-step,0) * var(--spread))) translateY(-43px) rotate(0deg) scale(1.055);
- z-index:20;box-shadow:0 22px 45px rgba(20,20,20,.3);animation-play-state:paused;
+.ctrl-work .ctrl-post-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
-.ctrl-work .ctrl-post-card:focus-visible {outline:3px solid #141414;outline-offset:4px;}
-.ctrl-posts-deck:hover .ctrl-post-card:not(:hover) {animation-play-state:paused;}
-.ctrl-posts-controls {display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 6px;}
-.ctrl-work .ctrl-posts-arrow {display:grid;place-items:center;width:42px;height:42px;padding:0;background:#141414;color:white;border:0;border-radius:50%;font:400 30px/1 'PT Sans',sans-serif;cursor:pointer;transition:transform .2s,background .2s;}
-.ctrl-work .ctrl-posts-arrow:hover {background:#333;transform:scale(1.08);}
-.ctrl-work .ctrl-posts-arrow:focus-visible {outline:3px solid #141414;outline-offset:3px;}
-.ctrl-posts-count {font:700 15px/1.5 'PT Sans',sans-serif;color:#141414;min-width:54px;text-align:center;font-variant-numeric:tabular-nums;}
-.ctrl-posts-hint {margin:4px 0 0;color:rgba(20,20,20,.68);text-align:center;font:700 13px/1.5 'PT Sans',sans-serif;}
-/* Preview overlay */
-.ctrl-post-lightbox {position:fixed;inset:0;z-index:9999999;display:flex;align-items:center;justify-content:center;padding:62px 62px 55px;background:rgba(11,11,11,.52);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease;}
-.ctrl-post-lightbox.is-open {opacity:1;visibility:visible;pointer-events:auto;}
-.ctrl-post-lightbox-image {display:block;max-width:min(88vw,1100px);max-height:calc(100dvh - 115px);width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.4);transform:scale(.965);transition:transform .25s ease;}
-.ctrl-post-lightbox.is-open .ctrl-post-lightbox-image {transform:scale(1);}
-.ctrl-post-lightbox button {position:absolute;display:grid;place-items:center;width:46px;height:46px;padding:0;border:1px solid rgba(255,255,255,.5);border-radius:50%;background:rgba(20,20,20,.57);color:#fff;font:400 29px/1 'PT Sans',sans-serif;cursor:pointer;}
+@media (hover:hover) and (pointer:fine) {
+  .ctrl-work .ctrl-post-card:hover {
+    transform: translateY(-7px) scale(1.035);
+    box-shadow: 0 18px 32px rgba(20,20,20,.22);
+    z-index: 2;
+  }
+}
+.ctrl-work .ctrl-post-card:focus-visible {
+  outline: 3px solid #141414;
+  outline-offset: 4px;
+}
+/* Lightbox: same blurred background and image navigation */
+.ctrl-post-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 62px 62px 55px;
+  background: rgba(11,11,11,.52);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.ctrl-post-lightbox.is-open { opacity:1;visibility:visible;pointer-events:auto; }
+.ctrl-post-lightbox-image {
+  display:block;
+  max-width:min(88vw,1100px);
+  max-height:calc(100dvh - 115px);
+  width:auto;height:auto;object-fit:contain;
+  border-radius:9px;
+  box-shadow:0 24px 80px rgba(0,0,0,.4);
+  transform:scale(.965);
+  transition:transform .25s ease;
+}
+.ctrl-post-lightbox.is-open .ctrl-post-lightbox-image { transform:scale(1); }
+.ctrl-post-lightbox button {
+  position:absolute;display:grid;place-items:center;
+  width:46px;height:46px;padding:0;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:50%;background:rgba(20,20,20,.57);
+  color:#fff;font:400 29px/1 'PT Sans',sans-serif;cursor:pointer;
+}
 .ctrl-post-lightbox button:hover {background:rgba(20,20,20,.9);}
 .ctrl-post-lightbox button:focus-visible {outline:3px solid #fff;outline-offset:3px;}
-.ctrl-post-lightbox-close {top:18px;right:18px;}.ctrl-post-lightbox-prev {left:15px;top:50%;transform:translateY(-50%);}.ctrl-post-lightbox-next {right:15px;top:50%;transform:translateY(-50%);}
+.ctrl-post-lightbox-close {top:18px;right:18px;}
+.ctrl-post-lightbox-prev {left:15px;top:50%;transform:translateY(-50%);}
+.ctrl-post-lightbox-next {right:15px;top:50%;transform:translateY(-50%);}
 .ctrl-post-lightbox-count {position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:#fff;font:700 13px/1.4 'PT Sans',sans-serif;}
-@media(max-width:767px) {
- .ctrl-posts-stage {min-height:355px;padding-top:10px;}
- .ctrl-posts-deck {height:295px;}
- .ctrl-work .ctrl-post-card {--spread:clamp(52px,18vw,85px);top:37px;width:clamp(128px,42vw,175px);border:0;border-radius:12px;}
- .ctrl-work .ctrl-post-card.is-visible:hover,.ctrl-work .ctrl-post-card.is-visible:focus-visible {transform:translateX(calc(-50% + var(--card-step,0) * var(--spread))) translateY(-19px) rotate(0deg) scale(1.04);}
- .ctrl-posts-controls {gap:16px;}.ctrl-work .ctrl-posts-arrow {width:40px;height:40px;}
- .ctrl-posts-hint {font-size:12px;}
- .ctrl-post-lightbox {padding:60px 12px 55px;}.ctrl-post-lightbox-image {max-width:96vw;max-height:calc(100dvh - 145px);}
- .ctrl-post-lightbox-prev,.ctrl-post-lightbox-next {top:auto;bottom:12px;transform:none;}.ctrl-post-lightbox-prev {left:18px;}.ctrl-post-lightbox-next {right:18px;}.ctrl-post-lightbox-count {bottom:26px;}.ctrl-post-lightbox-close {top:12px;right:12px;}
+@media (max-width:767px) {
+  .ctrl-posts-stage {max-width:100%;padding:7px 0 2px;}
+  .ctrl-posts-deck {gap:8px;}
+  .ctrl-work .ctrl-post-card {border-radius:10px;box-shadow:0 2px 8px rgba(20,20,20,.12);}
+  .ctrl-post-lightbox {padding:60px 12px 55px;}
+  .ctrl-post-lightbox-image {max-width:96vw;max-height:calc(100dvh - 145px);}
+  .ctrl-post-lightbox-prev,.ctrl-post-lightbox-next {top:auto;bottom:12px;transform:none;}
+  .ctrl-post-lightbox-prev {left:18px;}
+  .ctrl-post-lightbox-next {right:18px;}
+  .ctrl-post-lightbox-count {bottom:26px;}
+  .ctrl-post-lightbox-close {top:12px;right:12px;}
 }
-@media(prefers-reduced-motion:reduce) {.ctrl-work .ctrl-post-card.is-visible {animation:none;}.ctrl-work .ctrl-post-card,.ctrl-post-lightbox,.ctrl-post-lightbox-image {transition:none;}}
+@media (prefers-reduced-motion:reduce) {
+  .ctrl-work .ctrl-post-card,.ctrl-post-lightbox,.ctrl-post-lightbox-image {transition:none!important;}
+}
 
-/* ======/* ==========================================
+/* ==========================================
    VIDEO PROJECTS
 ========================================== */
 
@@ -2875,43 +2943,37 @@ h6 {
       <h3>social media posts</h3>
     </div>
 
-    <!-- INTERACTIVE FANNED SOCIAL MEDIA POST DECK -->
+    <!-- SOCIAL MEDIA POSTS - 3 x 3 GRID -->
     <div class="ctrl-posts-stage" aria-label="Social media post gallery">
       <div class="ctrl-posts-deck" id="ctrl-posts-deck">
-      <button type="button" class="ctrl-post-card" style="--card-step:-4;--card-tilt:-28deg;--card-layer:1" data-post-index="0" aria-label="View social media post 1 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="0" aria-label="View social media post 1 of 9">
         <img src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe-2.png" data-local-src="/wp-content/uploads/2026/11/Tudor-Andrei-CTRL-Swipe-2.png" data-static-src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe-2.png" alt="CTRL Swipe social media design 1" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:-3;--card-tilt:-21deg;--card-layer:2" data-post-index="1" aria-label="View social media post 2 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="1" aria-label="View social media post 2 of 9">
         <img src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe-3.png" data-local-src="/wp-content/uploads/2026/11/Tudor-Andrei-CTRL-Swipe-3.png" data-static-src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe-3.png" alt="CTRL Swipe social media design 2" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:-2;--card-tilt:-14deg;--card-layer:3" data-post-index="2" aria-label="View social media post 3 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="2" aria-label="View social media post 3 of 9">
         <img src="./wp-content/uploads/2026/10/4b.png" data-local-src="/wp-content/uploads/2026/11/4b.png" data-static-src="./wp-content/uploads/2026/10/4b.png" alt="CTRL Swipe social media design 3" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:-1;--card-tilt:-7deg;--card-layer:4" data-post-index="3" aria-label="View social media post 4 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="3" aria-label="View social media post 4 of 9">
         <img src="./wp-content/uploads/2026/10/Postari-Dental-Clinic-Sighet-1.png" data-local-src="/wp-content/uploads/2026/11/Postari-Dental-Clinic-Sighet-1.png" data-static-src="./wp-content/uploads/2026/10/Postari-Dental-Clinic-Sighet-1.png" alt="CTRL Swipe social media design 4" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:0;--card-tilt:0deg;--card-layer:5" data-post-index="4" aria-label="View social media post 5 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="4" aria-label="View social media post 5 of 9">
         <img src="./wp-content/uploads/2026/10/Postari-Dental-Clinic-Sighet.png" data-local-src="/wp-content/uploads/2026/11/Postari-Dental-Clinic-Sighet.png" data-static-src="./wp-content/uploads/2026/10/Postari-Dental-Clinic-Sighet.png" alt="CTRL Swipe social media design 5" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:1;--card-tilt:7deg;--card-layer:6" data-post-index="5" aria-label="View social media post 6 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="5" aria-label="View social media post 6 of 9">
         <img src="./wp-content/uploads/2026/10/6b.png" data-local-src="/wp-content/uploads/2026/11/6b.png" data-static-src="./wp-content/uploads/2026/10/6b.png" alt="CTRL Swipe social media design 6" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:2;--card-tilt:14deg;--card-layer:7" data-post-index="6" aria-label="View social media post 7 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="6" aria-label="View social media post 7 of 9">
         <img src="./wp-content/uploads/2026/10/5b.png" data-local-src="/wp-content/uploads/2026/11/5b.png" data-static-src="./wp-content/uploads/2026/10/5b.png" alt="CTRL Swipe social media design 7" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:3;--card-tilt:21deg;--card-layer:8" data-post-index="7" aria-label="View social media post 8 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="7" aria-label="View social media post 8 of 9">
         <img src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe.png" data-local-src="/wp-content/uploads/2026/11/Tudor-Andrei-CTRL-Swipe.png" data-static-src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe.png" alt="CTRL Swipe social media design 8" loading="lazy" decoding="async">
       </button>
-      <button type="button" class="ctrl-post-card" style="--card-step:4;--card-tilt:28deg;--card-layer:9" data-post-index="8" aria-label="View social media post 9 of 9">
+      <button type="button" class="ctrl-post-card" data-post-index="8" aria-label="View social media post 9 of 9">
         <img src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe-1g.png" data-local-src="/wp-content/uploads/2026/11/Tudor-Andrei-CTRL-Swipe-1g.png" data-static-src="./wp-content/uploads/2026/10/Tudor-Andrei-CTRL-Swipe-1g.png" alt="CTRL Swipe social media design 9" loading="lazy" decoding="async">
       </button>
       </div>
-      <div class="ctrl-posts-controls" aria-label="Social media gallery controls">
-        <button type="button" class="ctrl-posts-arrow ctrl-posts-prev" aria-label="Previous posts">&#8249;</button>
-        <span class="ctrl-posts-count" aria-live="polite">3 / 9</span>
-        <button type="button" class="ctrl-posts-arrow ctrl-posts-next" aria-label="Next posts">&#8250;</button>
-      </div>
-      <p class="ctrl-posts-hint">Scroll or drag to browse · Select a card to enlarge</p>
     </div>
 
   </div>
@@ -3113,6 +3175,7 @@ h6 {
   </div>
 
 </section>
+
 
 
 <!-- ======================================
@@ -4453,138 +4516,90 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 <script id="ctrl-social-cards-js">
 (function () {
   'use strict';
-  function setup() {
+  function init() {
     const deck = document.getElementById('ctrl-posts-deck');
     if (!deck || deck.dataset.ctrlInitialized === '1') return;
     deck.dataset.ctrlInitialized = '1';
-    const stage = deck.closest('.ctrl-posts-stage');
     const cards = Array.from(deck.querySelectorAll('.ctrl-post-card'));
     if (!cards.length) return;
-    const isLocal = /(^|\.)ctrl-swipe\.local$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+    const local = /(^|\.)ctrl-swipe\.local$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
     cards.forEach(card => {
       const img = card.querySelector('img');
-      img.src = img.getAttribute(isLocal ? 'data-local-src' : 'data-static-src');
+      if (!img) return;
+      img.src = img.getAttribute(local ? 'data-local-src' : 'data-static-src') || img.src;
       img.draggable = false;
     });
-    const count = stage.querySelector('.ctrl-posts-count');
-    const mobile = window.matchMedia('(max-width: 767px)');
-    let center = mobile.matches ? 1 : 2;
-    const wrap = i => (i % cards.length + cards.length) % cards.length;
-    const visibleCount = () => mobile.matches ? 3 : 5;
-    function render() {
-      const half = Math.floor(visibleCount() / 2);
-      cards.forEach((card, i) => {
-        let step = (i - center + cards.length) % cards.length;
-        if (step > Math.floor(cards.length / 2)) step -= cards.length;
-        const visible = Math.abs(step) <= half;
-        card.classList.toggle('is-visible', visible);
-        card.style.setProperty('--card-step', String(step));
-        card.style.setProperty('--card-arc', String(Math.abs(step) * 12));
-        card.style.setProperty('--card-layer', String(10 - Math.abs(step)));
-        card.tabIndex = visible ? 0 : -1;
-        card.setAttribute('aria-hidden', visible ? 'false' : 'true');
-      });
-      if (count) count.textContent = (wrap(center) + 1) + ' / ' + cards.length;
-    }
-    function slide(delta) { center = wrap(center + delta); render(); }
-    stage.querySelector('.ctrl-posts-prev').addEventListener('click', () => slide(-1));
-    stage.querySelector('.ctrl-posts-next').addEventListener('click', () => slide(1));
-    if (mobile.addEventListener) mobile.addEventListener('change', () => {center = mobile.matches ? 1 : 2;render();});
-    else if (mobile.addListener) mobile.addListener(() => {center = mobile.matches ? 1 : 2;render();});
-    let wheelSum = 0, lastWheel = 0;
-    deck.addEventListener('wheel', e => {
-      if (e.ctrlKey) return;
-      e.preventDefault();
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      const now = performance.now();
-      if (now - lastWheel > 300) wheelSum = 0;
-      lastWheel = now;
-      wheelSum += delta * (e.deltaMode === 1 ? 18 : e.deltaMode === 2 ? deck.clientWidth : 1);
-      if (Math.abs(wheelSum) >= 65) {slide(wheelSum > 0 ? 1 : -1);wheelSum = 0;}
-    }, {passive:false});
-    let drag = null, suppressUntil = 0;
-    deck.addEventListener('pointerdown', e => {
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      drag = {id:e.pointerId, x:e.clientX, y:e.clientY, moved:false};
-    });
-    deck.addEventListener('pointermove', e => {
-      if (!drag || drag.id !== e.pointerId) return;
-      if (Math.abs(e.clientX - drag.x) > 9 && Math.abs(e.clientX - drag.x) > Math.abs(e.clientY - drag.y)) {
-        drag.moved = true;
-        deck.classList.add('is-dragging');
-      }
-    });
-    deck.addEventListener('pointerup', e => {
-      if (!drag || drag.id !== e.pointerId) return;
-      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-      if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy) * 1.15) {
-        slide(dx < 0 ? 1 : -1);
-        suppressUntil = performance.now() + 500;
-      }
-      drag = null;deck.classList.remove('is-dragging');
-    });
-    deck.addEventListener('pointercancel', () => {drag = null;deck.classList.remove('is-dragging');});
-    deck.addEventListener('click', e => {if (performance.now() < suppressUntil) {e.preventDefault();e.stopImmediatePropagation();}}, true);
-    // Lightbox: same design and keyboard/touch controls as previous version.
     const overlay = document.createElement('div');
     overlay.className = 'ctrl-post-lightbox';
-    overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');
-    overlay.setAttribute('aria-label','Social media design preview');overlay.setAttribute('aria-hidden','true');
-    overlay.innerHTML = '<button type="button" class="ctrl-post-lightbox-close" aria-label="Close preview">&times;</button>' +
-      '<button type="button" class="ctrl-post-lightbox-prev" aria-label="Previous image">&#8249;</button>' +
-      '<img class="ctrl-post-lightbox-image" alt="">' +
-      '<button type="button" class="ctrl-post-lightbox-next" aria-label="Next image">&#8250;</button>' +
-      '<span class="ctrl-post-lightbox-count" aria-live="polite"></span>';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Social media design preview');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML = `
+      <button type="button" class="ctrl-post-lightbox-close" aria-label="Close preview">&times;</button>
+      <button type="button" class="ctrl-post-lightbox-prev" aria-label="Previous image">&#8249;</button>
+      <img class="ctrl-post-lightbox-image" alt="">
+      <button type="button" class="ctrl-post-lightbox-next" aria-label="Next image">&#8250;</button>
+      <span class="ctrl-post-lightbox-count" aria-live="polite"></span>`;
     document.body.appendChild(overlay);
     const big = overlay.querySelector('.ctrl-post-lightbox-image');
-    const lightCount = overlay.querySelector('.ctrl-post-lightbox-count');
+    const counter = overlay.querySelector('.ctrl-post-lightbox-count');
     const closeButton = overlay.querySelector('.ctrl-post-lightbox-close');
-    let active=0, previousFocus=null, previousOverflow='';
+    let active = 0, lastFocused = null, oldOverflow = '';
+    const wrap = i => (i % cards.length + cards.length) % cards.length;
     function display(i) {
-      active=wrap(i);
-      const img=cards[active].querySelector('img');
-      big.src=img.currentSrc||img.src;big.alt=img.alt;
-      lightCount.textContent=(active+1)+' / '+cards.length;
+      active = wrap(i);
+      const img = cards[active].querySelector('img');
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      counter.textContent = (active + 1) + ' / ' + cards.length;
     }
     function open(i) {
-      previousFocus=document.activeElement;previousOverflow=document.body.style.overflow;
-      display(i);overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');
-      document.body.style.overflow='hidden';closeButton.focus();
+      lastFocused = document.activeElement;
+      oldOverflow = document.body.style.overflow;
+      display(i);
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      closeButton.focus();
     }
     function close() {
-      overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');
-      document.body.style.overflow=previousOverflow;
-      if(previousFocus && typeof previousFocus.focus==='function')previousFocus.focus();
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden','true');
+      document.body.style.overflow = oldOverflow;
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
     }
-    cards.forEach((card,i)=>card.addEventListener('click',()=>open(i)));
-    closeButton.addEventListener('click',close);
-    overlay.querySelector('.ctrl-post-lightbox-prev').addEventListener('click',()=>display(active-1));
-    overlay.querySelector('.ctrl-post-lightbox-next').addEventListener('click',()=>display(active+1));
-    overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
-    document.addEventListener('keydown',e=>{
+    cards.forEach((card, i) => card.addEventListener('click', () => open(i)));
+    closeButton.addEventListener('click', close);
+    overlay.querySelector('.ctrl-post-lightbox-prev').addEventListener('click', () => display(active - 1));
+    overlay.querySelector('.ctrl-post-lightbox-next').addEventListener('click', () => display(active + 1));
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => {
       if (!overlay.classList.contains('is-open')) return;
-      if(e.key==='Escape'){e.preventDefault();close();}
-      else if(e.key==='ArrowLeft'){e.preventDefault();display(active-1);}
-      else if(e.key==='ArrowRight'){e.preventDefault();display(active+1);}
-      else if(e.key==='Tab'){
-        const controls=Array.from(overlay.querySelectorAll('button'));
-        const first=controls[0],last=controls[controls.length-1];
-        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
-        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); display(active - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); display(active + 1); }
+      else if (e.key === 'Tab') {
+        const buttons = Array.from(overlay.querySelectorAll('button'));
+        const first = buttons[0], last = buttons[buttons.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
     });
-    let startX=null,startY=null;
-    overlay.addEventListener('touchstart',e=>{if(e.touches.length===1){startX=e.touches[0].clientX;startY=e.touches[0].clientY;}},{passive:true});
-    overlay.addEventListener('touchend',e=>{
-      if(startX===null||!e.changedTouches.length)return;
-      const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
-      if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)display(active+(dx<0?1:-1));
-      startX=null;startY=null;
-    },{passive:true});
-    render();
+    let startX = null, startY = null;
+    overlay.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+    }, {passive:true});
+    overlay.addEventListener('touchend', e => {
+      if (startX === null || !e.changedTouches.length) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) display(active + (dx < 0 ? 1 : -1));
+      startX = null; startY = null;
+    }, {passive:true});
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);
-  else setup();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 </body>

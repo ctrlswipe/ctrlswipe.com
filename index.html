@@ -459,14 +459,14 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 }
 
 
-/* CTRL Swipe | Social Cards slider V2 | 5 desktop / 3 mobile */
-.ctrl-posts-stage {position:relative;width:100%;padding:12px 0 4px;min-height:470px;user-select:none;}
-.ctrl-posts-deck {position:relative;height:390px;width:100%;isolation:isolate;touch-action:pan-y;cursor:grab;}
+/* CTRL Swipe | Social Cards slider V3 | 5 desktop / 3 mobile */
+.ctrl-posts-stage {position:relative;width:100%;padding:12px 0 4px;min-height:510px;user-select:none;}
+.ctrl-posts-deck {position:relative;height:430px;width:100%;isolation:isolate;touch-action:pan-y;cursor:grab;}
 .ctrl-posts-deck.is-dragging {cursor:grabbing;}
 .ctrl-work .ctrl-post-card {
- --spread:clamp(90px,12vw,157px);
- position:absolute;top:48px;left:50%;display:block;width:clamp(155px,19vw,245px);aspect-ratio:4/5;
- margin:0;padding:0;border:5px solid white;border-radius:13px;background:white;
+ --spread:clamp(94px,13vw,165px);
+ position:absolute;top:48px;left:50%;display:block;width:clamp(175px,22vw,270px);aspect-ratio:4/5;
+ margin:0;padding:0;border:0;border-radius:15px;background:transparent;
  box-shadow:0 9px 26px rgba(20,20,20,.23),0 2px 5px rgba(20,20,20,.12);
  overflow:hidden;cursor:pointer;transform-origin:50% 85%;
  transform:translateX(calc(-50% + var(--card-step,0) * var(--spread))) translateY(calc(var(--card-arc,0) * 1px)) rotate(calc(var(--card-step,0) * 7deg));
@@ -475,7 +475,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
  -webkit-tap-highlight-color:transparent;
 }
 .ctrl-work .ctrl-post-card.is-visible {opacity:1;visibility:visible;pointer-events:auto;animation:ctrl-post-float 9s ease-in-out infinite alternate;animation-delay:calc(var(--card-layer) * -.72s);}
-.ctrl-work .ctrl-post-card img {display:block;width:100%;height:100%;object-fit:contain;background:white;pointer-events:none;user-select:none;-webkit-user-drag:none;}
+.ctrl-work .ctrl-post-card img {display:block;width:100%;height:100%;object-fit:contain;background:transparent;pointer-events:none;user-select:none;-webkit-user-drag:none;}
 @keyframes ctrl-post-float {from {translate:0 2px}to {translate:0 -4px}}
 .ctrl-work .ctrl-post-card.is-visible:hover,.ctrl-work .ctrl-post-card.is-visible:focus-visible {
  transform:translateX(calc(-50% + var(--card-step,0) * var(--spread))) translateY(-43px) rotate(0deg) scale(1.055);
@@ -500,9 +500,9 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 .ctrl-post-lightbox-close {top:18px;right:18px;}.ctrl-post-lightbox-prev {left:15px;top:50%;transform:translateY(-50%);}.ctrl-post-lightbox-next {right:15px;top:50%;transform:translateY(-50%);}
 .ctrl-post-lightbox-count {position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:#fff;font:700 13px/1.4 'PT Sans',sans-serif;}
 @media(max-width:767px) {
- .ctrl-posts-stage {min-height:328px;padding-top:10px;}
- .ctrl-posts-deck {height:265px;}
- .ctrl-work .ctrl-post-card {--spread:clamp(58px,19vw,96px);top:37px;width:clamp(115px,37vw,160px);border-width:3px;border-radius:9px;}
+ .ctrl-posts-stage {min-height:355px;padding-top:10px;}
+ .ctrl-posts-deck {height:295px;}
+ .ctrl-work .ctrl-post-card {--spread:clamp(52px,18vw,85px);top:37px;width:clamp(128px,42vw,175px);border:0;border-radius:12px;}
  .ctrl-work .ctrl-post-card.is-visible:hover,.ctrl-work .ctrl-post-card.is-visible:focus-visible {transform:translateX(calc(-50% + var(--card-step,0) * var(--spread))) translateY(-19px) rotate(0deg) scale(1.04);}
  .ctrl-posts-controls {gap:16px;}.ctrl-work .ctrl-posts-arrow {width:40px;height:40px;}
  .ctrl-posts-hint {font-size:12px;}
@@ -511,7 +511,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 }
 @media(prefers-reduced-motion:reduce) {.ctrl-work .ctrl-post-card.is-visible {animation:none;}.ctrl-work .ctrl-post-card,.ctrl-post-lightbox,.ctrl-post-lightbox-image {transition:none;}}
 
-/* ==========================================
+/* ======/* ==========================================
    VIDEO PROJECTS
 ========================================== */
 

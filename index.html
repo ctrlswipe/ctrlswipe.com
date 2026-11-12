@@ -2731,20 +2731,10 @@ h6 {
   width: 100%;
   overflow: hidden;
   background: #F08CFF;
-  padding: clamp(70px, 11vw, 170px) 6% clamp(85px, 11vw, 175px);
+  padding: clamp(44px, 5.5vw, 85px) 6% clamp(48px, 6vw, 94px);
   box-sizing: border-box;
 }
-.ctrl-human-break::before {
-  content: "";
-  position: absolute;
-  width: min(50vw, 500px);
-  height: min(50vw, 500px);
-  right: -15%;
-  top: -30%;
-  border: clamp(18px, 4vw, 50px) solid rgba(247,226,116,.45);
-  border-radius: 50%;
-  pointer-events: none;
-}
+.ctrl-human-break::before { content: none; display: none; }
 .ctrl-human-break-inner {
   position: relative;
   z-index: 1;
@@ -2753,7 +2743,7 @@ h6 {
   margin: 0 auto;
 }
 .ctrl-human-break-kicker {
-  margin: 0 0 24px;
+  margin: 0 0 13px;
   color: #141414;
   font: 700 clamp(12px, 1.3vw, 17px)/1.4 'PT Sans', sans-serif;
   letter-spacing: .16em;
@@ -2763,7 +2753,7 @@ h6 {
   margin: 0;
   padding: 0;
   font-family: 'Work Sans', sans-serif;
-  font-size: clamp(42px, 7.5vw, 122px);
+  font-size: clamp(36px, 6vw, 92px);
   font-weight: 900;
   line-height: 1.04;
   letter-spacing: -.045em;
@@ -2771,19 +2761,12 @@ h6 {
   text-transform: none;
 }
 .ctrl-human-break-title span { display: block; }
-.ctrl-human-break-title em {
-  font-style: normal;
-  color: #141414;
-  -webkit-text-stroke: 0;
-  text-decoration: underline;
-  text-decoration-thickness: .085em;
-  text-underline-offset: .12em;
-}
+
 @media (max-width: 767px) {
-  .ctrl-human-break { padding: 70px 6% 100px; }
-  .ctrl-human-break-kicker { margin-bottom: 18px; }
+  .ctrl-human-break { padding: 42px 6% 50px; }
+  .ctrl-human-break-kicker { margin-bottom: 12px; }
   .ctrl-human-break .ctrl-human-break-title {
-    font-size: clamp(40px, 10vw, 72px);
+    font-size: clamp(34px, 9vw, 60px);
     letter-spacing: -.04em;
   }
 }
@@ -2934,13 +2917,10 @@ h6 {
 
     <svg class="ctrl-about-wave" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1440 180" preserveaspectratio="none">
       <path d="
-          M 0 0
-          H 1440
-          V 15
-          C 1270 10, 1210 130, 1030 138
-          C 830 155, 740 45, 535 58
-          C 330 70, 220 180, 0 155
-          Z
+          M0 0 H1440 V15
+          C1290 10 1225 126 1050 137
+          C848 154 753 47 550 59
+          C342 72 230 178 0 155 Z
         " fill="#00ADEE"></path>
     </svg>
 
@@ -2969,7 +2949,7 @@ h6 {
     <p class="ctrl-human-break-kicker">the human touch</p>
     <h2 class="ctrl-human-break-title">
       <span>Designed by humans.</span>
-      <span>Keeping <em>CTRL.</em></span>
+      <span>Keeping CTRL.</span>
     </h2>
   </div>
 </section>
@@ -2996,10 +2976,9 @@ h6 {
       <path
         d="
           M0 0 H1440 V15
-          C1270 10 1210 130 1030 138
-          C830 155 740 45 535 58
-          C330 70 220 180 0 155
-          Z
+          C1250 10 1190 132 1010 139
+          C805 153 724 44 515 57
+          C314 69 208 180 0 155 Z
         "
         fill="#F08CFF"
       />
@@ -3262,10 +3241,9 @@ h6 {
     <svg viewbox="0 0 1440 180" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="
           M0 0 H1440 V15
-          C1270 10 1210 130 1030 138
-          C830 155 740 45 535 58
-          C330 70 220 180 0 155
-          Z
+          C1280 12 1202 128 1040 136
+          C842 155 765 48 562 60
+          C345 71 216 179 0 155 Z
         " fill="#F7E274"></path>
     </svg>
   </div>
@@ -3302,10 +3280,9 @@ h6 {
     <svg viewbox="0 0 1440 180" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="
           M0 0 H1440 V15
-          C1270 10 1210 130 1030 138
-          C830 155 740 45 535 58
-          C330 70 220 180 0 155
-          Z
+          C1260 9 1180 131 1000 138
+          C801 156 715 45 520 57
+          C315 71 235 180 0 155 Z
         " fill="#00ADEE"></path>
     </svg>
 

@@ -2724,6 +2724,70 @@ h6 {
 
 .ctrl-websites, .ctrl-websites * { box-sizing: border-box; }
 </style>
+<style id="ctrl-human-intermission-style">
+/* Standalone full-width intermission, intentionally matching About's magenta */
+.ctrl-human-break {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #F08CFF;
+  padding: clamp(70px, 11vw, 170px) 6% clamp(85px, 11vw, 175px);
+  box-sizing: border-box;
+}
+.ctrl-human-break::before {
+  content: "";
+  position: absolute;
+  width: min(50vw, 500px);
+  height: min(50vw, 500px);
+  right: -15%;
+  top: -30%;
+  border: clamp(18px, 4vw, 50px) solid rgba(247,226,116,.45);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ctrl-human-break-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.ctrl-human-break-kicker {
+  margin: 0 0 24px;
+  color: #141414;
+  font: 700 clamp(12px, 1.3vw, 17px)/1.4 'PT Sans', sans-serif;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.ctrl-human-break .ctrl-human-break-title {
+  margin: 0;
+  padding: 0;
+  font-family: 'Work Sans', sans-serif;
+  font-size: clamp(42px, 7.5vw, 122px);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -.045em;
+  color: #141414;
+  text-transform: none;
+}
+.ctrl-human-break-title span { display: block; }
+.ctrl-human-break-title em {
+  font-style: normal;
+  color: #141414;
+  -webkit-text-stroke: 0;
+  text-decoration: underline;
+  text-decoration-thickness: .085em;
+  text-underline-offset: .12em;
+}
+@media (max-width: 767px) {
+  .ctrl-human-break { padding: 70px 6% 100px; }
+  .ctrl-human-break-kicker { margin-bottom: 18px; }
+  .ctrl-human-break .ctrl-human-break-title {
+    font-size: clamp(40px, 10vw, 72px);
+    letter-spacing: -.04em;
+  }
+}
+</style>
 </head>
 
 <body class="home wp-singular page-template-default page page-id-1170 wp-custom-logo wp-theme-siteorigin-corp eio-default ecc-default ally-default css3-animations no-js page-layout-no-sidebar no-header-margin no-footer-margin page-layout-hide-header page-layout-hide-footer sidebar no-topbar">
@@ -2890,16 +2954,24 @@ h6 {
       <h2 class="ctrl-about-title">about us</h2>
 
       <p class="ctrl-about-description">
-        CTRL Swipe is a visual content studio from Baia Mare, Romania,
-        creating social media visuals for businesses. We design, shoot
-        and edit content that helps brands look clear, consistent and
-        professional online, especially across TikTok and Meta.
+        We are Tudor and Andrada, the creative duo behind CTRL Swipe. Together, we build visual identities, create social media content, produce videos and design digital experiences that help brands communicate with confidence. We collaborate with creative professionals worldwide, bringing fresh perspectives and a personal, hands-on approach to every project.
       </p>
 
     </div>
 
   </div>
 
+</section>
+
+<!-- CTRL SWIPE - HUMAN-DESIGNED INTERMISSION -->
+<section class="ctrl-human-break" aria-label="Our creative philosophy">
+  <div class="ctrl-human-break-inner">
+    <p class="ctrl-human-break-kicker">the human touch</p>
+    <h2 class="ctrl-human-break-title">
+      <span>Designed by humans.</span>
+      <span>Keeping <em>CTRL.</em></span>
+    </h2>
+  </div>
 </section>
 
 <!-- ======================================
@@ -3307,17 +3379,7 @@ h6 {
         All rights reserved.
       </span>
 
-      <span class="ctrl-footer-made">
-
-        Made with
-
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewbox="0 0 24 24" fill="#FF4055" role="img" aria-label="love" style="display:inline-block;vertical-align:-3px;margin:0 4px;">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-        </svg>
-
-        in Baia Mare, Romania.
-
-      </span>
+      <span class="ctrl-footer-made">Designed with <span role="img" aria-label="love" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">❤️</span> by CTRL Swipe</span>
 
     </div>
 
@@ -4393,6 +4455,8 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
     const original = track && track.querySelector('.ctrl-video-group');
     if (!original) return;
     viewport.dataset.ctrlInteractiveReady = '1';
+    // JS drives the marquee. Disable the legacy CSS transform animation.
+    track.style.setProperty('animation', 'none', 'important');
 
     // Resolve thumbnails for LocalWP, GitHub Pages and local HTML previews.
     const isLocalWP = /(?:^|\.)(?:ctrl-swipe\.local|localhost|127\.0\.0\.1)$/i.test(location.hostname);
@@ -4416,8 +4480,6 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
     let position = 0; // Negative = moving to the left.
     let lastTime = 0;
     let pointer = null;
-    let dragDistance = 0;
-    let suppressClick = false;
     let hoveredByMouse = false;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -4466,29 +4528,52 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
       draw();
     }, { passive: false });
 
+    // A plain click must reach the <a> element. Only capture the pointer
+    // after a real horizontal drag starts; capturing on pointerdown breaks
+    // desktop link activation in several browsers.
     viewport.addEventListener('pointerdown', e => {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
-      pointer = { id: e.pointerId, x: e.clientX, lastX: e.clientX };
-      dragDistance = 0;
-      suppressClick = false;
-      viewport.classList.add('is-dragging');
-      if (e.pointerType === 'mouse') e.preventDefault();
-      viewport.setPointerCapture(e.pointerId);
+      pointer = {
+        id: e.pointerId,
+        startX: e.clientX,
+        startY: e.clientY,
+        lastX: e.clientX,
+        dragging: false
+      };
     });
+
     viewport.addEventListener('pointermove', e => {
       if (!pointer || e.pointerId !== pointer.id) return;
+      const totalX = e.clientX - pointer.startX;
+      const totalY = e.clientY - pointer.startY;
+
+      if (!pointer.dragging) {
+        if (Math.abs(totalX) <= 8 || Math.abs(totalX) <= Math.abs(totalY)) return;
+        pointer.dragging = true;
+        viewport.classList.add('is-dragging');
+        // Capture only a gesture that has become a drag.
+        try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
+        // Avoid a large jump on the first drag frame.
+        pointer.lastX = e.clientX;
+        return;
+      }
+
       const dx = e.clientX - pointer.lastX;
-      dragDistance += Math.abs(dx);
       pointer.lastX = e.clientX;
       position += dx;
       draw();
+      if (e.cancelable) e.preventDefault();
     });
+
+    let blockClickUntil = 0;
     function finishDrag(e) {
       if (!pointer || e.pointerId !== pointer.id) return;
-      if (dragDistance > 7) suppressClick = true;
+      if (pointer.dragging) blockClickUntil = performance.now() + 350;
       pointer = null;
       viewport.classList.remove('is-dragging');
-      if (viewport.hasPointerCapture(e.pointerId)) viewport.releasePointerCapture(e.pointerId);
+      if (viewport.hasPointerCapture(e.pointerId)) {
+        viewport.releasePointerCapture(e.pointerId);
+      }
     }
     viewport.addEventListener('pointerup', finishDrag);
     viewport.addEventListener('pointercancel', finishDrag);
@@ -4497,10 +4582,11 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
       viewport.classList.remove('is-dragging');
     });
     viewport.addEventListener('click', e => {
-      if (!suppressClick) return;
+      // Suppress only the synthetic click following a drag, not normal clicks.
+      if (performance.now() >= blockClickUntil) return;
       e.preventDefault();
       e.stopPropagation();
-      suppressClick = false;
+      blockClickUntil = 0;
     }, true);
 
     // Keyboard users can still open individual video links normally.
